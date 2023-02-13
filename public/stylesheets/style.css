@@ -1,0 +1,57 @@
+#bottom_footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* background-color: #1e293b; */
+    /* text-decoration: none; */
+}
+
+.hover-back {
+    margin: 2px;
+}
+
+.hover-back:hover {
+    cursor: pointer;
+    /* background: #000; */
+    /* border-radius: 10px; */
+    transform: scale(1.2);
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-duration: 700ms;
+}
+
+.intro {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url("../images/Campus.jpg");
+    /* height: 200vh; */
+    background-position: center;
+    background-size: cover;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+  .main_page_text{
+    background-color: #84cc16;
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
+    /* transition-delay: 500ms; */
+    /* text-decoration: none; */
+  }
+  .main_page_text:hover{
+    transform: scale(1.2);
+    /* transition-timing-function: cubic-bezier(0.4, 0, 1, 1); */
+    transition-duration: 300ms;
+    /* transition-delay: 500ms; */
+  }
+
+  .form_style{
+    /* background-color: #84cc16; */
+    box-shadow: 5px 6px 30px rgba(0, 0, 0, 1), 0px 5px 5px rgba(0, 0, 0, 0.9);
+  }
+
+  .shadowBorder{
+    box-shadow: 5px 6px 30px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 0.9);
+    margin-top: 6rem;
+    padding: 2rem;
+  }

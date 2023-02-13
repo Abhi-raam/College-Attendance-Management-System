@@ -1,0 +1,38 @@
+<section>
+    <div class="container">
+        <div class="row pt-5">
+                <h3 class="text-center">CSE</h3>
+            <div class="col-md-12 mt-4 d-flex justify-content-center text-center ">
+                <div>
+                    <table id="tblCustomers" class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sno.</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Designation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each staff}}
+                            {{#ifEquals Department "CSE"}}
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><img src="../images/staff-thumbnail/staff-1.jpg" alt="logo"></td>
+                                <td>{{this.Name}}</td>
+                                <td>{{this.Email}}</td>
+                                <td>{{this.Mobile}}</td>
+                                <td>{{this.Designation}}</td>
+                            </tr>
+                            {{/ifEquals}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <button id="btnExport" class="justify-content-end d-flex m-2 btn btn-success">print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
