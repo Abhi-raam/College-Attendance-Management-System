@@ -1,150 +1,30 @@
 <section>
     <div class="container">
-        <div class="row pt-5">
-            <div class="col-md-6 col-12 text-center ">
-                <h3>CSE</h3>
-                <div>
-                    <table id="simple_table" class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sno.</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each staff}}
-                            {{#ifEquals Department 'CSE'}}
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="../images/staff-thumbnail/staff-1.jpg" alt="logo"></td>
-                                <td>{{this.Name}}</td>
-                                <td>{{this.Email}}</td>
-                                <td><a href="#" class="btn btn-primary">Edit</a href="#"></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a href="#"></td>
-                            </tr>
-                            {{/ifEquals}}
-                            {{/each}}
-
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-between">
-                        <a href="/admin/cse-staff-details" class="btn btn-primary">View Details</a>
-                        <a target="_blank" href="/admin/add-teachers" class="btn btn-primary">Add Staff</a>
-                    </div>
-                </div>
+        <div class="row mt-5">
+            <div class="col-md-6 d-flex justify-content-center  " style="margin-top: 7rem;">
+                <a href="/admin/cse-staff">
+                    <h3 class="bg-primary text-white rounded p-2 hover-back"><span class="text-primary">..</span>CSE <span class="text-primary">..</span></h3>
+                </a>
             </div>
-            <div class="col-md-6 text-center">
-                <h3>ECE</h3>
-                <div>
-                    <table class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sno.</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each staff}}
-                            {{#ifEquals Department "ECE"}}
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="../images/staff-thumbnail/staff-1.jpg" alt="logo"></td>
-                                <td>{{this.Name}}</td>
-                                <td>{{this.Email}}</td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a href="#"></td>
-                            </tr>
-                            {{/ifEquals}}
-                            {{/each}}
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-between">
-                        <a href="/admin/ece-staff-details" class="btn btn-primary">View Details</a>
-                        <a href="/admin/add-teachers" target="_blank" class="btn btn-primary">Add Staff</a>
-                    </div>
-                </div>
+            <div class="col-md-6 d-flex justify-content-center " style="margin-top: 7rem;">
+                <a href="/admin/ece-staff">
+                    <h3 class="bg-primary text-white rounded p-2 hover-back"><span class="text-primary">..</span>ECE<span class="text-primary">..</span></h3>
+                </a>
+
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row pt-5 pb-4">
-            <div class="col-md-6 text-center">
-                <h3>MECH</h3>
-                <div>
-                    <table class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sno.</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each staff}}
-                            {{#ifEquals Department "MECH"}}
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="../images/staff-thumbnail/staff-3.jpg" alt="logo"></td>
-                                <td>{{this.Name}}</td>
-                                <td>{{this.Email}}</td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a href="#"></td>
-                            </tr>
-                            {{/ifEquals}}
-                            {{/each}}
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-between">
-                        <a href="/admin/mech-staff-details" class="btn btn-primary">View Details</a>
-                        <a href="/admin/add-teachers" target="_blank" class="btn btn-primary">Add Staff</a>
-                    </div>
-                </div>
+        <div class="row mt-5">
+            <div class="col-md-6 d-flex justify-content-center " style="margin-top: 7rem;">
+                <a href="/admin/mech-staff">
+                    <h3 class="bg-primary text-white rounded p-2 hover-back">MECH</h3>
+                </a>
+
             </div>
-            <div class="col-md-6 text-center">
-                <h3>CIVIL</h3>
-                <div>
-                    <table class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sno.</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each staff}}
-                            {{#ifEquals Department "CIVIL"}}
-                            <tr>
-                                <th scope="row">1</th>
-                                <td><img src="../images/staff-thumbnail/staff-2.jpg" alt="logo"></td>
-                                <td>{{this.Name}}</td>
-                                <td>{{this.Email}}</td>
-                                <td><a href="#" class="btn btn-primary">Edit</a></td>
-                                <td><a href="#" class="btn btn-danger">Delete</a href="#"></td>
-                            </tr>
-                            {{/ifEquals}}
-                            {{/each}}
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-between">
-                        <a href="/admin/civil-staff-details" class="btn btn-primary">View Details</a>
-                        <a href="/admin/add-teachers" target="_blank" class="btn btn-primary">Add Staff</a>
-                    </div>
-                </div>
+            <div class="col-md-6 d-flex justify-content-center " style="margin-top: 7rem;">
+                <a href="/admin/civil-staff">
+                    <h3 class="bg-primary text-white rounded p-2 hover-back">CIVIL</h3>
+                </a>
+
             </div>
         </div>
     </div>

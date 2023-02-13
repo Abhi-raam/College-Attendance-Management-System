@@ -1,8 +1,8 @@
 <section>
     <div class="container">
         <div class="row pt-5">
-                <h3 class="text-center">CSE</h3>
-            <div class="col-md-12 mt-4 d-flex justify-content-center text-center ">
+                <h3 class="text-center">MECH</h3>
+            <div class="col-md-12 mt-4 ">
                 <div>
                     <table id="tblCustomers" class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
                         <thead>
@@ -20,7 +20,7 @@
                             {{#ifEquals Department "MECH"}}
                             <tr>
                                 <th scope="row">1</th>
-                                <td><img src="../images/staff-thumbnail/staff-1.jpg" alt="logo"></td>
+                                <td><img src="../images/staff/{{this._id}}.jpg" alt="logo"></td>
                                 <td>{{this.Name}}</td>
                                 <td>{{this.Email}}</td>
                                 <td>{{this.Mobile}}</td>
