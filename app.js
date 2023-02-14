@@ -9,7 +9,7 @@ var hbs = require('express-handlebars')
 var fileUpload = require('express-fileupload')
 var app = express();
 var db = require('./config/connection')
-// var session = require('express-session')
+var session = require('express-session')
 const handlebars = require('./helper')
 
 // view engine setup
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
-// app.use(session({secret:"Key",cookie:{maxAge:6000000}}))
+app.use(session({secret:"Key",cookie:{maxAge:6000000}}))
 
 // Database setup
 db.connect((err)=>{

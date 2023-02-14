@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg  bg-primary p-3">
   <div class="container-fluid ">
-    <a class="navbar-brand text-white" href="#">Admin</a>
+    <a class="navbar-brand text-white" href="#">
+      {{#if admin}}
+      Welcome Admin
+      {{else}}
+      Admin
+      {{/if}}</a>
     <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,35 +21,14 @@
         <li class="nav-item ms-auto hover-back">
           <a class="nav-link text-white" href="/admin/teacher">Teachers</a>
         </li>
-
-        <li class="nav-item dropdown ms-auto hover-back">
-          <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Students
-          </a>
-          <ul class="dropdown-menu">
-
-            <li class=""><a class="dropdown-item " href="/admin/reg-17-student">Regulation-17</a></li>
-            <li class=""><a class="dropdown-item " href="/admin/reg-21-student">Regulation-21</a></li>
-
-          </ul>
-        </li>
-
-        <li class="nav-item dropdown ms-auto hover-back">
-          <a class="nav-link dropdown-toggle text-white " href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Attendance
-          </a>
-          <ul class="dropdown-menu">
-
-            <li class=""><a class="dropdown-item " href="#">Regulation-17</a></li>
-            <li class=""><a class="dropdown-item " href="#">Regulation-21</a></li>
-            
-          </ul>
-        </li>
-
         <li class="nav-item ms-auto hover-back">
-          <a class="nav-link text-white" aria-current="page" href="#">Logout</a>
+          <a class="nav-link text-white" aria-current="page" href="/admin/students-department">Students</a>
+        </li>
+        <li class="nav-item ms-auto hover-back">
+          <a class="nav-link text-white" aria-current="page" href="#">Attendance</a>
+        </li>
+        <li class="nav-item ms-auto hover-back">
+          <a class="nav-link text-white" aria-current="page" href="/admin/admin-logout">Logout</a>
         </li>
 
       </ul>

@@ -1,10 +1,32 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
 const { response } = require('../../../stucor/app')
+const { reject } = require('promise')
 const  objectID  = require('mongodb').ObjectId
 
 module.exports={
+    doLogin:(userData)=>{
+        return new Promise(async(resolve,reject)=>{
+            let loginStatus = false
+            let response = {}
+            let admin = await db.get().collection('admin').findOne({Username:userData.Username})
+            if (admin) {
+                if (userData.Password === admin.Password){
+                  console.log("Login success");
+                  response.admin = admin
+                  response.status = true
+                  resolve(response)
+                } else {
+                  console.log("Incorrect password");
+                  resolve({status:false})
+                }
+              } else{
+                console.log("No user found");
+                resolve({status:false})
 
+              }
+        })
+    },
     addStaff:(staff,callback)=>{
         db.get().collection('staff').insertOne(staff).then((data)=>{
             // console.log("Somtheing ::"+data.insertedId);

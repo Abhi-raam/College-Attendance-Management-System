@@ -7,12 +7,45 @@ var adminHelper = require('../helpers/admin-helpers')
 
 
 /* GET home page. */
-router.get('/login', function (req, res, next) {
-  res.render('admin/admin-login', {});
+router.get('/admin-login', function (req, res, next) {
+  if(req.session.loggedIn){
+    res.redirect('/admin')
+  }else{
+    res.render('admin/admin-login', {});
+  }
 });
+router.post('/admin-login',(req,res)=>{
+  adminHelper.doLogin(req.body).then((response)=>{
+    if(response.status){
+      req.session.loggedIn = true
+      req.session.admin = response.admin
+      res.redirect('/admin')
+    }else{
+      res.redirect('/admin/admin-login')
+    }
+  })
+})
+router.get('/admin-logout',(req,res)=>{
+  req.session.destroy((err)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("Session destroyed");
+      res.redirect('/')
+    }
+  })
+})
 
 router.get('/', (req, res) => {
-  res.render('admin/index', { admin: true })
+  let admin = req.session.admin
+  console.log(admin);
+  if(req.session.loggedIn){
+    res.render('admin/index', {admin })
+  }
+  else{
+    res.redirect('/admin/admin-login')
+  }
 })
 
 router.get('/teacher', (req, res) => {
@@ -153,18 +186,17 @@ router.get('/mech-staff-details', (req, res) => {
 })
 // -------->viewing for pdf end here<--------
 
-
-router.get('/reg-17-student', (req, res) => {
-  res.render('admin/student-17', { admin: true })
-})
-router.get('/reg-17/cse-01', (req, res) => {
-  res.render('admin/cse/reg-17/cse-01', { admin: true })
+// students route
+router.get('/students-department', (req, res) => {
+  res.render('admin/students/students-dpt', { admin: true })
 })
 
-
-router.get('/reg-21-student', (req, res) => {
-  res.render('admin/student-21', { admin: true })
+router.get('/cse-students',(req,res)=>{
+  res.render('admin/students/cse/cse-students',{admin:true})
 })
+
+
+
 
 
 

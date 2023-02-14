@@ -16,16 +16,16 @@
             <div class="col-md-6 justify-content-center text-white" style="padding-top: 9rem;">
                     <h4 class="text-white text-center">Admin Login</h4>
                 <div class="form_style rounded p-2">
-                    <form>
+                    <form action="/admin/admin-login" method="post">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
+                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                            <input type="text" name="Username" class="form-control" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
                             {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> --}}
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <input type="password" name="Password" class="form-control" id="exampleInputPassword1">
                         </div>
                         {{!-- <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
