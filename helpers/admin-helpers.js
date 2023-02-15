@@ -1,7 +1,7 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
 const { response } = require('../../../stucor/app')
-const { reject } = require('promise')
+const { reject, resolve } = require('promise')
 const  objectID  = require('mongodb').ObjectId
 
 module.exports={
@@ -35,7 +35,7 @@ module.exports={
     },
     viewStaff:()=>{
         return new Promise(async(resolve,reject)=>{
-            let staff = await db.get().collection('staff').find().toArray()
+            let staff = await db.get().collection('staff').find().sort({ Name: 1 }).toArray()
             resolve(staff)
         })
     },
@@ -48,6 +48,7 @@ module.exports={
             })
         })
     },
+    // this below function is only for editing the staff details
     viewOneStaff:(staffId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection('staff').findOne({_id:objectID(staffId)}).then((staff)=>{
@@ -65,6 +66,48 @@ module.exports={
                     Password:staffDetails.Password,
                     Designation:staffDetails.Designation,
                     Department:staffDetails.Department
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
+    },
+    addCseStudents:(cseStudents)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection("cseStudents").insertOne(cseStudents).then((data)=>{
+                resolve(true)
+            })
+        })
+    },
+    viewCseStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let csestudent = await db.get().collection("cseStudents").find().sort({ Name: 1 }).toArray()
+            resolve(csestudent)
+        })
+    },deleteCseStudent:(studentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection("cseStudents").deleteOne({_id:objectID(studentId)}).then((response)=>{
+                // console.log("Something => "+staffId);
+                resolve(studentId)
+            })
+        })
+    },
+    viewOneCseStudent:(stdId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection("cseStudents").findOne({_id:objectID(stdId)}).then((cseStudent)=>{
+                resolve(cseStudent)
+            })
+        })
+    },
+    editCseStudent:(stdId,stdDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection("cseStudents").update({_id:objectID(stdId)},{
+                $set:{
+                    Name:stdDetails.Name,
+                    RegisterNo:stdDetails.RegisterNo,
+                    Year:stdDetails.Year,
+                    Email:stdDetails.Email,
+                    Mobile:stdDetails.Mobile
                 }
             }).then((response)=>{
                 resolve()

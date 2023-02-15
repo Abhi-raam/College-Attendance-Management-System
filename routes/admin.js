@@ -8,29 +8,29 @@ var adminHelper = require('../helpers/admin-helpers')
 
 /* GET home page. */
 router.get('/admin-login', function (req, res, next) {
-  if(req.session.loggedIn){
+  if (req.session.loggedIn) {
     res.redirect('/admin')
-  }else{
+  } else {
     res.render('admin/admin-login', {});
   }
 });
-router.post('/admin-login',(req,res)=>{
-  adminHelper.doLogin(req.body).then((response)=>{
-    if(response.status){
+router.post('/admin-login', (req, res) => {
+  adminHelper.doLogin(req.body).then((response) => {
+    if (response.status) {
       req.session.loggedIn = true
       req.session.admin = response.admin
       res.redirect('/admin')
-    }else{
+    } else {
       res.redirect('/admin/admin-login')
     }
   })
 })
-router.get('/admin-logout',(req,res)=>{
-  req.session.destroy((err)=>{
-    if(err){
+router.get('/admin-logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
       console.log(err);
     }
-    else{
+    else {
       console.log("Session destroyed");
       res.redirect('/')
     }
@@ -40,10 +40,10 @@ router.get('/admin-logout',(req,res)=>{
 router.get('/', (req, res) => {
   let admin = req.session.admin
   console.log(admin);
-  if(req.session.loggedIn){
-    res.render('admin/index', {admin })
+  if (req.session.loggedIn) {
+    res.render('admin/index', { admin })
   }
-  else{
+  else {
     res.redirect('/admin/admin-login')
   }
 })
@@ -85,11 +85,11 @@ router.post('/edit-staff/:id', (req, res) => {
     if (department == "CSE") {
       res.redirect('/admin/cse-staff')
     }
-    else if(department == "ECE"){
+    else if (department == "ECE") {
       res.redirect('/admin/ece-staff')
-    }else if(department == "CIVIL"){
+    } else if (department == "CIVIL") {
       res.redirect('/admin/civil-staff')
-    }else if(department == "MECH"){
+    } else if (department == "MECH") {
       res.redirect('/admin/mech-staff')
     }
     if (req.files.Image) {
@@ -186,18 +186,90 @@ router.get('/mech-staff-details', (req, res) => {
 })
 // -------->viewing for pdf end here<--------
 
-// students route
+// -------->cse students route for adding students<--------
+router.get('/add-cse-student', (req, res) => {
+  res.render('admin/students/cse/add-cse-students', { admin: true })
+})
+router.post('/add-cse-student', (req, res) => {
+  // console.log(req.body);
+  adminHelper.addCseStudents(req.body).then((response) => {
+    res.render('admin/students/cse/add-cse-students', { admin: true })
+  })
+})
+
 router.get('/students-department', (req, res) => {
   res.render('admin/students/students-dpt', { admin: true })
 })
 
-router.get('/cse-students',(req,res)=>{
-  res.render('admin/students/cse/cse-students',{admin:true})
+router.get('/cse-FirstYear', (req, res) => {
+  adminHelper.viewCseStudents().then((cseStudents) => {
+    res.render('admin/students/cse/cse-first-year', { admin: true, cseStudents })
+  })
 })
 
+router.get('/cse-SecondYear', (req, res) => {
+  adminHelper.viewCseStudents().then((cseStudents) => {
+    res.render('admin/students/cse/cse-second-year', { admin: true, cseStudents })
+  })
+})
 
+router.get('/cse-ThirdYear', (req, res) => {
+  adminHelper.viewCseStudents().then((cseStudents) => {
+    res.render('admin/students/cse/cse-third-year', { admin: true, cseStudents })
+  })
+})
 
+router.get('/cse-FourthYear', (req, res) => {
+  adminHelper.viewCseStudents().then((cseStudents) => {
+    res.render('admin/students/cse/cse-fourth-year', { admin: true, cseStudents })
+  })
+})
+// -------->adding cse student end here<--------
 
+// -------->delete cse student<--------
+router.get('/delete-cse-student/:id/:year', (req, res) => {
+  let stdId = req.params.id
+  let year = req.params.year
+  adminHelper.deleteCseStudent(stdId).then((response) => {
+    if (year == "First") {
+      res.redirect('/admin/cse-FirstYear')
+    }
+    else if (year == "Second") {
+      res.redirect('/admin/cse-SecondYear')
+    }
+    else if (year == "Third") {
+      res.redirect('/admin/cse-ThirdYear')
+    }
+    else if (year == "Fourth") {
+      res.redirect('/admin/cse-FourthYear')
+    }
+  })
+})
+// -------->delete cse students end here<--------
+
+// -------->edit cse students<---------
+router.get('/edit-cse-student/:id',async(req,res)=>{
+  let cseStudent = await adminHelper.viewOneCseStudent(req.params.id)
+  res.render('admin/students/cse/edit-cse-student',{admin:true,cseStudent}) 
+})
+router.post('/edit-cse-student/:id',(req,res)=>{
+  let year = req.body.Year
+  console.log(year);
+  adminHelper.editCseStudent(req.params.id,req.body).then(()=>{
+    if (year == "First") {
+      res.redirect('/admin/cse-FirstYear')
+    }
+    else if (year == "Second") {
+      res.redirect('/admin/cse-SecondYear')
+    }
+    else if (year == "Third") {
+      res.redirect('/admin/cse-ThirdYear')
+    }
+    else if (year == "Fourth") {
+      res.redirect('/admin/cse-FourthYear')
+    }
+  })
+})
 
 
 
