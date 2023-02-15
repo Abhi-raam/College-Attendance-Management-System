@@ -186,33 +186,29 @@ router.get('/mech-staff-details', (req, res) => {
 })
 // -------->viewing for pdf end here<--------
 
+router.get('/students-department', (req, res) => {
+  res.render('admin/students/students-dpt', { admin: true })
+})
+
 // -------->cse students route for adding students<--------
 router.get('/add-cse-student', (req, res) => {
   res.render('admin/students/cse/add-cse-students', { admin: true })
 })
 router.post('/add-cse-student', (req, res) => {
-  // console.log(req.body);
   adminHelper.addCseStudents(req.body).then((response) => {
     res.render('admin/students/cse/add-cse-students', { admin: true })
   })
 })
-
-router.get('/students-department', (req, res) => {
-  res.render('admin/students/students-dpt', { admin: true })
-})
-
 router.get('/cse-FirstYear', (req, res) => {
   adminHelper.viewCseStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-first-year', { admin: true, cseStudents })
   })
 })
-
 router.get('/cse-SecondYear', (req, res) => {
   adminHelper.viewCseStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-second-year', { admin: true, cseStudents })
   })
 })
-
 router.get('/cse-ThirdYear', (req, res) => {
   adminHelper.viewCseStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-third-year', { admin: true, cseStudents })
@@ -270,7 +266,84 @@ router.post('/edit-cse-student/:id',(req,res)=>{
     }
   })
 })
+// -------->edit cse student end here<--------
 
+// -------->ece students route for adding students<--------
+router.get('/add-ece-student', (req, res) => {
+  res.render('admin/students/ece/add-ece-students', { admin: true })
+})
+router.post('/add-ece-student', (req, res) => {
+  adminHelper.addEceStudents(req.body).then((response) => {
+    res.render('admin/students/ece/add-ece-students', { admin: true })
+  })
+})
+router.get('/ece-FirstYear', (req, res) => {
+  adminHelper.viewEceStudents().then((eceStudents) => {
+    res.render('admin/students/ece/ece-first-year', { admin: true, eceStudents })
+  })
+})
+router.get('/ece-SecondYear', (req, res) => {
+  adminHelper.viewEceStudents().then((eceStudents) => {
+    res.render('admin/students/ece/ece-second-year', { admin: true, eceStudents })
+  })
+})
+router.get('/ece-ThirdYear', (req, res) => {
+  adminHelper.viewEceStudents().then((eceStudents) => {
+    res.render('admin/students/ece/ece-third-year', { admin: true, eceStudents })
+  })
+})
 
+router.get('/ece-FourthYear', (req, res) => {
+  adminHelper.viewEceStudents().then((eceStudents) => {
+    res.render('admin/students/ece/ece-fourth-year', { admin: true, eceStudents })
+  })
+})
+// -------->adding ece student end here<--------
+
+// -------->delete ece student<--------
+router.get('/delete-ece-student/:id/:year', (req, res) => {
+  let stdId = req.params.id
+  let year = req.params.year
+  adminHelper.deleteEceStudent(stdId).then((response) => {
+    if (year == "First") {
+      res.redirect('/admin/ece-FirstYear')
+    }
+    else if (year == "Second") {
+      res.redirect('/admin/ece-SecondYear')
+    }
+    else if (year == "Third") {
+      res.redirect('/admin/ece-ThirdYear')
+    }
+    else if (year == "Fourth") {
+      res.redirect('/admin/ece-FourthYear')
+    }
+  })
+})
+// -------->delete ece students end here<--------
+
+// -------->edit ece students<---------
+router.get('/edit-ece-student/:id',async(req,res)=>{
+  let eceStudent = await adminHelper.viewOneEceStudent(req.params.id)
+  res.render('admin/students/ece/edit-ece-student',{admin:true,eceStudent}) 
+})
+router.post('/edit-ece-student/:id',(req,res)=>{
+  let year = req.body.Year
+  console.log(year);
+  adminHelper.editEceStudent(req.params.id,req.body).then(()=>{
+    if (year == "First") {
+      res.redirect('/admin/ece-FirstYear')
+    }
+    else if (year == "Second") {
+      res.redirect('/admin/ece-SecondYear')
+    }
+    else if (year == "Third") {
+      res.redirect('/admin/ece-ThirdYear')
+    }
+    else if (year == "Fourth") {
+      res.redirect('/admin/ece-FourthYear')
+    }
+  })
+})
+// -------->edit ece student end here<--------
 
 module.exports = router;

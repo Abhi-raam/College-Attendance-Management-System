@@ -113,5 +113,48 @@ module.exports={
                 resolve()
             })
         })
-    }
+    },
+
+    addEceStudents:(eceStudents)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Ece_students).insertOne(eceStudents).then((data)=>{
+                resolve(true)
+            })
+        })
+    },
+    viewEceStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let ecestudent = await db.get().collection(collection.Ece_students).find().sort({ Name: 1 }).toArray()
+            resolve(ecestudent)
+        })
+    },deleteEceStudent:(studentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Ece_students).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                // console.log("Something => "+staffId);
+                resolve(studentId)
+            })
+        })
+    },
+    viewOneEceStudent:(stdId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Ece_students).findOne({_id:objectID(stdId)}).then((eceStudent)=>{
+                resolve(eceStudent)
+            })
+        })
+    },
+    editEceStudent:(stdId,stdDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Ece_students).update({_id:objectID(stdId)},{
+                $set:{
+                    Name:stdDetails.Name,
+                    RegisterNo:stdDetails.RegisterNo,
+                    Year:stdDetails.Year,
+                    Email:stdDetails.Email,
+                    Mobile:stdDetails.Mobile
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
+    },
 }

@@ -1,5 +1,8 @@
-module.export={
+module.exports={
 
     Staff:'staff',
-    CART_COLLECTION:'cart'
+    Cse_students:"cseStudents",
+    Ece_students:"eceStudents",
+    Civil_students:"civilStudents",
+    Mech_students:"mechStudents"
 }
