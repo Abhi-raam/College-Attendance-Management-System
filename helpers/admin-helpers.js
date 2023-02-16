@@ -287,4 +287,68 @@ module.exports={
             })
         })
     },
+
+    // =============================================================CIVIL functions============================================
+
+    addCivilStudents:(civilStudents)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Civil_students).insertOne(civilStudents).then((data)=>{
+                resolve(true)
+            })
+        })
+    },
+    viewCivilFirstStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let civilstudent = await db.get().collection(collection.Civil_students).find({Year:"First"}).sort({ Name: 1 }).toArray()
+            resolve(civilstudent)
+        })
+    },
+    viewCivilSecondStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let civilstudent = await db.get().collection(collection.Civil_students).find({Year:"Second"}).sort({ Name: 1 }).toArray()
+            resolve(civilstudent)
+        })
+    },
+    viewCivilThirdStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let civilstudent = await db.get().collection(collection.Civil_students).find({Year:"Third"}).sort({ Name: 1 }).toArray()
+            resolve(civilstudent)
+        })
+    },
+    viewCivilFourthStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let civilstudent = await db.get().collection(collection.Civil_students).find({Year:"Fourth"}).sort({ Name : 1 }).toArray()
+            resolve(civilstudent)
+        })
+    },
+    deleteCivilStudent:(studentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Civil_students).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                // console.log("Something => "+staffId);
+                resolve(studentId)
+            })
+        })
+    },
+    viewOneCivilStudent:(stdId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Civil_students).findOne({_id:objectID(stdId)}).then((civilStudent)=>{
+                resolve(civilStudent)
+            })
+        })
+    },
+    editCivilStudent:(stdId,stdDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Civil_students).update({_id:objectID(stdId)},{
+                $set:{
+                    Name:stdDetails.Name,
+                    RegisterNo:stdDetails.RegisterNo,
+                    Year:stdDetails.Year,
+                    Email:stdDetails.Email,
+                    Mobile:stdDetails.Mobile
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
+    },
 }

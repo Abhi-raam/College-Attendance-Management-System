@@ -368,7 +368,7 @@ router.post('/edit-ece-student/:id',(req,res)=>{
         res.render('admin/students/mech/add-mech-students', { admin: true })
       })
     })
-    // -------->adding ece student end here<--------
+    // -------->adding mech student end here<--------
     
     
     router.get('/mech-FirstYear', (req, res) => {
@@ -394,7 +394,7 @@ router.post('/edit-ece-student/:id',(req,res)=>{
     })
     
     
-    // -------->delete ece student<--------
+    // -------->delete mech student<--------
     router.get('/delete-mech-student/:id/:year', (req, res) => {
       let stdId = req.params.id
       let year = req.params.year
@@ -413,9 +413,9 @@ router.post('/edit-ece-student/:id',(req,res)=>{
         }
       })
     })
-    // -------->delete ece students end here<--------
+    // -------->delete mech students end here<--------
     
-    // -------->edit ece students<---------
+    // -------->edit mech students<---------
     router.get('/edit-mech-student/:id',async(req,res)=>{
       let mechStudent = await adminHelper.viewOneMechStudent(req.params.id)
       res.render('admin/students/mech/edit-mech-student',{admin:true,mechStudent}) 
@@ -439,7 +439,86 @@ router.post('/edit-ece-student/:id',(req,res)=>{
       })
     })
 
-
+    // ======================================CIVIL functions================================
+    
+    router.get('/add-civil-student', (req, res) => {
+      res.render('admin/students/civil/add-civil-students', { admin: true })
+    })
+    router.post('/add-civil-student', (req, res) => {
+      adminHelper.addCivilStudents(req.body).then((response) => {
+        res.render('admin/students/civil/add-civil-students', { admin: true })
+      })
+    })
+    // -------->adding civil student end here<--------
+    
+    
+    router.get('/civil-FirstYear', (req, res) => {
+      adminHelper.viewCivilFirstStudents().then((civilStudents) => {
+        res.render('admin/students/civil/civil-first-year', { admin: true, civilStudents })
+      })
+    })
+    router.get('/civil-SecondYear', (req, res) => {
+      adminHelper.viewCivilSecondStudents().then((civilStudents) => {
+        res.render('admin/students/civil/civil-second-year', { admin: true, civilStudents })
+      })
+    })
+    router.get('/civil-ThirdYear', (req, res) => {
+      adminHelper.viewCivilThirdStudents().then((civilStudents) => {
+        res.render('admin/students/civil/civil-third-year', { admin: true, civilStudents })
+      })
+    })
+    
+    router.get('/civil-FourthYear', (req, res) => {
+      adminHelper.viewCivilFourthStudents().then((civilStudents) => {
+        res.render('admin/students/civil/civil-fourth-year', { admin: true, civilStudents })
+      })
+    })
+    
+    
+    // -------->delete civil student<--------
+    router.get('/delete-civil-student/:id/:year', (req, res) => {
+      let stdId = req.params.id
+      let year = req.params.year
+      adminHelper.deleteCivilStudent(stdId).then((response) => {
+        if (year == "First") {
+          res.redirect('/admin/civil-FirstYear')
+        }
+        else if (year == "Second") {
+          res.redirect('/admin/civil-SecondYear')
+        }
+        else if (year == "Third") {
+          res.redirect('/admin/civil-ThirdYear')
+        }
+        else if (year == "Fourth") {
+          res.redirect('/admin/civil-FourthYear')
+        }
+      })
+    })
+    // -------->delete civil students end here<--------
+    
+    // -------->edit civil students<---------
+    router.get('/edit-civil-student/:id',async(req,res)=>{
+      let civilStudent = await adminHelper.viewOneCivilStudent(req.params.id)
+      res.render('admin/students/civil/edit-civil-student',{admin:true,civilStudent}) 
+    })
+    router.post('/edit-civil-student/:id',(req,res)=>{
+      let year = req.body.Year
+      console.log(year);
+      adminHelper.editCivilStudent(req.params.id,req.body).then(()=>{
+        if (year == "First") {
+          res.redirect('/admin/civil-FirstYear')
+        }
+        else if (year == "Second") {
+          res.redirect('/admin/civil-SecondYear')
+        }
+        else if (year == "Third") {
+          res.redirect('/admin/civil-ThirdYear')
+        }
+        else if (year == "Fourth") {
+          res.redirect('/admin/civil-FourthYear')
+        }
+      })
+    })
 
 
 module.exports = router;
