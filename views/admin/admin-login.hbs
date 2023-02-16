@@ -17,6 +17,9 @@
                     <h4 class="text-white text-center">Admin Login</h4>
                 <div class="form_style rounded p-2">
                     <form action="/admin/admin-login" method="post">
+                    {{#if loginErr}}
+                    <p class="error">{{loginErr}}</p>
+                    {{/if}}
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Username</label>
                             <input type="text" name="Username" class="form-control" id="exampleInputEmail1"

@@ -22,7 +22,7 @@
                         {{#each eceStudents}}
                         {{#ifEquals Year "Fourth"}}
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{inc @index}}</th>
                             <td>{{this.Name}}</td>
                             <td>{{this.RegisterNo}}</td>
                             <td>{{this.Mobile}}</td>

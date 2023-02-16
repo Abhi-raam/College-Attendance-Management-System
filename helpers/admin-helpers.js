@@ -33,9 +33,32 @@ module.exports={
             callback(data.insertedId)
         })
     },
-    viewStaff:()=>{
+    // viewStaff:()=>{
+    //     return new Promise(async(resolve,reject)=>{
+    //         let staff = await db.get().collection('staff').find().sort({ Name: 1 }).toArray()
+    //         resolve(staff)
+    //     })
+    // },
+    viewCseStaff:()=>{
         return new Promise(async(resolve,reject)=>{
-            let staff = await db.get().collection('staff').find().sort({ Name: 1 }).toArray()
+            let staff = await db.get().collection('staff').find({ Department: "CSE" }).sort({ Name: 1 }).toArray()
+            resolve(staff)
+        })
+    },
+    viewEceStaff:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let staff = await db.get().collection('staff').find({ Department: "ECE" }).sort({ Name: 1 }).toArray()
+            resolve(staff)
+        })
+    },
+    viewCivilStaff:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let staff = await db.get().collection('staff').find({ Department: "CIVIL" }).sort({ Name: 1 }).toArray()
+            resolve(staff)
+        })
+    },viewMechStaff:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let staff = await db.get().collection('staff').find({ Department: "MECH" }).sort({ Name: 1 }).toArray()
             resolve(staff)
         })
     },
@@ -79,12 +102,32 @@ module.exports={
             })
         })
     },
-    viewCseStudents:()=>{
+    // view only   students based on their studying year from cse students database
+    viewCseFirstStudents:()=>{
         return new Promise(async(resolve,reject)=>{
-            let csestudent = await db.get().collection("cseStudents").find().sort({ Name: 1 }).toArray()
+            let csestudent = await db.get().collection("cseStudents").find({Year : "First"}).sort({ Name: 1 }).toArray()
             resolve(csestudent)
         })
-    },deleteCseStudent:(studentId)=>{
+    },
+    viewCseSecondStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let csestudent = await db.get().collection("cseStudents").find({Year : "Second"}).sort({ Name: 1 }).toArray()
+            resolve(csestudent)
+        })
+    },
+    viewCseThirdStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let csestudent = await db.get().collection("cseStudents").find({Year : "Third"}).sort({ Name: 1 }).toArray()
+            resolve(csestudent)
+        })
+    },
+    viewCseFourthStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let csestudent = await db.get().collection("cseStudents").find({Year : "Fourth"}).sort({ Name: 1 }).toArray()
+            resolve(csestudent)
+        })
+    },
+    deleteCseStudent:(studentId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection("cseStudents").deleteOne({_id:objectID(studentId)}).then((response)=>{
                 // console.log("Something => "+staffId);
@@ -122,12 +165,31 @@ module.exports={
             })
         })
     },
-    viewEceStudents:()=>{
+    viewEceFirstStudents:()=>{
         return new Promise(async(resolve,reject)=>{
-            let ecestudent = await db.get().collection(collection.Ece_students).find().sort({ Name: 1 }).toArray()
+            let ecestudent = await db.get().collection(collection.Ece_students).find({Year:"First"}).sort({ Name: 1 }).toArray()
             resolve(ecestudent)
         })
-    },deleteEceStudent:(studentId)=>{
+    },
+    viewEceSecondStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let ecestudent = await db.get().collection(collection.Ece_students).find({Year:"Second"}).sort({ Name: 1 }).toArray()
+            resolve(ecestudent)
+        })
+    },
+    viewEceThirdStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let ecestudent = await db.get().collection(collection.Ece_students).find({Year:"Third"}).sort({ Name: 1 }).toArray()
+            resolve(ecestudent)
+        })
+    },
+    viewEceFourthStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let ecestudent = await db.get().collection(collection.Ece_students).find({Year:"Fourth"}).sort({ Name : 1 }).toArray()
+            resolve(ecestudent)
+        })
+    },
+    deleteEceStudent:(studentId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.Ece_students).deleteOne({_id:objectID(studentId)}).then((response)=>{
                 // console.log("Something => "+staffId);

@@ -4,14 +4,21 @@ var fs = require('fs');
 const { ObjectId } = require('mongodb');
 var db = require("../config/connection");
 var adminHelper = require('../helpers/admin-helpers')
-
+const verifyLogin=(req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+    res.redirect('/admin/admin-login')
+  }
+}
 
 /* GET home page. */
 router.get('/admin-login', function (req, res, next) {
   if (req.session.loggedIn) {
     res.redirect('/admin')
   } else {
-    res.render('admin/admin-login', {});
+    res.render('admin/admin-login', {"loginErr":req.session.loginErr});
+    req.session.loginErr=false
   }
 });
 router.post('/admin-login', (req, res) => {
@@ -21,6 +28,7 @@ router.post('/admin-login', (req, res) => {
       req.session.admin = response.admin
       res.redirect('/admin')
     } else {
+      req.session.loginErr="Invalid username or password"
       res.redirect('/admin/admin-login')
     }
   })
@@ -48,7 +56,7 @@ router.get('/', (req, res) => {
   }
 })
 
-router.get('/teacher', (req, res) => {
+router.get('/teacher', verifyLogin,(req, res) => {
   res.render('admin/teachers', { admin: true })
 })
 
@@ -142,22 +150,23 @@ router.get('/delete-staff/:id/:department', (req, res) => {
 
 // -------->viewing all teachers based on their respective department<--------
 router.get('/cse-staff', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewCseStaff().then((staff) => {
+    // console.log("This is the staff =>");
     res.render('admin/staffs/cse-staff', { admin: true, staff })
   })
 })
 router.get('/ece-staff', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewEceStaff().then((staff) => {
     res.render('admin/staffs/ece-staff', { admin: true, staff })
   })
 })
 router.get('/mech-staff', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewMechStaff().then((staff) => {
     res.render('admin/staffs/mech-staff', { admin: true, staff })
   })
 })
 router.get('/civil-staff', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewCivilStaff().then((staff) => {
     res.render('admin/staffs/civil-staff', { admin: true, staff })
   })
 })
@@ -165,22 +174,22 @@ router.get('/civil-staff', (req, res) => {
 
 // -------->viewing teachers only for printing their datails to pdf<--------
 router.get('/cse-staff-details', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewCseStaff().then((staff) => {
     res.render('admin/cse-staff-details', { admin: true, staff })
   })
 })
 router.get('/civil-staff-details', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewCivilStaff().then((staff) => {
     res.render('admin/civil-staff-details', { admin: true, staff })
   })
 })
 router.get('/ece-staff-details', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewEceStaff().then((staff) => {
     res.render('admin/ece-staff-details', { admin: true, staff })
   })
 })
 router.get('/mech-staff-details', (req, res) => {
-  adminHelper.viewStaff().then((staff) => {
+  adminHelper.viewMechStaff().then((staff) => {
     res.render('admin/mech-staff-details', { admin: true, staff })
   })
 })
@@ -200,23 +209,23 @@ router.post('/add-cse-student', (req, res) => {
   })
 })
 router.get('/cse-FirstYear', (req, res) => {
-  adminHelper.viewCseStudents().then((cseStudents) => {
+  adminHelper.viewCseFirstStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-first-year', { admin: true, cseStudents })
   })
 })
 router.get('/cse-SecondYear', (req, res) => {
-  adminHelper.viewCseStudents().then((cseStudents) => {
+  adminHelper.viewCseSecondStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-second-year', { admin: true, cseStudents })
   })
 })
 router.get('/cse-ThirdYear', (req, res) => {
-  adminHelper.viewCseStudents().then((cseStudents) => {
+  adminHelper.viewCseThirdStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-third-year', { admin: true, cseStudents })
   })
 })
 
 router.get('/cse-FourthYear', (req, res) => {
-  adminHelper.viewCseStudents().then((cseStudents) => {
+  adminHelper.viewCseFourthStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-fourth-year', { admin: true, cseStudents })
   })
 })
@@ -277,28 +286,31 @@ router.post('/add-ece-student', (req, res) => {
     res.render('admin/students/ece/add-ece-students', { admin: true })
   })
 })
+// -------->adding ece student end here<--------
+
+
 router.get('/ece-FirstYear', (req, res) => {
-  adminHelper.viewEceStudents().then((eceStudents) => {
-    res.render('admin/students/ece/ece-first-year', { admin: true, eceStudents })
+  adminHelper.viewEceFirstStudents().then((eceStudents) => {
+    res.render('admin/students/ece/ece-first-year', { admin: true, eceStudents,startSNo: 1 })
   })
 })
 router.get('/ece-SecondYear', (req, res) => {
-  adminHelper.viewEceStudents().then((eceStudents) => {
+  adminHelper.viewEceSecondStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-second-year', { admin: true, eceStudents })
   })
 })
 router.get('/ece-ThirdYear', (req, res) => {
-  adminHelper.viewEceStudents().then((eceStudents) => {
+  adminHelper.viewEceThirdStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-third-year', { admin: true, eceStudents })
   })
 })
 
 router.get('/ece-FourthYear', (req, res) => {
-  adminHelper.viewEceStudents().then((eceStudents) => {
+  adminHelper.viewEceFourthStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-fourth-year', { admin: true, eceStudents })
   })
 })
-// -------->adding ece student end here<--------
+
 
 // -------->delete ece student<--------
 router.get('/delete-ece-student/:id/:year', (req, res) => {

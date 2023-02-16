@@ -22,7 +22,7 @@
                             {{#each staff}}
                             {{#ifEquals Department "CSE"}}
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row">{{inc @index}}</th>
                                 <td><img src="../images/staff/{{this._id}}.jpg" alt="logo"></td>
                                 <td>{{this.Name}}</td>
                                 <td>{{this.Email}}</td>
