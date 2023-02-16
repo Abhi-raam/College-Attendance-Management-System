@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div>
-                <h4 class="text-center mt-5">ECE Second year</h4>
+                <h4 class="text-center mt-5">MECH Second year</h4>
             </div>
             <div class="col-md-12 mt-5 ">
                 <table class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
@@ -22,12 +22,12 @@
                         {{#each mechStudents}}
                         {{#ifEquals Year "Second"}}
                         <tr>
-                            <th scope="row">1</th>
+                            <th scope="row">{{inc @index}}</th>
                             <td>{{this.Name}}</td>
                             <td>{{this.RegisterNo}}</td>
                             <td>{{this.Mobile}}</td>
                             <td>{{this.Email}}</td>
-                            <td><a href="/admin/edit-mech-student/{{this._id}}" class="btn btn-primary">Edit</a></td>
+                            <td><a  href="/admin/edit-mech-student/{{this._id}}" class="btn btn-primary">Edit</a></td>
                             <td><a href="/admin/delete-mech-student/{{this._id}}/{{this.Year}}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{this.Name}}?')">Delete</a></td>
                         </tr>
                         {{/ifEquals}}

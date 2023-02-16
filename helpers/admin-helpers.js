@@ -95,6 +95,9 @@ module.exports={
             })
         })
     },
+
+    // =============================================================CSE functions============================================
+
     addCseStudents:(cseStudents)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection("cseStudents").insertOne(cseStudents).then((data)=>{
@@ -158,6 +161,8 @@ module.exports={
         })
     },
 
+    // =============================================================ECE functions============================================
+
     addEceStudents:(eceStudents)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.Ece_students).insertOne(eceStudents).then((data)=>{
@@ -207,6 +212,69 @@ module.exports={
     editEceStudent:(stdId,stdDetails)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.Ece_students).update({_id:objectID(stdId)},{
+                $set:{
+                    Name:stdDetails.Name,
+                    RegisterNo:stdDetails.RegisterNo,
+                    Year:stdDetails.Year,
+                    Email:stdDetails.Email,
+                    Mobile:stdDetails.Mobile
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
+    },
+    // =============================================================MECH functions============================================
+
+    addMechStudents:(mechStudents)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Mech_students).insertOne(mechStudents).then((data)=>{
+                resolve(true)
+            })
+        })
+    },
+    viewMechFirstStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let mechstudent = await db.get().collection(collection.Mech_students).find({Year:"First"}).sort({ Name: 1 }).toArray()
+            resolve(mechstudent)
+        })
+    },
+    viewMechSecondStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let mechstudent = await db.get().collection(collection.Mech_students).find({Year:"Second"}).sort({ Name: 1 }).toArray()
+            resolve(mechstudent)
+        })
+    },
+    viewMechThirdStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let mechstudent = await db.get().collection(collection.Mech_students).find({Year:"Third"}).sort({ Name: 1 }).toArray()
+            resolve(mechstudent)
+        })
+    },
+    viewMechFourthStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let mechstudent = await db.get().collection(collection.Mech_students).find({Year:"Fourth"}).sort({ Name : 1 }).toArray()
+            resolve(mechstudent)
+        })
+    },
+    deleteMechStudent:(studentId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Mech_students).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                // console.log("Something => "+staffId);
+                resolve(studentId)
+            })
+        })
+    },
+    viewOneMechStudent:(stdId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Mech_students).findOne({_id:objectID(stdId)}).then((mechStudent)=>{
+                resolve(mechStudent)
+            })
+        })
+    },
+    editMechStudent:(stdId,stdDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.Mech_students).update({_id:objectID(stdId)},{
                 $set:{
                     Name:stdDetails.Name,
                     RegisterNo:stdDetails.RegisterNo,
