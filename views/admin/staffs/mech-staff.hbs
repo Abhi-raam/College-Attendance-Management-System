@@ -6,7 +6,8 @@
                     <h3>MECH</h3>
                 </div>
                 <div>
-                    <table id="tblCustomers" class="table table-hover table-bordered" style="border: 2px solid #080808 !important;">
+                    <table id="tblCustomers" class="table table-hover table-bordered"
+                        style="border: 2px solid #080808 !important;">
                         <thead>
                             <tr>
                                 <th scope="col">Sno.</th>
@@ -14,6 +15,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
+                                <th scope="col">Staff Incharge</th>
                                 <th scope="col">Designation</th>
                                 <th scope="col">Edit/Delete</th>
                             </tr>
@@ -27,10 +29,13 @@
                                 <td>{{this.Name}}</td>
                                 <td>{{this.Email}}</td>
                                 <td>{{this.Mobile}}</td>
+                                <td>{{this.Year}}</td>
                                 <td>{{this.Designation}}</td>
                                 <td class=" text-center ">
                                     <a href="/admin/edit-staff/{{this._id}}" class="btn btn-primary mt-3 me-3">Edit</a>
-                                    <a href="/admin/delete-staff/{{this._id}}/{{this.Department}}" class="btn btn-danger mt-3" onclick="return confirm('Do you want to delete {{this.Name}}?')">Delete</a>
+                                    <a href="/admin/delete-staff/{{this._id}}/{{this.Department}}"
+                                        class="btn btn-danger mt-3"
+                                        onclick="return confirm('Do you want to delete {{this.Name}}?')">Delete</a>
 
                                 </td>
                             </tr>

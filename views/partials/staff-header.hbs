@@ -4,7 +4,7 @@
             <a class="navbar-brand text-white  " href="#">
                 {{#if staff}}
                 Welcome
-                {{teacher.Name}}
+                {{staff.Name}}
                 {{else}}
                 nothing
                 {{/if}}
@@ -17,10 +17,13 @@
             <div class="collapse   navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto  ">
                     <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" aria-current="page" href="#">Home</a>
+                        <a class="nav-link text-white m-1" aria-current="page" href="/staff">Home</a>
                     </li>
                     <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" href="#">Attendance</a>
+                        <a class="nav-link text-white m-1" href="/staff/students">Students</a>
+                    </li>
+                    <li class="nav-item ms-auto hover-back">
+                        <a class="nav-link text-white m-1" href="/staff/attendance">Attendance</a>
                     </li>
                     <li class="nav-item ms-auto hover-back">
                         <a class="nav-link text-white m-1" href="/staff/staff-logout">Logout</a>

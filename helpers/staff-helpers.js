@@ -26,5 +26,97 @@ module.exports={
               }
         })
     },
+    students:(staff)=>{
+      // console.log(staff.Department);
+      if(staff.Department === "CSE"){
+        if(staff.Year === "First"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Cse_students).find({Year:"First"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Second"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Cse_students).find({Year:"Second"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Third"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Cse_students).find({Year:"Third"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Fourth"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Cse_students).find({Year:"Fourth"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }
+      }else if(staff.Department === "ECE"){
+        if(staff.Year === "First"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Ece_students).find({Year:"First"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Second"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Ece_students).find({Year:"Second"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Third"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Ece_students).find({Year:"Third"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Fourth"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Ece_students).find({Year:"Fourth"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }
+      }else if(staff.Department === "CIVIL"){
+        if(staff.Year === "First"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Civil_students).find({Year:"First"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Second"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Civil_students).find({Year:"Second"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Third"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Civil_students).find({Year:"Third"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Fourth"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Civil_students).find({Year:"Fourth"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }
+      }else if(staff.Department === "MECH"){
+        if(staff.Year === "First"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Mech_students).find({Year:"First"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Second"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Mech_students).find({Year:"Second"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Third"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Mech_students).find({Year:"Third"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }else if(staff.Year === "Fourth"){
+          return new Promise(async(resolve,reject)=>{
+            let students =await db.get().collection(collection.Mech_students).find({Year:"Fourth"}).sort({Name:1}).toArray()
+            resolve(students)
+          })
+        }
+      }
+    }
 
 }

@@ -8,7 +8,7 @@ const verifyLogin=(req,res,next)=>{
   if(req.session.loggedIn){
     next()
   }else{
-    res.redirect('/staff/staff-login')
+    res.redirect('/staff/login')
   }
 }
 
@@ -37,6 +37,9 @@ router.post('/login',(req,res)=>{
 
 
 router.get('/staff-logout',(req,res)=>{
+  // req.session.staff = null
+  // res.session.userLoggedIn=false
+  // res.redirect('/staff/login')
   req.session.destroy((err)=>{
     if(err){
       console.log(err);
@@ -48,9 +51,28 @@ router.get('/staff-logout',(req,res)=>{
 })
 
 router.get('/',verifyLogin,(req,res)=>{
-  let teacher = req.session.staff
-  console.log(teacher);
-  res.render('staff/staff-index',{staff:true ,teacher})
+  let staff = req.session.staff
+  // console.log(staff);
+  if (req.session.loggedIn) {
+    res.render('staff/staff-index', { staff })
+  }
+  else {
+    res.redirect('/staff/login')
+  }
+  // res.render('staff/staff-index',{staff})
+})
+router.get('/students',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  staffHelper.students(staff).then((students)=>{
+    // console.log(students); 
+    res.render('staff/students',{staff,students})
+  })
+})
+// this is the route to add attendance
+router.get('/attendance',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  // console.log(staff);
+  res.render('staff/attendence',{staff})
 })
 
 module.exports = router;

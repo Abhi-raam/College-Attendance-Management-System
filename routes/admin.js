@@ -45,9 +45,9 @@ router.get('/admin-logout', (req, res) => {
   })
 })
 
-router.get('/', (req, res) => {
+router.get('/',verifyLogin, (req, res) => {
   let admin = req.session.admin
-  console.log(admin);
+  // console.log(admin);
   if (req.session.loggedIn) {
     res.render('admin/index', { admin })
   }
@@ -151,7 +151,7 @@ router.get('/delete-staff/:id/:department', (req, res) => {
 // -------->viewing all teachers based on their respective department<--------
 router.get('/cse-staff', (req, res) => {
   adminHelper.viewCseStaff().then((staff) => {
-    // console.log("This is the staff =>");
+    console.log(staff);
     res.render('admin/staffs/cse-staff', { admin: true, staff })
   })
 })

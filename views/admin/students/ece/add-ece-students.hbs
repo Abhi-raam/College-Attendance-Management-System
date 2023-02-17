@@ -2,12 +2,13 @@
     <div class="container shadowBorder">
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
-                <h2 class="text-center">Add Students</h2>
+                <h2 class="text-center">Add Ece Students</h2>
                 <form action="/admin/add-ece-student" method="post" enctype="multipart/form-data">
                     <label for="">Name</label>
                     <input type="text" name="Name" class="form-control">
                     <label for="">Register No.</label>
                     <input type="text" name="RegisterNo" class="form-control">
+                    <input hidden type="text" name="Attendance[]" class="form-control">
                     <label for="">Year</label>
                             <select class="form-control" name="Year" id="exampleFormControlSelect1">
                                 <option>First</option>
