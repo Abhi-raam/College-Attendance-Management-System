@@ -1,6 +1,6 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
-const { response } = require('../../../stucor/app')
+// const { response } = require('../../../stucor/app')
 const { reject, resolve } = require('promise')
 const  objectID  = require('mongodb').ObjectId
 
@@ -87,6 +87,7 @@ module.exports={
                     Email:staffDetails.Email,
                     Mobile:staffDetails.Mobile,
                     Password:staffDetails.Password,
+                    Year:staffDetails.Year,
                     Designation:staffDetails.Designation,
                     Department:staffDetails.Department
                 }

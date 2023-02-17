@@ -1,7 +1,14 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-primary" >
         <div class="container-fluid " id="navigation">
-            <a class="navbar-brand text-white  " href="#">Staff Name</a>
+            <a class="navbar-brand text-white  " href="#">
+                {{#if staff}}
+                Welcome
+                {{teacher.Name}}
+                {{else}}
+                nothing
+                {{/if}}
+                </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -16,7 +23,7 @@
                         <a class="nav-link text-white m-1" href="#">Attendance</a>
                     </li>
                     <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" href="#">Logout</a>
+                        <a class="nav-link text-white m-1" href="/staff/staff-logout">Logout</a>
                     </li>
                     
                 </ul>
