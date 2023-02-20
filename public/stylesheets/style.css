@@ -10,6 +10,14 @@
     margin: 2px;
 }
 
+.hover-back-a:hover{
+  cursor: pointer;
+  /* background: #000; */
+  /* border-radius: 10px; */
+  transform: scale(1.2);
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 1s;
+}
 .hover-back:hover {
     cursor: pointer;
     /* background: #000; */
@@ -54,4 +62,10 @@
     box-shadow: 5px 6px 30px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 0.9);
     margin-top: 6rem;
     padding: 2rem;
+  }
+  .shadowBorderStaff{
+    box-shadow: 5px 6px 30px rgba(0, 0, 0, 1), 0px 0px 5px rgba(0, 0, 0, 0.9);
+    padding: 2rem;
+    margin-top: 2.5rem;
+    color: #fff;
   }

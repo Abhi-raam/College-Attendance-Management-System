@@ -1,0 +1,89 @@
+<section>
+    <div class="container">
+        <div class="row mt-5">
+            <div>
+                <h4 class="text-center">Add Attendance</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-6">
+                    {{#each students}}
+                    <form method="post" action="/staff/add-attendance"
+                        class="bg-secondary p-2 rounded shadowBorderStaff">
+                        {{/each}}
+                        <input name="Date" type="date">
+                        <div class="form-group ">
+                            <label for="inputState">Student Name</label>
+                            <select id="inputState" name="RegisterNo" class="form-control">
+                                <option>Choose...</option>
+                                {{#each students}}
+                                <option value="{{this._id}}">{{this.Name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="Attendance" id="inlineRadio1"
+                                value="Present">
+                            <label class="form-check-label" for="inlineRadio1">Present</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="Attendance" id="inlineRadio2"
+                                value="Absent">
+                            <label class="form-check-label" for="inlineRadio2">Absent</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary m-2">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div>
+                <h4 class="text-center mt-5">{{staff.Department}} {{staff.Year}} Year Attendance</h4>
+            </div>
+            <div class="col-md-12 mt-5 ">
+                <table class="table table-hover text-center table-bordered"
+                    style="border: 2px solid #080808 !important;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sno</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Reg No.</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Present/Absent</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each students}}
+                        <tr>
+                            <th scope="row">{{inc @index}}</th>
+                            <td>{{this.Name}}</td>
+                            <td>{{this.RegisterNo}}</td>
+                        {{!-- {{#each this.Attendance}} --}}
+                            {{!-- <td>{{dateFormat this.Date}}</td>
+                            <td>{{this.Attendance}}</td> --}}
+                            <td>
+                                {{#each this.Attendance}}
+                                <h6>{{dateFormat this.Date}}</h6>
+                                {{/each}}
+                            </td>
+                            <td>
+                                {{#each this.Attendance}}
+                                <h6>{{this.Attendance}}</h6>
+                                {{/each}}
+                            </td>
+                        {{!-- {{/each}} --}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

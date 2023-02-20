@@ -1,6 +1,7 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
 const { reject, resolve } = require('promise')
+const { response } = require('../app')
 const  objectID  = require('mongodb').ObjectId
 
 module.exports={
@@ -114,6 +115,53 @@ module.exports={
           return new Promise(async(resolve,reject)=>{
             let students =await db.get().collection(collection.Mech_students).find({Year:"Fourth"}).sort({Name:1}).toArray()
             resolve(students)
+          })
+        }
+      }
+    },
+    // addAttendance:(stdId,stdAttendance,staff)=>{
+    //   if(staff.Department === "CSE"){
+    //     return new Promise(async(resolve,reject)=>{
+    //       let student = await db.get().collection(collection.Cse_attendance).findOne({user:objectID(stdId)})
+    //       if(student){
+    //         db.get().collection(collection.Cse_attendance).updateOne({user:objectID(stdId)},
+    //         {
+    //           $push:{Attendance:stdAttendance}
+    //         }
+    //         ).then((response)=>{
+    //           resolve()
+    //         })
+    //       }else{
+    //         let stdObj = {
+    //           user:objectID(stdId),
+    //           Attendance:[stdAttendance]
+    //         }
+    //         db.get().collection(collection.Cse_attendance).insertOne(stdObj).then((response)=>{
+    //           resolve()
+    //         })
+    //       }
+    //     })
+    //   }
+    // },
+    addAttendance:(stdId,stdAttendance,staff)=>{
+      if(staff.Department === "CSE"){
+        return new Promise(async(resolve,reject)=>{
+          db.get().collection(collection.Cse_students).updateOne({_id:objectID(stdId)},
+          {
+            $push:{Attendance:stdAttendance}
+          }
+          ).then((response)=>{
+            resolve()
+          })
+        })
+      }
+    },
+    viewAttendance:(staff)=>{
+      if(staff.Department==="CSE"){
+        if(staff.Year==="First"){
+          return new Promise((resolve,reject)=>{
+            let cseStd = db.get().collection(collection.Cse_students).find({Year:"First"}).toArray()
+            resolve(cseStd)
           })
         }
       }

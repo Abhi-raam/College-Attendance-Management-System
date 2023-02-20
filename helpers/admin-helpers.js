@@ -99,9 +99,24 @@ module.exports={
 
     // =============================================================CSE functions============================================
 
+    // addCseStudents:(cseStudents)=>{
+    //     return new Promise((resolve,reject)=>{
+    //         db.get().collection("cseStudents").insertOne(cseStudents).then((data)=>{
+    //             resolve(true)
+    //         })
+    //     })
+    // },
     addCseStudents:(cseStudents)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection("cseStudents").insertOne(cseStudents).then((data)=>{
+            let cseStd = {
+                Name:cseStudents.Name,
+                RegisterNo:cseStudents.RegisterNo,
+                Attendance:[],
+                Year:cseStudents.Year,
+                Email:cseStudents.Email,
+                Mobile:cseStudents.Mobile
+            }
+            db.get().collection(collection.Cse_students).insertOne(cseStd).then((data)=>{
                 resolve(true)
             })
         })

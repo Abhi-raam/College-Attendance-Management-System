@@ -12,7 +12,9 @@ var db = require('./config/connection')
 var session = require('express-session')
 const handlebars = require('./helper')
 // var passport = require('passport')
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -23,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
-app.use(session({secret:"Key",cookie:{maxAge:60000000}}))
+app.use(session({secret:"Key",cookie:{maxAge:600000}}))
 // app.use(passport.initialize());
 // app.use(passport.session());
 
