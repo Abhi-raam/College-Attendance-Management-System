@@ -18,5 +18,4 @@ handlebars.registerHelper('dateFormat', function(date) {
 
 
 
-
 module.exports = handlebars;
