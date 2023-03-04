@@ -49,7 +49,7 @@ router.get('/',verifyLogin, (req, res) => {
   let admin = req.session.admin
   // console.log(admin);
   if (req.session.loggedIn) {
-    res.render('admin/index', { admin })
+    res.render('admin/index', { admin:true })
   }
   else {
     res.redirect('/admin/admin-login')

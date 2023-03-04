@@ -132,7 +132,7 @@ module.exports = {
             resolve();
           } else {
             // Student doesn't exist in database, add
-            db.get().collection(collection.Cse_attendance).insertOne({ ...student, Status: 0 })
+            db.get().collection(collection.Cse_attendance).insertOne({ ...student, Attendance: [] })
               .then((response) => {
                 resolve();
               });
@@ -141,54 +141,36 @@ module.exports = {
       });
     }
   },
-  // addAttendance:(stdId,stdAttendance,staff)=>{
-  //   if(staff.Department === "CSE"){
-  //     return new Promise(async(resolve,reject)=>{
-  //       let student = await db.get().collection(collection.Cse_attendance).findOne({user:objectID(stdId)})
-  //         let stdObj = {
-  //           user:objectID(stdId),
-  //           Attendance:stdAttendance
-  //         }
-  //         db.get().collection(collection.Cse_attendance).insertOne(stdObj).then((response)=>{
-  //           resolve()
-  //         })
-  //     })
-  //   }
-  // },
-  // addAttendance: (stdId, stdAttendance, staff, month) => {
-  //   if (staff.Department === "CSE") {
-  //     return new Promise(async(resolve, reject) => {
-  //       let updateObj = {}
-  //       updateObj['Attendance.'+ month] = stdAttendance
-  //       db.get().collection(collection.Cse_students).updateOne({ _id: objectID(stdId) }, {
-  //         $push: updateObj
-  //       }).then((response) => {
-  //         resolve()
-  //       })
-  //     })
-  //   }
-  // },
-  // addAttendance:(stdId,stdAttendance,staff,month)=>{
-  //   if(staff.Department === "CSE"){
-  //     return new Promise(async(resolve,reject)=>{
-  //       db.get().collection(collection.Cse_students).updateOne({_id:objectID(stdId)},
-  //       {
-  //         $push:{Attendance:stdAttendance}
-  //       }
-  //       ).then((response)=>{
-  //         resolve()
-  //       })
-  //     })
-  //   }
-  // },
+
+
+  addAttendance: (stdId, dateTaken, staff, allStd) => {
+    if (staff.Department === "CSE") {
+      return new Promise(async (resolve, reject) => {
+        try {
+          for (let i = 0; i < allStd.length; i++) {
+            const status = stdId.includes(allStd[i]) ? 1 : 0;
+            const filter = { _id: objectID(allStd[i]) };
+            const update = {
+              $push: {
+                Attendance: { DateTaken: dateTaken, Status: status }
+              },
+            };
+            const options = { upsert: true };
+            await db.get().collection(collection.Cse_attendance).updateOne(filter, update, options);
+          }
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }
+  },
+
   // viewAttendance:(staff)=>{
   //   if(staff.Department==="CSE"){
   //     if(staff.Year==="First"){
   //       return new Promise(async(resolve,reject)=>{
-  //         let cseStd = await db.get().collection(collection.Cse_students).find({Year:"First"}).toArray()
-  //         // console.log(cseStd[0].Attendance);
-  //         // console.log(cseStd[0].Attendance);
-  //         resolve(cseStd)
+          
   //       })
   //     }
   //   }

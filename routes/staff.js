@@ -84,35 +84,23 @@ router.get('/add-attendance', verifyLogin, (req, res) => {
 })
 router.post('/add-attendance', verifyLogin, (req, res) => {
   let staff = req.session.staff
-  console.log(req.body.check);
-  console.log(req.body.Date);
+  let stdId = req.body.check
+  let dateTaken = req.body.Date
+  let allStd = req.body.admissionNo
+  console.log(stdId);
+  console.log(dateTaken);
+  console.log(allStd);
+  staffHelper.addAttendance(stdId,dateTaken,staff,allStd).then((response)=>{
     res.redirect('/staff/add-attendance')
+  })
 
 })
 
 router.get('/view-attendance', verifyLogin, (req, res) => {
   let staff = req.session.staff
   staffHelper.students(staff).then((students) => {
-    staffHelper.viewAttendance(staff).then((std) => {
-      console.log(std[0].Attendance);
-      // console.log(std);
       res.render('staff/view-attendance', { staff })
-    })
   })
 })
-
-// router.post('/view-attendance',verifyLogin,(req,res)=>{
-//   // console.log(req.body);
-//   let month = req.body.Month
-//   console.log(month);
-//   let staff = req.session.staff
-//   staffHelper.students(staff).then((students)=>{
-//     staffHelper.viewAttendance(staff).then((std)=>{
-//       console.log(std[1].Attendance);
-//       // console.log(std);
-//       res.render('staff/view-attendance',{staff,std,month})
-//     })
-//   })
-// })
 
 module.exports = router;
