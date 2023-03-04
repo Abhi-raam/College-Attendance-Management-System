@@ -87,14 +87,14 @@ router.post('/add-attendance', verifyLogin, (req, res) => {
   let stdId = req.body.check
   let dateTaken = req.body.Date
   let allStd = req.body.admissionNo
-  console.log(stdId);
-  console.log(dateTaken);
-  console.log(allStd);
+  // console.log(stdId);
+  // console.log(dateTaken);
+  // console.log(allStd);
   staffHelper.addAttendance(stdId,dateTaken,staff,allStd).then((response)=>{
     res.redirect('/staff/add-attendance')
   })
-
 })
+
 
 router.get('/view-attendance', verifyLogin, (req, res) => {
   let staff = req.session.staff
@@ -102,5 +102,23 @@ router.get('/view-attendance', verifyLogin, (req, res) => {
       res.render('staff/view-attendance', { staff })
   })
 })
+router.post('/view-attendance', verifyLogin, (req, res) => {
+  // console.log(req.body.dateTaken);
+  let dte = new Date(req.body.dateTaken)
+  let day = dte.getDate().toString().padStart(2, '0');
+  let month = (dte.getMonth() + 1).toString().padStart(2, '0');
+  let year = dte.getFullYear()
+  let date = (`${day}/${month}/${year}`)
+  // console.log(date);
+  let staff = req.session.staff;
+  staffHelper.viewAttendance(staff, req.body.dateTaken).then((studentList) => {
+    // console.log(studentList);
+    if (studentList.length === 0) {
+      res.render('staff/view-attendance', {noDataFound: true,staff,submitted: true ,date});
+    } else {
+      res.render('staff/view-attendance', { studentList, staff,submitted: true,date });
+    }
+  });
+});
 
 module.exports = router;

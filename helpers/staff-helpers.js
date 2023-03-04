@@ -166,14 +166,22 @@ module.exports = {
     }
   },
 
-  // viewAttendance:(staff)=>{
-  //   if(staff.Department==="CSE"){
-  //     if(staff.Year==="First"){
-  //       return new Promise(async(resolve,reject)=>{
-          
-  //       })
-  //     }
-  //   }
-  // }
+
+
+  viewAttendance: (staff, date) => {
+    if (staff.Department === "CSE" && staff.Year === "First") {
+      return new Promise(async (resolve, reject) => {
+        let studentList = await db.get().collection(collection.Cse_attendance).aggregate([
+          // Match documents with Attendance array that contains the specified date
+          { $match: { Attendance: { $elemMatch: { DateTaken: date } } } },
+          // Unwind the Attendance array
+          { $unwind: "$Attendance" },
+          // Match the Attendance array element with the specified date
+          { $match: { "Attendance.DateTaken": date } }
+        ]).toArray();
+        resolve(studentList);
+      })
+    }
+  }
 
 }

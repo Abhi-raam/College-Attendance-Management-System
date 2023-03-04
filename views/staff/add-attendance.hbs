@@ -2,56 +2,64 @@
     <div class="row ">
         <div>
             <div class="container-fluid" id="container-wrapper">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date : {{formattedDate}})</h1>
-          </div>
-        </div>
-        <div class="col-md-12">
-            <form action="/staff/add-attendance" method="post">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card mb-4">
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">All Student in (First Year CSE) Class
-                                </h6>
-                                <h6 class="m-0 font-weight-bold text-danger">Note: <i>Click on the checkboxes besides
-                                        each student to take attendance!</i></h6>
-                            </div>
-                            <div class="px-3">
-                                <input type="date" name="Date">
-                                <table class="table align-items-center table-bordered table-flush table-hover" style="border: 2px solid #080808 !important;">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>S no.</th>
-                                            <th>First Name</th>
-                                            <th>Register No</th>
-                                            <th>Phone No</th>
-                                            <th>Email</th>
-                                            <th>Check</th>
-                                        </tr>
-                                    </thead>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Take Attendance (Today's Date : {{formattedDate}})</h1>
+                </div>
+            </div>
+            <div class="col-md-12">
+ 
+                <form action="/staff/add-attendance" method="post">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">All Student in (First Year CSE) Class
+                                    </h6>
+                                    <h6 class="m-0 font-weight-bold text-danger">Note: <i>Click on the checkboxes
+                                            besides
+                                            each student to take attendance!</i></h6>
+                                </div>
+                                <div class="px-3">
+                                    <input type="date" name="Date">
+                                    <table class="table align-items-center table-bordered table-flush table-hover"
+                                        style="border: 2px solid #080808 !important;">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>S no.</th>
+                                                <th>First Name</th>
+                                                <th>Register No</th>
+                                                <th>Phone No</th>
+                                                <th>Email</th>
+                                                <th>Check</th>
+                                            </tr>
+                                        </thead>
 
-                                    <tbody>
-                                        {{#each students}}
-                                        <tr>
-                                            <td>{{inc @index}}</td>
-                                            <td>{{this.Name}}</td>
-                                            <td>{{this.RegisterNo}}</td>
-                                            <td>{{this.Mobile}}</td>
-                                            <td>{{this.Email}}</td>
-                                            {{!-- <td><input name='check[]' type='checkbox' value="" class='form-control'></td> --}}
-                                            <td><input class="form-check-input" name="check[]" type="checkbox" value="{{this._id}}" id="flexCheckDefault" style="width: 2rem; height:2rem;"></td>
-                                        </tr>
-                                        <input name='admissionNo[]' value="{{this._id}}" type='hidden'class='form-control'>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
+                                        <tbody>
+                                            {{#each students}}
+                                            <tr>
+                                                <td>{{inc @index}}</td>
+                                                <td>{{this.Name}}</td>
+                                                <td>{{this.RegisterNo}}</td>
+                                                <td>{{this.Mobile}}</td>
+                                                <td>{{this.Email}}</td>
+                                                {{!-- <td><input name='check[]' type='checkbox' value=""
+                                                        class='form-control'></td> --}}
+                                                <td><input class="form-check-input" name="check[]" type="checkbox"
+                                                        value="{{this._id}}" id="flexCheckDefault"
+                                                        style="width: 2rem; height:2rem;"></td>
+                                            </tr>
+                                            <input name='admissionNo[]' value="{{this._id}}" type='hidden'
+                                                class='form-control'>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                  <button type="submit" class="btn btn-primary">Take Attendance</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Take Attendance</button>
+                </form>
+            </div>
         </div>
-    </div>
 </section>
