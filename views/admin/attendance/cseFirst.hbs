@@ -1,0 +1,107 @@
+<section>
+    <div id="wrapper">
+        <!-- Sidebar -->
+
+        <!-- Sidebar -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- TopBar -->
+
+                <!-- Topbar -->
+
+                <!-- Container Fluid-->
+                <div class="container-fluid" id="container-wrapper">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 ">View Class Attendance</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Form Basic -->
+                            <div class="card mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0  text-primary">View Class Attendance</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form method="post" action="/admin/cse-FirstYearAttendance">
+                                        <div class="form-group row mb-3">
+                                            <div class="col-xl-6">
+                                                <label class="form-control-label">Select Date<span
+                                                        class="text-danger ml-2">*</span></label>
+                                                <input type="date" class="form-control" name="dateTaken"
+                                                    id="exampleInputFirstName" placeholder="Class Arm Name">
+                                                    <input type="text" hidden name="Department" value="CSE">
+                                                    <input type="text" hidden name="Year" value="First">
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <label class="form-control-label">Select Month<span
+                                                        class="text-danger ml-2">*</span></label>
+                                                <input type="month" class="form-control" name="month"
+                                                    id="exampleInputFirstName" placeholder="Class Arm Name">
+                                            </div>
+                                        </div>
+                                        <button type="submit"  class="btn btn-primary">View
+                                            Attendance</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Input Group -->
+                            {{#if submitted}}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card mb-4">
+                                        <div
+                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            
+                                            <h6 class="m-0 font-weight-bold text-primary">Class Attendance of {{date}}</h6>
+                                        </div>
+                                        {{#if noDataFound}}
+                                        <div class='alert alert-danger' role='alert'>
+                                            No Record Found!
+                                        </div>
+                                        {{else}}
+                                        <!-- Your table code goes here -->
+                                        <div class="table-responsive p-3">
+                                            <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Sno</th>
+                                                        <th>Student Name</th>
+                                                        <th>Register No</th>
+                                                        <th>Parents Number</th>
+                                                        <th>Status</th>
+                                                        <th>Date</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {{#each studentList}}
+                                                    <tr>
+                                                        <td>{{inc @index}}</td>
+                                                        <td>{{this.Name}}</td>
+                                                        <td>{{this.RegisterNo}}</td>
+                                                        <td>{{this.Mobile}}  <a class="text-dark" href="https://wa.me/918714318638 "><i class="mx-3 fa-lg fa-brands fa-whatsapp"></i></a></td>
+                                                        <td
+                                                            class="{{#ifEquals this.Attendance.Status '1'}}bg-success text-white{{else}}bg-danger text-white{{/ifEquals}}">
+                                                            {{#ifEquals this.Attendance.Status '1' }}
+                                                            Present
+                                                            {{else}}
+                                                            Absent
+                                                            {{/ifEquals}}
+                                                        </td>
+                                                        <td>{{this.Attendance.DateTaken}}</td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {{/if}}
+
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </div>
+</section>
