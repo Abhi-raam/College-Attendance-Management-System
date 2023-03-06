@@ -23,39 +23,56 @@
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0  text-primary">View Class Attendance</h6>
                                 </div>
-                                <div class="card-body">
-                                    <form method="post" action="/admin/cse-FirstYearAttendance">
-                                        <div class="form-group row mb-3">
-                                            <div class="col-xl-6">
-                                                <label class="form-control-label">Select Date<span
-                                                        class="text-danger ml-2">*</span></label>
-                                                <input type="date" class="form-control" name="dateTaken"
-                                                    id="exampleInputFirstName" placeholder="Class Arm Name">
+                                <div class="row">
+                                    <div class="card-body col-md-6">
+                                        {{!-- select date --}}
+                                        <form method="post" action="/admin/cse-FirstYearAttendance">
+                                            <div class="form-group row mb-3">
+                                                <div class="col-xl-6">
+                                                    <label class="form-control-label">Select Date<span
+                                                            class="text-danger ml-2">*</span></label>
+                                                    <input type="date" class="form-control" name="dateTaken"
+                                                        id="exampleInputFirstName" placeholder="Class Arm Name">
                                                     <input type="text" hidden name="Department" value="CSE">
                                                     <input type="text" hidden name="Year" value="First">
+                                                </div>
+
                                             </div>
-                                            <div class="col-xl-6">
-                                                <label class="form-control-label">Select Month<span
-                                                        class="text-danger ml-2">*</span></label>
-                                                <input type="month" class="form-control" name="month"
-                                                    id="exampleInputFirstName" placeholder="Class Arm Name">
+                                            <button type="submit" class="btn btn-primary">View
+                                                Attendance</button>
+                                        </form>
+                                    </div>
+                                    <div class="card-body col-md-6">
+                                        {{!-- select month --}}
+                                        <form method="post" action="/admin/cse-FirstYearAttendanceMonth">
+                                            <div class="form-group row mb-3">
+                                                <div class="col-xl-6">
+                                                    <label class="form-control-label">Select Month<span
+                                                            class="text-danger ml-2">*</span></label>
+                                                    <input type="month" class="form-control" name="month"
+                                                        id="exampleInputFirstName" placeholder="Class Arm Name">
+                                                    <input type="text" hidden name="Department" value="CSE">
+                                                    <input type="text" hidden name="Year" value="First">
+                                                </div>
+
                                             </div>
-                                        </div>
-                                        <button type="submit"  class="btn btn-primary">View
-                                            Attendance</button>
-                                    </form>
+                                            <button type="submit" class="btn btn-primary">View
+                                                Attendance</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Input Group -->
-                            {{#if submitted}}
+                            {{#if submittedDate}}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card mb-4">
                                         <div
                                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                            
-                                            <h6 class="m-0 font-weight-bold text-primary">Class Attendance of {{date}}</h6>
+
+                                            <h6 class="m-0 font-weight-bold text-primary">Class Attendance of {{date}}
+                                            </h6>
                                         </div>
                                         {{#if noDataFound}}
                                         <div class='alert alert-danger' role='alert'>
@@ -64,9 +81,10 @@
                                         {{else}}
                                         <!-- Your table code goes here -->
                                         <div class="table-responsive p-3">
-                                            <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                                            <table class="table align-items-center table-flush table-hover"
+                                                id="dataTableHover">
                                                 <thead class="thead-light">
-                                                    <tr>
+                                                    <tr class="text-center">
                                                         <th>Sno</th>
                                                         <th>Student Name</th>
                                                         <th>Register No</th>
@@ -78,19 +96,28 @@
 
                                                 <tbody>
                                                     {{#each studentList}}
-                                                    <tr>
+                                                    <tr class="text-center">
                                                         <td>{{inc @index}}</td>
                                                         <td>{{this.Name}}</td>
                                                         <td>{{this.RegisterNo}}</td>
-                                                        <td>{{this.Mobile}}  <a class="text-dark" href="https://wa.me/918714318638 "><i class="mx-3 fa-lg fa-brands fa-whatsapp"></i></a></td>
-                                                        <td
+                                                        <td>{{this.Mobile}} <a class="text-dark"href="#"><i class="mx-3 fa-lg fa-brands fa-whatsapp"></i></a>
+                                                        </td>
+                                                        {{!-- this display the status with background color --}}
+                                                        {{!-- <td
                                                             class="{{#ifEquals this.Attendance.Status '1'}}bg-success text-white{{else}}bg-danger text-white{{/ifEquals}}">
                                                             {{#ifEquals this.Attendance.Status '1' }}
                                                             Present
                                                             {{else}}
                                                             Absent
                                                             {{/ifEquals}}
-                                                        </td>
+                                                        </td> --}}
+                                                        <td>
+                                                                {{#ifEquals this.Attendance.Status '1' }}
+                                                                <i class="text-success fa-lg fa-solid fa-check"></i>
+                                                                {{else}}
+                                                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                                                {{/ifEquals}}
+                                                            </td>
                                                         <td>{{this.Attendance.DateTaken}}</td>
                                                     </tr>
                                                     {{/each}}
@@ -103,5 +130,62 @@
                                 </div>
                             </div>
                             {{/if}}
+                            <div>
+                                {{#if submittedMonth}}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card mb-4">
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                                                <h6 class="m-0 font-weight-bold text-primary">Class Attendance of
+                                                    {{Month}} {{year}}</h6>
+                                            </div>
+                                            {{#if noDataFound}}
+                                            <div class='alert alert-danger' role='alert'>
+                                                No Record Found!
+                                            </div>
+                                            {{else}}
+                                            <!-- Your table code goes here -->
+                                            <div class="table-responsive p-3">
+                                                <table class="table align-items-center table-flush table-hover"
+                                                    id="dataTableHover">
+                                                    <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Sno</th>
+                                                            <th>Student Name</th>
+                                                            {{#with (lookup studentList 0)}}
+                                                            {{#each this.Attendance}}
+                                                            <th>{{getDate this.DateTaken}}</th>
+                                                            {{/each}}
+                                                            {{/with}}
+
+                                                    </thead>
+
+                                                    <tbody>
+                                                        {{#each studentList}}
+                                                        <tr>
+                                                            <td>{{inc @index}}</td>
+                                                            <td>{{this.Name}}</td>
+                                                            {{#each this.Attendance}}
+                                                            <td>
+                                                                {{#ifEquals this.Status '1' }}
+                                                                <i class="text-success fa-lg fa-solid fa-check"></i>
+                                                                {{else}}
+                                                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                                                {{/ifEquals}}
+                                                            </td>
+                                                            {{/each}}
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
                         </div>
 </section>

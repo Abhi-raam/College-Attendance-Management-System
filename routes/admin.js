@@ -540,18 +540,18 @@ router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
 router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
-  console.log(req.body.month);
+  // console.log(req.body.month);
   let dte = new Date(req.body.dateTaken)
   let day = dte.getDate().toString().padStart(2, '0');
   let month = (dte.getMonth() + 1).toString().padStart(2, '0');
   let year = dte.getFullYear()
   let date = (`${day}/${month}/${year}`)
   adminHelper.viewAttendance(req.body).then((studentList)=>{
-    // console.log(studentList);
+    console.log(studentList);
     if(studentList.length === 0){
-      res.render("admin/attendance/cseFirst", { admin,submitted:true,noDataFound:true,date })
+      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,noDataFound:true,date })
     }else{
-      res.render("admin/attendance/cseFirst", { admin,submitted:true,studentList,date })
+      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,studentList,date })
     }
   })
     
@@ -559,6 +559,30 @@ router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
     res.redirect('/admin/admin-login')
   }
 })
+
+router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
+  let admin = req.session.admin
+  if (admin) {
+  let dte = new Date(req.body.month)
+  let month = dte.getMonth()
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let year = dte.getFullYear()
+  let Month = monthNames[month]
+  adminHelper.viewAttendanceMonth(req.body,req.body.month).then((studentList)=>{
+    console.log(studentList);
+    // console.log(typeof studentList);
+    if(studentList.length === 0){
+      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,noDataFound:true,Month,year })
+    }else{
+      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,studentList,Month,year })
+    }
+  })
+    
+  } else {
+    res.redirect('/admin/admin-login')
+  }
+})
+
 
 
 module.exports = router;

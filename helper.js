@@ -14,7 +14,13 @@ handlebars.registerHelper('dateFormat', function(date) {
   return moment(date).format('DD MMM YYYY');
 });
 
+handlebars.registerHelper('getDate', function(date) {
+  return new Date(date).getDate();
+});
 
+handlebars.registerHelper('eq', function(arg1, arg2) {
+  return arg1 == arg2;
+});
 
 
 
