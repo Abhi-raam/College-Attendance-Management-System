@@ -532,7 +532,11 @@ router.get('/attendance', verifyLogin, (req, res) => {
 router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
-    res.render("admin/attendance/cseFirst", { admin })
+    // console.log(req.query.dpt);
+    // console.log(req.query.year);
+  let department = req.query.dpt
+  let stdyear = req.query.year
+    res.render("admin/attendance/cseFirst", { admin,department,stdyear })
   } else {
     res.redirect('/admin/admin-login')
   }
@@ -540,18 +544,19 @@ router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
 router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
-  // console.log(req.body.month);
+  let department = req.query.dpt
+  let stdyear = req.query.year
   let dte = new Date(req.body.dateTaken)
   let day = dte.getDate().toString().padStart(2, '0');
   let month = (dte.getMonth() + 1).toString().padStart(2, '0');
   let year = dte.getFullYear()
   let date = (`${day}/${month}/${year}`)
-  adminHelper.viewAttendance(req.body).then((studentList)=>{
-    console.log(studentList);
+  adminHelper.viewAttendance(req.body,department,stdyear).then((studentList)=>{
+    // console.log(studentList);
     if(studentList.length === 0){
-      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,noDataFound:true,date })
+      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,noDataFound:true,date,department,stdyear })
     }else{
-      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,studentList,date })
+      res.render("admin/attendance/cseFirst", { admin,submittedDate:true,studentList,date,department,stdyear })
     }
   })
     
@@ -563,21 +568,22 @@ router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
 router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
+  let department = req.query.dpt
+  let stdyear = req.query.year
   let dte = new Date(req.body.month)
   let month = dte.getMonth()
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let year = dte.getFullYear()
   let Month = monthNames[month]
-  adminHelper.viewAttendanceMonth(req.body,req.body.month).then((studentList)=>{
-    console.log(studentList);
+  adminHelper.viewAttendanceMonth(req.body,req.body.month,department,stdyear).then((studentList)=>{
+    // console.log(studentList);
     // console.log(typeof studentList);
     if(studentList.length === 0){
-      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,noDataFound:true,Month,year })
+      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,noDataFound:true,Month,year,department,stdyear })
     }else{
-      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,studentList,Month,year })
+      res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,studentList,Month,year,department,stdyear })
     }
   })
-    
   } else {
     res.redirect('/admin/admin-login')
   }

@@ -28,7 +28,6 @@ module.exports = {
     })
   },
   students: (staff) => {
-    // console.log(staff.Department);
     if (staff.Department === "CSE") {
       if (staff.Year === "First") {
         return new Promise(async (resolve, reject) => {
@@ -128,7 +127,6 @@ module.exports = {
           let std = await db.get().collection(collection.Cse_attendance).findOne({ _id: objectID(student._id) })
           if (std) {
             // Student already exists in database, don't add
-            // console.log(std);
             resolve();
           } else {
             // Student doesn't exist in database, add
@@ -166,14 +164,24 @@ module.exports = {
     }
   },
 
-
-
   viewAttendance: (staff, date) => {
     if (staff.Department === "CSE" && staff.Year === "First") {
       return new Promise(async (resolve, reject) => {
         let studentList = await db.get().collection(collection.Cse_attendance).aggregate([
           // Match documents with Attendance array that contains the specified date
-          { $match: { Attendance: { $elemMatch: { DateTaken: date } } } },
+          { $match: { Year: "First", Attendance: { $elemMatch: { DateTaken: date } } } },
+          // Unwind the Attendance array
+          { $unwind: "$Attendance" },
+          // Match the Attendance array element with the specified date
+          { $match: { "Attendance.DateTaken": date } }
+        ]).toArray();
+        resolve(studentList);
+      })
+    }else if (staff.Department === "CSE" && staff.Year === "Second") {
+      return new Promise(async (resolve, reject) => {
+        let studentList = await db.get().collection(collection.Cse_attendance).aggregate([
+          // Match documents with Attendance array that contains the specified date
+          { $match: { Year: "Second", Attendance: { $elemMatch: { DateTaken: date } } } }, 
           // Unwind the Attendance array
           { $unwind: "$Attendance" },
           // Match the Attendance array element with the specified date
@@ -182,6 +190,22 @@ module.exports = {
         resolve(studentList);
       })
     }
-  }
+  },
+
+  studentAttendance: (staff, stdId) => {
+    if (staff.Department === "CSE") {
+      return new Promise(async (resolve, reject) => {
+        let student = await db
+          .get()
+          .collection(collection.Cse_attendance)
+          .findOne({ _id: objectID(stdId) });
+        if (student) {
+          resolve(student);
+        } else {
+          reject(new Error("Student not found"));
+        }
+      });
+    }
+  },
 
 }

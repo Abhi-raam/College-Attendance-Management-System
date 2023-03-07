@@ -26,15 +26,15 @@
                                 <div class="row">
                                     <div class="card-body col-md-6">
                                         {{!-- select date --}}
-                                        <form method="post" action="/admin/cse-FirstYearAttendance">
+                                        <form method="post" action="/admin/cse-FirstYearAttendance?dpt={{department}}&year={{stdyear}}">
                                             <div class="form-group row mb-3">
                                                 <div class="col-xl-6">
                                                     <label class="form-control-label">Select Date<span
                                                             class="text-danger ml-2">*</span></label>
                                                     <input type="date" class="form-control" name="dateTaken"
                                                         id="exampleInputFirstName" placeholder="Class Arm Name">
-                                                    <input type="text" hidden name="Department" value="CSE">
-                                                    <input type="text" hidden name="Year" value="First">
+                                                    {{!-- <input type="text" hidden name="Department" value="CSE">
+                                                    <input type="text" hidden name="Year" value="First"> --}}
                                                 </div>
 
                                             </div>
@@ -44,15 +44,15 @@
                                     </div>
                                     <div class="card-body col-md-6">
                                         {{!-- select month --}}
-                                        <form method="post" action="/admin/cse-FirstYearAttendanceMonth">
+                                        <form method="post" action="/admin/cse-FirstYearAttendanceMonth?dpt={{department}}&year={{stdyear}}">
                                             <div class="form-group row mb-3">
                                                 <div class="col-xl-6">
                                                     <label class="form-control-label">Select Month<span
                                                             class="text-danger ml-2">*</span></label>
                                                     <input type="month" class="form-control" name="month"
                                                         id="exampleInputFirstName" placeholder="Class Arm Name">
-                                                    <input type="text" hidden name="Department" value="CSE">
-                                                    <input type="text" hidden name="Year" value="First">
+                                                    {{!-- <input type="text" hidden name="Department" value="CSE"> --}}
+                                                    {{!-- <input type="text" hidden name="Year" value="First"> --}}
                                                 </div>
 
                                             </div>
@@ -102,15 +102,7 @@
                                                         <td>{{this.RegisterNo}}</td>
                                                         <td>{{this.Mobile}} <a class="text-dark"href="#"><i class="mx-3 fa-lg fa-brands fa-whatsapp"></i></a>
                                                         </td>
-                                                        {{!-- this display the status with background color --}}
-                                                        {{!-- <td
-                                                            class="{{#ifEquals this.Attendance.Status '1'}}bg-success text-white{{else}}bg-danger text-white{{/ifEquals}}">
-                                                            {{#ifEquals this.Attendance.Status '1' }}
-                                                            Present
-                                                            {{else}}
-                                                            Absent
-                                                            {{/ifEquals}}
-                                                        </td> --}}
+
                                                         <td>
                                                                 {{#ifEquals this.Attendance.Status '1' }}
                                                                 <i class="text-success fa-lg fa-solid fa-check"></i>
@@ -118,7 +110,7 @@
                                                                 <i class="text-danger fa-lg fa-solid fa-xmark"></i>
                                                                 {{/ifEquals}}
                                                             </td>
-                                                        <td>{{this.Attendance.DateTaken}}</td>
+                                                        <td>{{dateFormat this.Attendance.DateTaken}}</td>
                                                     </tr>
                                                     {{/each}}
                                                 </tbody>
