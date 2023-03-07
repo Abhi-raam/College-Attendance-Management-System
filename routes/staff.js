@@ -87,9 +87,9 @@ router.post('/add-attendance', verifyLogin, (req, res) => {
   let stdId = req.body.check
   let dateTaken = req.body.Date
   let allStd = req.body.admissionNo
-  // console.log(stdId);
+  console.log(stdId);
   // console.log(dateTaken);
-  // console.log(allStd);
+  console.log(allStd);
   staffHelper.addAttendance(stdId,dateTaken,staff,allStd).then((response)=>{
     res.redirect('/staff/add-attendance')
   })
