@@ -6,4 +6,7 @@ module.exports={
     Civil_students:"civilStudents",
     Mech_students:"mechStudents",
     Cse_attendance:"cseAttendance",
+    Ece_attendance:"eceAttendance",
+    Mech_attendance:"mechAttendance",
+    Civil_attendance:"civilAttendance",
 }

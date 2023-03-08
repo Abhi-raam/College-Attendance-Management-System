@@ -121,7 +121,7 @@ router.post('/view-attendance', verifyLogin, (req, res) => {
     }
   });
 });
-router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
+router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   let staff = req.session.staff
   let department = req.query.dpt
   let stdyear = req.query.year

@@ -106,21 +106,6 @@ module.exports = {
             })
         })
     },
-    // addCseStudents:(cseStudents)=>{
-    //     return new Promise((resolve,reject)=>{
-    //         let cseStd = {
-    //             Name:cseStudents.Name,
-    //             RegisterNo:cseStudents.RegisterNo,
-    //             Attendance:[],
-    //             Year:cseStudents.Year,
-    //             Email:cseStudents.Email,
-    //             Mobile:cseStudents.Mobile
-    //         }
-    //         db.get().collection(collection.Cse_students).insertOne(cseStd).then((data)=>{
-    //             resolve(true)
-    //         })
-    //     })
-    // },
     // view only   students based on their studying year from cse students database
     viewCseFirstStudents: () => {
         return new Promise(async (resolve, reject) => {
@@ -418,6 +403,150 @@ module.exports = {
                 ]).toArray();
                 resolve(studentList);
             })
+        }else if (Department === "ECE" && Year ==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year ==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year ==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year ==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year ==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year ==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year ==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year ==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year ==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year ==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year ==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year ==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified date
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: data.dateTaken } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified date
+                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                ]).toArray();
+                resolve(studentList);
+            })
         }
     },
 
@@ -521,6 +650,390 @@ module.exports = {
         }else if (Department === "CSE" && Year==="Fourth") {
             return new Promise(async (resolve, reject) => {
                 let studentList = await db.get().collection(collection.Cse_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "ECE" && Year==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Ece_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "MECH" && Year==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Mech_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year==="First") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"First", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year==="Second") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Second", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year==="Third") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
+                    // Match documents with Attendance array that contains the specified month
+                    { $match: {Year:"Third", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
+                    // Unwind the Attendance array
+                    { $unwind: "$Attendance" },
+                    // Match the Attendance array element with the specified month
+                    { $match: { "Attendance.DateTaken": { $regex: month } } },
+                    // Group by student name and accumulate the Attendance array
+                    {
+                        $group: {
+                            _id: "$Name",
+                            Attendance: { $push: "$Attendance" }
+                        }
+                    },
+                    // Add the student name to each element of the Attendance array
+                    {
+                        $project: {
+                            _id: 0,
+                            Name: "$_id",
+                            Attendance: 1
+                        }
+                    },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
+                ]).toArray();
+                resolve(studentList);
+            })
+        }else if (Department === "CIVIL" && Year==="Fourth") {
+            return new Promise(async (resolve, reject) => {
+                let studentList = await db.get().collection(collection.Civil_attendance).aggregate([
                     // Match documents with Attendance array that contains the specified month
                     { $match: {Year:"Fourth", Attendance: { $elemMatch: { DateTaken: { $regex: month } } } } },
                     // Unwind the Attendance array

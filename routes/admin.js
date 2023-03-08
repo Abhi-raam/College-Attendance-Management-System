@@ -529,7 +529,7 @@ router.get('/attendance', verifyLogin, (req, res) => {
   }
 })
 
-router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
+router.get('/viewAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
   let department = req.query.dpt
@@ -539,7 +539,7 @@ router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
     res.redirect('/admin/admin-login')
   }
 })
-router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
+router.post('/viewAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
   let department = req.query.dpt
@@ -563,7 +563,7 @@ router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
   }
 })
 
-router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
+router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   let admin = req.session.admin
   let department = req.query.dpt
   let stdyear = req.query.year
