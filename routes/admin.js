@@ -532,8 +532,6 @@ router.get('/attendance', verifyLogin, (req, res) => {
 router.get('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
   let admin = req.session.admin
   if (admin) {
-    // console.log(req.query.dpt);
-    // console.log(req.query.year);
   let department = req.query.dpt
   let stdyear = req.query.year
     res.render("admin/attendance/cseFirst", { admin,department,stdyear })
@@ -567,7 +565,6 @@ router.post('/cse-FirstYearAttendance', verifyLogin, (req, res) => {
 
 router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
   let admin = req.session.admin
-  if (admin) {
   let department = req.query.dpt
   let stdyear = req.query.year
   let dte = new Date(req.body.month)
@@ -584,9 +581,6 @@ router.post('/cse-FirstYearAttendanceMonth', verifyLogin, (req, res) => {
       res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,studentList,Month,year,department,stdyear })
     }
   })
-  } else {
-    res.redirect('/admin/admin-login')
-  }
 })
 
 
