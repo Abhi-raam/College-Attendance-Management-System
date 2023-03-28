@@ -1,41 +1,95 @@
-<header>
-    <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid " id="navigation">
-            <a class="navbar-brand text-white  " href="#">
-                {{#if staff}}
-                Welcome
-                {{staff.Name}}
-                {{else}}
-                nothing
-                {{/if}}
+<div class="sidebar close">
+    <div class="logo-details">
+        {{!-- <i class='bx bxl-c-plus-plus'></i> --}}
+        <img src="/images/gscet-ligo.jpg" alt="">
+        <span class="logo_name">GSCET Staff</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="/staff">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name">Dashboard</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse   navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto  ">
-                    <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" aria-current="page" href="/staff">Home</a>
-                    </li>
-                    <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" href="/staff/students">Students</a>
-                    </li>
-                    <li class="nav-item dropdown ms-auto ">
-                        <a class="nav-link dropdown-toggle hover-back-a text-white m-1 mt-2" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Attendance</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/staff/add-attendance">Add Attendance</a></li>
-                            <li><a class="dropdown-item" href="/staff/view-attendance">View Class Attendance</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item ms-auto hover-back">
-                        <a class="nav-link text-white m-1" href="/staff/staff-logout">Logout</a>
-                    </li>
-
-                </ul>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/staff">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/staff/students">
+                <i class="fa-sharp fa-solid fa-user-graduate"></i>
+                {{!-- --}}
+                <span class="link_name">Students</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/staff/students">Students</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="/staff/view-attendance">
+                    <i class="fa-sharp fa-solid fa-calendar-check"></i>
+                    <span class="link_name">Attendance</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
             </div>
-        </div>
-    </nav>
-</header>
+            <ul class="sub-menu">
+                <li><a class="link_name" href="/staff/view-attendance">Attendance</a></li>
+                <li><a href="/staff/add-attendance">Add Attendance</a></li>
+                <li><a href="/staff/view-attendance">View Attendance</a></li>
+                <li><a href="/staff/viewAttendancePrecent">View Percentage</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class="fa-sharp fa-solid fa-user-pen"></i>
+                    <span class="link_name">Profile</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a href="/staff/viewprofile/{{staff._id}}">View Profile</a></li>
+                <li><a href="/staff/editprofile/{{staff._id}}">Edit Profile</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="/images/staff/{{staff._id}}.jpg" alt="profileImg">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">{{staff.Name}}</div>
+                    <div class="job">{{staff.Designation}}</div>
+                </div>
+                <a href="/staff/staff-logout"><i class='bx bx-log-out'></i></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<section class="home-section ">
+    <div class="home-content headerz p-3 pb-5">
+        <i class='bx bx-menu text-white'></i>
+        <span class="text"><a class="navbar-brand text-white" href="#">
+                {{#if staff}}
+                Welcome {{staff.Name}}
+                {{/if}}</a></span>
+    </div>
+</section>
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+        });
+    }
+
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+
+</script>

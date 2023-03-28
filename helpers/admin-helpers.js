@@ -27,18 +27,37 @@ module.exports = {
             }
         })
     },
+// ===========>admin<==========
+viewAdmin:(adminId)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collection.Admin).findOne({_id:objectID(adminId)}).then((admin)=>{
+            resolve(admin)
+        })
+    })
+},
+editAdmin: (adminId, adminDetails) => {
+    return new Promise((resolve, reject) => {
+        db.get().collection(collection.Admin).update({ _id: objectID(adminId) }, {
+            $set: {
+                Name: adminDetails.Name,
+                Email: adminDetails.Email,
+                Phone: adminDetails.Phone,
+                Password: adminDetails.Password,
+                Bio: adminDetails.Bio,
+            }
+        }).then((response) => {
+            resolve()
+        })
+    })
+},
+// ==========>admin end here<==========
+
     addStaff: (staff, callback) => {
         db.get().collection('staff').insertOne(staff).then((data) => {
             // console.log("Somtheing ::"+data.insertedId);
             callback(data.insertedId)
         })
     },
-    // viewStaff:()=>{
-    //     return new Promise(async(resolve,reject)=>{
-    //         let staff = await db.get().collection('staff').find().sort({ Name: 1 }).toArray()
-    //         resolve(staff)
-    //     })
-    // },
     viewCseStaff: () => {
         return new Promise(async (resolve, reject) => {
             let staff = await db.get().collection('staff').find({ Department: "CSE" }).sort({ Name: 1 }).toArray()

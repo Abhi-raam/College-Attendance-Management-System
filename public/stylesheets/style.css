@@ -1,35 +1,33 @@
-#bottom_footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    /* background-color: #1e293b; */
-    /* text-decoration: none; */
+/* #bottom_footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+} */
+body{
+  height: 100%;
 }
-
 .hover-back {
     margin: 2px;
+    background-color:#007ae1;
 }
 
-.hover-back-a:hover{
+/* .hover-back-a:hover{
   cursor: pointer;
-  /* background: #000; */
-  /* border-radius: 10px; */
   transform: scale(1.2);
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transition-duration: 1s;
-}
+} */
 .hover-back:hover {
+  background-color: #111827;
     cursor: pointer;
-    /* background: #000; */
-    /* border-radius: 10px; */
-    transform: scale(1.2);
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    transition-duration: 700ms;
+    /* transform: scale(1.2); */
+    /* transition-timing-function: cubic-bezier(0, 0, 0.2, 1); */
+    transition-duration: 100ms;
 }
 
 .intro {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url("../images/Campus.jpg");
-    /* height: 200vh; */
     background-position: center;
     background-size: cover;
   }
@@ -43,18 +41,32 @@
     border-radius: 10px;
     cursor: pointer;
     transition: 300ms ease-in-out;
-    /* transition-delay: 500ms; */
-    /* text-decoration: none; */
   }
   .main_page_text:hover{
-    transform: scale(1.2);
-    /* transition-timing-function: cubic-bezier(0.4, 0, 1, 1); */
+    transform: scale(1.1);
     transition-duration: 300ms;
-    /* transition-delay: 500ms; */
+  background-color: #111827;
+}
+
+/* footer */
+.btm-footer{
+  flex: 1;
+}
+.line{
+  width: 100%;
+  height: 0.1px;
+  border-bottom: 2px solid black;
+  position: absolute;
   }
 
+  .footer-section {
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+  }
+/* footer end here */
+
   .form_style{
-    /* background-color: #84cc16; */
     box-shadow: 5px 6px 30px rgba(0, 0, 0, 1), 0px 5px 5px rgba(0, 0, 0, 0.9);
   }
 
@@ -69,3 +81,96 @@
     margin-top: 2.5rem;
     color: #fff;
   }
+
+  /* edit admin form style */
+    .account-settings .user-profile {
+        margin: 0 0 1rem 0;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
+
+    .account-settings .user-profile .user-avatar {
+        margin: 0 0 1rem 0;
+    }
+
+    .account-settings .user-profile .user-avatar img {
+        width: 90px;
+        height: 90px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        border-radius: 100px;
+    }
+
+    .account-settings .user-profile h5.user-name {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .account-settings .user-profile h6.user-email {
+        margin: 0;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: #9fa8b9;
+    }
+
+    .account-settings .about {
+        margin: 2rem 0 0 0;
+        text-align: center;
+    }
+
+    .account-settings .about h5 {
+        margin: 0 0 15px 0;
+        color: #007ae1;
+    }
+
+    .account-settings .about p {
+        font-size: 0.825rem;
+    }
+
+    .form-control {
+        border: 1px solid #cfd1d8;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        font-size: .825rem;
+        background: #ffffff;
+        color: #2e323c;
+    }
+
+    .card {
+        background: #ffffff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 0;
+        margin-bottom: 1rem;
+    }
+
+    /*admin login */
+    .input-group {
+      position: relative;
+  }
+  .admin-input{
+      height: 2.3rem;
+      padding-left: 0.6rem;
+      border: none;
+    outline: none;
+  }
+  #eye-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      margin: 0;
+      padding: 7px 15px;
+      z-index: 1;
+      cursor: pointer;
+      border: none;
+    outline: none;
+  }
+  
+  /* doughnut chart */
+  .doughnut_chart{
+    margin: 0 auto;
+    width: 300px;
+  }
+

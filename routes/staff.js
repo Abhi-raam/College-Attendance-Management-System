@@ -36,11 +36,37 @@ router.post('/login', (req, res) => {
   })
 })
 
+router.get('/viewprofile/:id',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  staffHelper.viewStaff(req.params.id).then((staffDetails)=>{
+    console.log(staffDetails);
+    res.render('staff/view-profile',{staff,staffDetails})
+  })
+})
+
+router.get('/editprofile/:id',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  staffHelper.viewStaff(req.params.id).then((staffDetails)=>{
+    res.render('staff/edit-profile',{staff,staffDetails})
+  })
+})
+router.post('/editprofile/:id',verifyLogin,(req,res)=>{
+  // console.log(res.body);
+  let staffId = req.params.id
+  let staffDetails = req.body
+  let image = req.files.Image
+  staffHelper.editStaff(staffId,staffDetails).then(()=>{
+    image.mv('./public/images/staff/'+staffId+'.jpg',(err,data)=>{
+      if(!err){
+        res.redirect('/staff')
+      }else{
+        res.redirect('/staff/editprofile')
+      }
+    })
+  })
+})
 
 router.get('/staff-logout', (req, res) => {
-  // req.session.staff = null
-  // res.session.userLoggedIn=false
-  // res.redirect('/staff/login')
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
@@ -140,18 +166,31 @@ router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   })
 })
 
-// router.post('/student-attendance',verifyLogin,(req,res)=>{
-//   let staff = req.session.staff
-//   staffHelper.students(staff).then((studentList)=>{
-//     console.log(req.body.stdId);
-//     staffHelper.studentAttendance(staff,req.body.stdId).then((student)=>{
-//       if(student.length === 0){
-//         res.render('staff/view-attendance',{noDataFound:true,staff,submittedName:true})
-//       }else{
-//         res.render('staff/view-attendance',{staff,student,submittedName:true,studentList})
-//       }
-//     })
-//   })
-// })
+router.get('/viewAttendancePrecent',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  staffHelper.students(staff).then((students) => { 
+    res.render('staff/view-attendance-persentage', { staff, students })
+  })
+})
+
+router.post('/viewAttendancePrecent',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  let stdId = req.body.RegNo
+  // console.log(req.body.RegNo);
+  staffHelper.viewPresent(staff,stdId).then((result)=>{
+    // console.log(result.attendanceLength);
+    console.log(result.name);
+    let Name = result.stdName
+    let totalDays = result.attendanceLength
+    let presentDay = result.presentCount
+    let absent = totalDays-presentDay
+    let present = (presentDay/totalDays)*100
+    let round = Math.round(present)
+    staffHelper.students(staff).then((students) => { 
+      // console.log(students);
+      res.render('staff/view-attendance-persentage', {submitted: true, staff, students,totalDays,presentDay,round,absent,Name })
+    })
+  })
+})
 
 module.exports = router;

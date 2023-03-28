@@ -10,18 +10,29 @@
         </div>
         <hr class="border-3">
     </header>
-    <div class="container" style="padding-top: 15rem;">
-        <div class="row ">
-            <div class="col-md-6">
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-6 col-12">
                 <div class="d-flex justify-content-center">
                     <h2 class=" main_page_text"><a class="text-white" href="/admin/admin-login">Admin</a></h2>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-12">
                 <div class="d-flex justify-content-center">
-                    <h2 class="text-white main_page_text"><a class="text-white" href="/staff/login">Staff</a></h2>
+                    <h2 class="text-white px-4 main_page_text"><a class="text-white" href="/staff/login">Staff</a></h2>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%; /* set the height to fill the viewport */
+}
+.row {
+    flex-grow: 1; /* make the child element expand to fill available space */
+}
+</style>

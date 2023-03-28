@@ -10,7 +10,7 @@
         </div>
         <hr class="border-3">
     </header>
-    <div class="container">
+    <div class="mx-3 mxcenter">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 justify-content-center text-white" style="padding-top: 9rem;">
@@ -22,23 +22,50 @@
                     {{/if}}
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" name="Username" class="form-control" id="exampleInputEmail1"
+                            <input type="email" name="Username" class="form-control admin-input rounded-4" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
-                            {{!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> --}}
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" name="Password" class="form-control" id="exampleInputPassword1">
+                            <div class="input-group">
+                                <input type="password" name="Password" class="admin-input rounded-4" style="width: 100%;" id="password" aria-label="Password" aria-describedby="eye-icon">
+                                <button class="btn text-dark" type="button" id="eye-icon">
+                                    <i class="fa fa-eye-slash"  aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
-                        {{!-- <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> --}}
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
-            {{!-- <div class="col-md-6"></div> --}}
         </div>
     </div>
 </div>
+<style>
+    .mxcenter {
+    display: flex;
+    flex-direction: row; /* set the direction to column */
+    align-items: center;
+    justify-content: center;
+    height: 50vh; /* set the height to fill the viewport */
+}
+.row {
+    flex-grow: 1; /* make the child element expand to fill available space */
+}
+</style>
+<script>
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+
+    eyeIcon.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.querySelector('i').classList.remove('fa-eye-slash');
+            eyeIcon.querySelector('i').classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.querySelector('i').classList.remove('fa-eye');
+            eyeIcon.querySelector('i').classList.add('fa-eye-slash');
+        }
+    });
+</script>

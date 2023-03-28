@@ -47,17 +47,40 @@ router.get('/admin-logout', (req, res) => {
 
 router.get('/', verifyLogin, (req, res) => {
   let admin = req.session.admin
-  // console.log(admin);
-  if (req.session.loggedIn) {
-    res.render('admin/index', { admin: true })
-  }
-  else {
-    res.redirect('/admin/admin-login')
-  }
+    res.render('admin/index', { admin })
 })
+router.get('/view-profile/:id',verifyLogin,(req,res)=>{
+  let admin = req.session.admin
+  adminHelper.viewAdmin(req.params.id).then((adminDetails)=>{
+    res.render('admin/admin_pg/view-profile',{admin,adminDetails})
+  })
+})
+router.get('/edit-profile/:id',verifyLogin,(req,res)=>{
+  let admin = req.session.admin
+  adminHelper.viewAdmin(req.params.id).then((adminDetails)=>{
+    console.log(adminDetails);
+    res.render('admin/admin_pg/edit-admin',{admin,adminDetails})
+  })
+})
+router.post('/edit-profile/:id',verifyLogin,((req,res)=>{
+  let admin = req.session.admin
+  let adminId = req.params.id
+  let adminDetails = req.body
+  let image = req.files.Image
+  adminHelper.editAdmin(adminId,adminDetails).then(()=>{
+    image.mv('./public/images/admin/'+ adminId +'.jpg',(err,data)=>{
+      if(!err){
+        res.redirect('/admin')
+      }else{
+        res.redirect('/admin/edit-profile');
+      }
+    })
+  })
+}))
 
 router.get('/teacher', verifyLogin, (req, res) => {
-  res.render('admin/teachers', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/teachers', { admin })
 })
 
 // -------->add teacher route<--------
@@ -173,7 +196,7 @@ router.get('/civil-staff', (req, res) => {
 // -------->viewing teachers end here<--------
 
 // -------->viewing teachers only for printing their datails to pdf<--------
-router.get('/cse-staff-details', (req, res) => {
+router.get('/cse-staff-details',verifyLogin, (req, res) => {
   adminHelper.viewCseStaff().then((staff) => {
     res.render('admin/cse-staff-details', { admin: true, staff })
   })
@@ -195,8 +218,9 @@ router.get('/mech-staff-details', (req, res) => {
 })
 // -------->viewing for pdf end here<--------
 
-router.get('/students-department', (req, res) => {
-  res.render('admin/students/students-dpt', { admin: true })
+router.get('/students-department',verifyLogin, (req, res) => {
+  let admin = req.session.admin
+  res.render('admin/students/students-dpt', { admin })
 })
 
 // -------->cse students route for adding students<--------

@@ -22,6 +22,12 @@ handlebars.registerHelper('eq', function(arg1, arg2) {
   return arg1 == arg2;
 });
 
+handlebars.registerHelper('gt', function(a, b, options) {
+  if (a > b) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 
 module.exports = handlebars;

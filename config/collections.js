@@ -1,5 +1,5 @@
 module.exports={
-
+    Admin:'admin',
     Staff:'staff',
     Cse_students:"cseStudents",
     Ece_students:"eceStudents",
