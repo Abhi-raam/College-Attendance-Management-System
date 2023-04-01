@@ -85,17 +85,17 @@ router.get('/teacher', verifyLogin, (req, res) => {
 
 // -------->add teacher route<--------
 router.get('/add-teachers', (req, res) => {
-  res.render('admin/add-teachers', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/add-teachers', { admin })
 })
 router.post('/add-teachers', (req, res) => {
-  // console.log(req.body);
-  // console.log(req.files.Image);
+  let admin = req.session.admin
   adminHelper.addStaff(req.body, (id) => {
     let image = req.files.Image
     console.log("this is the inserted id ::" + id);
     image.mv('./public/images/staff/' + id + '.jpg', (err, data) => {
       if (!err) {
-        res.render('admin/add-teachers', { admin: true })
+        res.render('admin/add-teachers', { admin})
       } else {
         console.log(err);
       }
@@ -107,8 +107,9 @@ router.post('/add-teachers', (req, res) => {
 
 // --------->edit teacher<--------
 router.get('/edit-staff/:id', async (req, res) => {
+  let admin = req.session.admin
   let staff = await adminHelper.viewOneStaff(req.params.id)
-  res.render('admin/edit-staff', { admin: true, staff })
+  res.render('admin/edit-staff', { admin, staff })
 })
 router.post('/edit-staff/:id', (req, res) => {
   let department = req.body.Department
@@ -135,10 +136,8 @@ router.post('/edit-staff/:id', (req, res) => {
 router.get('/delete-staff/:id/:department', (req, res) => {
   let staffId = req.params.id
   let department = req.params.department
-  // console.log("Selected department ::"+department);
   if (department == "CSE") {
     adminHelper.deleteCseStaff(staffId).then((response) => {
-      // console.log("This is deleted id =>"+staffId);
       fs.unlink('./public/images/staff/' + staffId + '.jpg', () => {
         console.log("Deleted => " + staffId);
       })
@@ -173,47 +172,55 @@ router.get('/delete-staff/:id/:department', (req, res) => {
 
 // -------->viewing all teachers based on their respective department<--------
 router.get('/cse-staff', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseStaff().then((staff) => {
     console.log(staff);
-    res.render('admin/staffs/cse-staff', { admin: true, staff })
+    res.render('admin/staffs/cse-staff', { admin, staff })
   })
 })
 router.get('/ece-staff', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceStaff().then((staff) => {
-    res.render('admin/staffs/ece-staff', { admin: true, staff })
+    res.render('admin/staffs/ece-staff', { admin, staff })
   })
 })
 router.get('/mech-staff', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechStaff().then((staff) => {
-    res.render('admin/staffs/mech-staff', { admin: true, staff })
+    res.render('admin/staffs/mech-staff', { admin, staff })
   })
 })
 router.get('/civil-staff', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilStaff().then((staff) => {
-    res.render('admin/staffs/civil-staff', { admin: true, staff })
+    res.render('admin/staffs/civil-staff', { admin, staff })
   })
 })
 // -------->viewing teachers end here<--------
 
 // -------->viewing teachers only for printing their datails to pdf<--------
 router.get('/cse-staff-details',verifyLogin, (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseStaff().then((staff) => {
-    res.render('admin/cse-staff-details', { admin: true, staff })
+    res.render('admin/cse-staff-details', { admin, staff })
   })
 })
 router.get('/civil-staff-details', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilStaff().then((staff) => {
-    res.render('admin/civil-staff-details', { admin: true, staff })
+    res.render('admin/civil-staff-details', { admin, staff })
   })
 })
 router.get('/ece-staff-details', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceStaff().then((staff) => {
-    res.render('admin/ece-staff-details', { admin: true, staff })
+    res.render('admin/ece-staff-details', { admin, staff })
   })
 })
 router.get('/mech-staff-details', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechStaff().then((staff) => {
-    res.render('admin/mech-staff-details', { admin: true, staff })
+    res.render('admin/mech-staff-details', { admin, staff })
   })
 })
 // -------->viewing for pdf end here<--------
@@ -225,32 +232,38 @@ router.get('/students-department',verifyLogin, (req, res) => {
 
 // -------->cse students route for adding students<--------
 router.get('/add-cse-student', (req, res) => {
-  res.render('admin/students/cse/add-cse-students', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/students/cse/add-cse-students', { admin })
 })
 router.post('/add-cse-student', (req, res) => {
+  let admin = req.session.admin
   adminHelper.addCseStudents(req.body).then((response) => {
-    res.render('admin/students/cse/add-cse-students', { admin: true })
+    res.render('admin/students/cse/add-cse-students', { admin })
   })
 })
 router.get('/cse-FirstYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseFirstStudents().then((cseStudents) => {
-    res.render('admin/students/cse/cse-first-year', { admin: true, cseStudents })
+    res.render('admin/students/cse/cse-first-year', { admin, cseStudents })
   })
 })
 router.get('/cse-SecondYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseSecondStudents().then((cseStudents) => {
-    res.render('admin/students/cse/cse-second-year', { admin: true, cseStudents })
+    res.render('admin/students/cse/cse-second-year', { admin, cseStudents })
   })
 })
 router.get('/cse-ThirdYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseThirdStudents().then((cseStudents) => {
-    res.render('admin/students/cse/cse-third-year', { admin: true, cseStudents })
+    res.render('admin/students/cse/cse-third-year', { admin, cseStudents })
   })
 })
 
 router.get('/cse-FourthYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCseFourthStudents().then((cseStudents) => {
-    res.render('admin/students/cse/cse-fourth-year', { admin: true, cseStudents })
+    res.render('admin/students/cse/cse-fourth-year', { admin, cseStudents })
   })
 })
 // -------->adding cse student end here<--------
@@ -278,8 +291,9 @@ router.get('/delete-cse-student/:id/:year', (req, res) => {
 
 // -------->edit cse students<---------
 router.get('/edit-cse-student/:id', async (req, res) => {
+  let admin = req.session.admin
   let cseStudent = await adminHelper.viewOneCseStudent(req.params.id)
-  res.render('admin/students/cse/edit-cse-student', { admin: true, cseStudent })
+  res.render('admin/students/cse/edit-cse-student', { admin, cseStudent })
 })
 router.post('/edit-cse-student/:id', (req, res) => {
   let year = req.body.Year
@@ -303,35 +317,41 @@ router.post('/edit-cse-student/:id', (req, res) => {
 
 // -------->ece students route for adding students<--------
 router.get('/add-ece-student', (req, res) => {
-  res.render('admin/students/ece/add-ece-students', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/students/ece/add-ece-students', { admin })
 })
 router.post('/add-ece-student', (req, res) => {
+  let admin = req.session.admin
   adminHelper.addEceStudents(req.body).then((response) => {
-    res.render('admin/students/ece/add-ece-students', { admin: true })
+    res.render('admin/students/ece/add-ece-students', { admin })
   })
 })
 // -------->adding ece student end here<--------
 
 
 router.get('/ece-FirstYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceFirstStudents().then((eceStudents) => {
-    res.render('admin/students/ece/ece-first-year', { admin: true, eceStudents, startSNo: 1 })
+    res.render('admin/students/ece/ece-first-year', { admin, eceStudents, startSNo: 1 })
   })
 })
 router.get('/ece-SecondYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceSecondStudents().then((eceStudents) => {
-    res.render('admin/students/ece/ece-second-year', { admin: true, eceStudents })
+    res.render('admin/students/ece/ece-second-year', { admin, eceStudents })
   })
 })
 router.get('/ece-ThirdYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceThirdStudents().then((eceStudents) => {
-    res.render('admin/students/ece/ece-third-year', { admin: true, eceStudents })
+    res.render('admin/students/ece/ece-third-year', { admin, eceStudents })
   })
 })
 
 router.get('/ece-FourthYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewEceFourthStudents().then((eceStudents) => {
-    res.render('admin/students/ece/ece-fourth-year', { admin: true, eceStudents })
+    res.render('admin/students/ece/ece-fourth-year', { admin, eceStudents })
   })
 })
 
@@ -364,7 +384,6 @@ router.get('/edit-ece-student/:id', async (req, res) => {
 })
 router.post('/edit-ece-student/:id', (req, res) => {
   let year = req.body.Year
-  console.log(year);
   adminHelper.editEceStudent(req.params.id, req.body).then(() => {
     if (year == "First") {
       res.redirect('/admin/ece-FirstYear')
@@ -385,35 +404,41 @@ router.post('/edit-ece-student/:id', (req, res) => {
 // =============================================================MECH functions============================================
 
 router.get('/add-mech-student', (req, res) => {
-  res.render('admin/students/mech/add-mech-students', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/students/mech/add-mech-students', { admin})
 })
 router.post('/add-mech-student', (req, res) => {
+  let admin = req.session.admin
   adminHelper.addMechStudents(req.body).then((response) => {
-    res.render('admin/students/mech/add-mech-students', { admin: true })
+    res.render('admin/students/mech/add-mech-students', { admin })
   })
 })
 // -------->adding mech student end here<--------
 
 
 router.get('/mech-FirstYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechFirstStudents().then((mechStudents) => {
-    res.render('admin/students/mech/mech-first-year', { admin: true, mechStudents, startSNo: 1 })
+    res.render('admin/students/mech/mech-first-year', { admin, mechStudents, startSNo: 1 })
   })
 })
 router.get('/mech-SecondYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechSecondStudents().then((mechStudents) => {
-    res.render('admin/students/mech/mech-second-year', { admin: true, mechStudents })
+    res.render('admin/students/mech/mech-second-year', { admin, mechStudents })
   })
 })
 router.get('/mech-ThirdYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechThirdStudents().then((mechStudents) => {
-    res.render('admin/students/mech/mech-third-year', { admin: true, mechStudents })
+    res.render('admin/students/mech/mech-third-year', { admin, mechStudents })
   })
 })
 
 router.get('/mech-FourthYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewMechFourthStudents().then((mechStudents) => {
-    res.render('admin/students/mech/mech-fourth-year', { admin: true, mechStudents })
+    res.render('admin/students/mech/mech-fourth-year', { admin, mechStudents })
   })
 })
 
@@ -441,8 +466,9 @@ router.get('/delete-mech-student/:id/:year', (req, res) => {
 
 // -------->edit mech students<---------
 router.get('/edit-mech-student/:id', async (req, res) => {
+  let admin = req.session.admin
   let mechStudent = await adminHelper.viewOneMechStudent(req.params.id)
-  res.render('admin/students/mech/edit-mech-student', { admin: true, mechStudent })
+  res.render('admin/students/mech/edit-mech-student', { admin, mechStudent })
 })
 router.post('/edit-mech-student/:id', (req, res) => {
   let year = req.body.Year
@@ -466,35 +492,41 @@ router.post('/edit-mech-student/:id', (req, res) => {
 // ======================================CIVIL functions================================
 
 router.get('/add-civil-student', (req, res) => {
-  res.render('admin/students/civil/add-civil-students', { admin: true })
+  let admin = req.session.admin
+  res.render('admin/students/civil/add-civil-students', { admin})
 })
 router.post('/add-civil-student', (req, res) => {
+  let admin = req.session.admin
   adminHelper.addCivilStudents(req.body).then((response) => {
-    res.render('admin/students/civil/add-civil-students', { admin: true })
+    res.render('admin/students/civil/add-civil-students', { admin })
   })
 })
 // -------->adding civil student end here<--------
 
 
 router.get('/civil-FirstYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilFirstStudents().then((civilStudents) => {
-    res.render('admin/students/civil/civil-first-year', { admin: true, civilStudents })
+    res.render('admin/students/civil/civil-first-year', { admin, civilStudents })
   })
 })
 router.get('/civil-SecondYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilSecondStudents().then((civilStudents) => {
-    res.render('admin/students/civil/civil-second-year', { admin: true, civilStudents })
+    res.render('admin/students/civil/civil-second-year', { admin, civilStudents })
   })
 })
 router.get('/civil-ThirdYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilThirdStudents().then((civilStudents) => {
-    res.render('admin/students/civil/civil-third-year', { admin: true, civilStudents })
+    res.render('admin/students/civil/civil-third-year', { admin, civilStudents })
   })
 })
 
 router.get('/civil-FourthYear', (req, res) => {
+  let admin = req.session.admin
   adminHelper.viewCivilFourthStudents().then((civilStudents) => {
-    res.render('admin/students/civil/civil-fourth-year', { admin: true, civilStudents })
+    res.render('admin/students/civil/civil-fourth-year', { admin, civilStudents })
   })
 })
 
@@ -522,8 +554,9 @@ router.get('/delete-civil-student/:id/:year', (req, res) => {
 
 // -------->edit civil students<---------
 router.get('/edit-civil-student/:id', async (req, res) => {
+  let admin = req.session.admin
   let civilStudent = await adminHelper.viewOneCivilStudent(req.params.id)
-  res.render('admin/students/civil/edit-civil-student', { admin: true, civilStudent })
+  res.render('admin/students/civil/edit-civil-student', { admin, civilStudent })
 })
 router.post('/edit-civil-student/:id', (req, res) => {
   let year = req.body.Year
@@ -574,14 +607,12 @@ router.post('/viewAttendance', verifyLogin, (req, res) => {
   let year = dte.getFullYear()
   let date = (`${day}/${month}/${year}`)
   adminHelper.viewAttendance(req.body,department,stdyear).then((studentList)=>{
-    // console.log(studentList);
     if(studentList.length === 0){
       res.render("admin/attendance/cseFirst", { admin,submittedDate:true,noDataFound:true,date,department,stdyear })
     }else{
       res.render("admin/attendance/cseFirst", { admin,submittedDate:true,studentList,date,department,stdyear })
     }
   })
-    
   } else {
     res.redirect('/admin/admin-login')
   }
@@ -597,8 +628,6 @@ router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   let year = dte.getFullYear()
   let Month = monthNames[month]
   adminHelper.viewAttendanceMonth(req.body,req.body.month,department,stdyear).then((studentList)=>{
-    // console.log(studentList);
-    // console.log(typeof studentList);
     if(studentList.length === 0){
       res.render("admin/attendance/cseFirst", { admin,submittedMonth:true,noDataFound:true,Month,year,department,stdyear })
     }else{
