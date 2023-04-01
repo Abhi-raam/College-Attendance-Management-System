@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-12 mt-5">
                 <div class="text-center">
-                    <h3>CSE</h3>
+                    <h3 id="page-title">CSE</h3>
                 </div>
                 <div>
-                    <table id="cseStaff" class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
+                    <table id="tblCustomers" class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
                         <thead>
                             <tr>
                                 <th scope="col">Sno.</th>
@@ -40,7 +40,8 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-primary" href="/admin/cse-staff-details">View Details</a>
+                        {{!-- <a class="btn btn-primary" href="/admin/cse-staff-details">View Details</a> --}}
+                        <a id="btnExport" class="justify-content-end d-flex  btn btn-success" onclick="generatePdf()">Print</a>
                         <a class="btn btn-primary" target="_blank" href="/admin/add-teachers">Add Staff</a>
                     </div>
                 </div>

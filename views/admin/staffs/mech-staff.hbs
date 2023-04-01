@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 mt-5">
                 <div class="text-center">
-                    <h3>MECH</h3>
+                    <h3 id="page-title">MECH</h3>
                 </div>
                 <div>
                     <table id="tblCustomers" class="table table-hover table-bordered"
@@ -44,7 +44,8 @@
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-between">
-                        <a class="btn btn-primary" href="/admin/mech-staff-details">View Details</a>
+                        {{!-- <a class="btn btn-primary" href="/admin/mech-staff-details">View Details</a> --}}
+                        <a id="btnExport" class="justify-content-end d-flex  btn btn-success" onclick="generatePdf()">Print</a>
                         <a class="btn btn-primary" target="_blank" href="/admin/add-teachers">Add Staff</a>
                     </div>
                 </div>

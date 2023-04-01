@@ -171,26 +171,26 @@ router.get('/delete-staff/:id/:department', (req, res) => {
 })
 
 // -------->viewing all teachers based on their respective department<--------
-router.get('/cse-staff', (req, res) => {
+router.get('/cse-staff',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCseStaff().then((staff) => {
-    console.log(staff);
+    // console.log(staff);
     res.render('admin/staffs/cse-staff', { admin, staff })
   })
 })
-router.get('/ece-staff', (req, res) => {
+router.get('/ece-staff',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewEceStaff().then((staff) => {
     res.render('admin/staffs/ece-staff', { admin, staff })
   })
 })
-router.get('/mech-staff', (req, res) => {
+router.get('/mech-staff',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewMechStaff().then((staff) => {
     res.render('admin/staffs/mech-staff', { admin, staff })
   })
 })
-router.get('/civil-staff', (req, res) => {
+router.get('/civil-staff',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCivilStaff().then((staff) => {
     res.render('admin/staffs/civil-staff', { admin, staff })

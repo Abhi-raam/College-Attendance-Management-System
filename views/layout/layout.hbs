@@ -8,11 +8,11 @@
   {{!-- bootstrap --}}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   {{!-- custome css --}}
   <link rel="stylesheet" href="/stylesheets/style.css">
   {{!-- sidebar --}}
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="/stylesheets/import.css">
 
 </head>
@@ -34,8 +34,8 @@
   {{/if}} --}}
 
   <script src="/javascripts/script.js"></script>
-  {{!-- charts.js  --}}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  {{!-- charts.js --}}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   {{!-- font awasome --}}
   <script src="https://kit.fontawesome.com/a1cdc4a0bd.js" crossorigin="anonymous"></script>
@@ -46,27 +46,63 @@
   {{!-- table to pdf script --}}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
 
+  <script>
+    function generatePdf() {
+      //var doc = new jsPDF();
+      var doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4',
+      });
+      var pageTitle = document.getElementById('page-title').textContent;
+      doc.setFontSize(15); // Set font size for title
+      doc.text("Staff Details of "+pageTitle, doc.internal.pageSize.width / 2, 10, { align: "center" }); // Add title to PDF
+      // Configure the columns to include in the PDF
+      var columns = ['SNo', 'Name', 'Email', 'Phone', 'Staff Incharge', 'Designation'];
+      // Extract the table data from the HTML table
+      var data = [];
+      var tableRows = document.querySelectorAll('#tblCustomers tbody tr');
+      tableRows.forEach(function (row, index) {
+        var rowData = [];
+        rowData.push(index + 1);
+        rowData.push(row.querySelector('td:nth-child(3)').textContent.trim());
+        rowData.push(row.querySelector('td:nth-child(4)').textContent.trim());
+        rowData.push(row.querySelector('td:nth-child(5)').textContent.trim());
+        rowData.push(row.querySelector('td:nth-child(6)').textContent.trim());
+        rowData.push(row.querySelector('td:nth-child(7)').textContent.trim());
+        data.push(rowData);
+      });
 
-  {{!-- <script type="text/javascript">
-    $("body").on("click", "#btnExport", function () {
-      html2canvas($('#tblCustomers')[0], {
-        onrendered: function (canvas) {
-          var data = canvas.toDataURL();
-          var docDefinition = {
-            content: [{
-              image: data,
-              width: 500
-            }]
-          };
-          pdfMake.createPdf(docDefinition).download("staff-details.pdf");
+      // Add the modified table to the PDF
+      doc.autoTable({
+        head: [columns],
+        body: data,
+        theme: 'grid',
+        font: 'courier',
+        columnStyles: {
+          0: { cellWidth: 10 },
+          1: { cellWidth: 50 },
+          2: { cellWidth: 50 },
+          3: { cellWidth: 50 },
+          4: { cellWidth: 50 },
+          5: { cellWidth: 50 },
+
         }
       });
-    });
-
-  </script> --}}
+      // Save the PDF
+      doc.save('staff.pdf');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"
+    integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.11/jspdf.plugin.autotable.min.js"
+  integrity="sha512-5DeDgl/s7g7z1Z3XAey28NhA289vT9aGbLoPGFGFhwnkkZ8WRbepIM8fKB3OCYWgezPyzzQYHED8TyPd9qSKTA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </html>
