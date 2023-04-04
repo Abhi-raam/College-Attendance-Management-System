@@ -198,32 +198,32 @@ router.get('/civil-staff',verifyLogin, (req, res) => {
 })
 // -------->viewing teachers end here<--------
 
-// -------->viewing teachers only for printing their datails to pdf<--------
-router.get('/cse-staff-details',verifyLogin, (req, res) => {
-  let admin = req.session.admin
-  adminHelper.viewCseStaff().then((staff) => {
-    res.render('admin/cse-staff-details', { admin, staff })
-  })
-})
-router.get('/civil-staff-details', (req, res) => {
-  let admin = req.session.admin
-  adminHelper.viewCivilStaff().then((staff) => {
-    res.render('admin/civil-staff-details', { admin, staff })
-  })
-})
-router.get('/ece-staff-details', (req, res) => {
-  let admin = req.session.admin
-  adminHelper.viewEceStaff().then((staff) => {
-    res.render('admin/ece-staff-details', { admin, staff })
-  })
-})
-router.get('/mech-staff-details', (req, res) => {
-  let admin = req.session.admin
-  adminHelper.viewMechStaff().then((staff) => {
-    res.render('admin/mech-staff-details', { admin, staff })
-  })
-})
-// -------->viewing for pdf end here<--------
+// // -------->viewing teachers only for printing their datails to pdf<--------
+// router.get('/cse-staff-details',verifyLogin, (req, res) => {
+//   let admin = req.session.admin
+//   adminHelper.viewCseStaff().then((staff) => {
+//     res.render('admin/cse-staff-details', { admin, staff })
+//   })
+// })
+// router.get('/civil-staff-details', (req, res) => {
+//   let admin = req.session.admin
+//   adminHelper.viewCivilStaff().then((staff) => {
+//     res.render('admin/civil-staff-details', { admin, staff })
+//   })
+// })
+// router.get('/ece-staff-details', (req, res) => {
+//   let admin = req.session.admin
+//   adminHelper.viewEceStaff().then((staff) => {
+//     res.render('admin/ece-staff-details', { admin, staff })
+//   })
+// })
+// router.get('/mech-staff-details', (req, res) => {
+//   let admin = req.session.admin
+//   adminHelper.viewMechStaff().then((staff) => {
+//     res.render('admin/mech-staff-details', { admin, staff })
+//   })
+// })
+// // -------->viewing for pdf end here<--------
 
 router.get('/students-department',verifyLogin, (req, res) => {
   let admin = req.session.admin
@@ -241,7 +241,7 @@ router.post('/add-cse-student', (req, res) => {
     res.render('admin/students/cse/add-cse-students', { admin })
   })
 })
-router.get('/cse-FirstYear', (req, res) => {
+router.get('/cse-FirstYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCseFirstStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-first-year', { admin, cseStudents })

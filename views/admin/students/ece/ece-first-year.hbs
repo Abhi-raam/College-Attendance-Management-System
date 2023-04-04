@@ -2,10 +2,10 @@
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">
             <div>
-                <h4 class="text-center mt-5">ECE First year</h4>
+                <h4 class="text-center mt-5" id="page-title" >ECE First year</h4>
             </div>
             <div class="col-md-12 mt-5 ">
-                <table class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
+                <table id="stdDetails" class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
                     <thead>
                         <tr>
                             <th scope="col">Sno</th>
@@ -35,7 +35,8 @@
                         {{/each}}
                     </tbody>
                 </table>
-                <div>   
+                <div class="d-flex justify-content-between">   
+                    <a id="btnExport" class="justify-content-end d-flex  btn btn-success" onclick="generatePdfStd()">Print</a>
                     <a target="_blank" href="/admin/add-ece-student" class="btn btn-primary">Add Students</a>
                 </div>
             </div>
