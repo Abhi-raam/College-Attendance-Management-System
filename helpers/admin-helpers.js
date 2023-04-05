@@ -150,10 +150,15 @@ editAdmin: (adminId, adminDetails) => {
             resolve(csestudent)
         })
     },
+    viewCseStudent:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let cseStudents = await db.get().collection(collection.Cse_students).find().toArray()
+            resolve(cseStudents.length)
+        })
+    },
     deleteCseStudent: (studentId) => {
         return new Promise((resolve, reject) => {
             db.get().collection("cseStudents").deleteOne({ _id: objectID(studentId) }).then((response) => {
-                // console.log("Something => "+staffId);
                 resolve(studentId)
             })
         })

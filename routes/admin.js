@@ -47,8 +47,11 @@ router.get('/admin-logout', (req, res) => {
 
 router.get('/', verifyLogin, (req, res) => {
   let admin = req.session.admin
-    res.render('admin/index', { admin })
+  adminHelper.viewCseStudent().then((cseStudent)=>{
+    res.render('admin/index', { admin,cseStudent })
+  })
 })
+
 router.get('/view-profile/:id',verifyLogin,(req,res)=>{
   let admin = req.session.admin
   adminHelper.viewAdmin(req.params.id).then((adminDetails)=>{
