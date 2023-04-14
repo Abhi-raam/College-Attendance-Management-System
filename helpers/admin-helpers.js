@@ -150,12 +150,32 @@ editAdmin: (adminId, adminDetails) => {
             resolve(csestudent)
         })
     },
+    // get students count
     viewCseStudent:()=>{
         return new Promise(async(resolve,reject)=>{
             let cseStudents = await db.get().collection(collection.Cse_students).find().toArray()
             resolve(cseStudents.length)
         })
     },
+    viewCivilStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let civilStudents = await db.get().collection(collection.Civil_students).find().toArray()
+            resolve(civilStudents.length)  
+        })
+    },
+    viewEceStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let eceStudents = await db.get().collection(collection.Ece_students).find().toArray()
+            resolve(eceStudents.length)
+        })
+    },
+    viewMechStudents:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let mechStudents = await db.get().collection(collection.Mech_students).find().toArray()
+            resolve(mechStudents.length)
+        })
+    },
+    // students Count end here
     deleteCseStudent: (studentId) => {
         return new Promise((resolve, reject) => {
             db.get().collection("cseStudents").deleteOne({ _id: objectID(studentId) }).then((response) => {

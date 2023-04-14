@@ -4,7 +4,8 @@ const { ObjectId } = require('mongodb');
 const { response } = require('../app');
 var db = require("../config/connection");
 const { students } = require('../helpers/staff-helpers');
-var staffHelper = require('../helpers/staff-helpers')
+var staffHelper = require('../helpers/staff-helpers');
+const { logger } = require('../helper');
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
     next()
@@ -80,12 +81,35 @@ router.get('/staff-logout', (req, res) => {
 router.get('/', verifyLogin, (req, res) => {
   let staff = req.session.staff
   if (req.session.loggedIn) {
-    res.render('staff/staff-index', { staff })
+    staffHelper.stdCount(staff).then((students)=>{
+      let count = students.length
+      res.render('staff/staff-index', { staff,count,students })
+    })
   }
   else {
     res.redirect('/staff/login')
   }
 })
+router.post('/',verifyLogin,(req,res)=>{
+  let staff = req.session.staff
+  let stdId = req.body.RegNo
+  staffHelper.viewPresent(staff,stdId).then((result)=>{
+    console.log(result.name);
+    let Name = result.stdName
+    let totalDays = result.attendanceLength
+    let presentDay = result.presentCount
+    let absent = totalDays-presentDay
+    let present = (presentDay/totalDays)*100
+    let round = Math.round(present)
+    staffHelper.students(staff).then((students) => { 
+      res.render('staff/staff-index', { staff, students,totalDays,presentDay,round,absent,Name })
+    })
+  }).catch(error => {
+    // handle the error here
+    res.redirect('/staff')
+  });
+})
+
 router.get('/students', verifyLogin, (req, res) => {
   let staff = req.session.staff
   staffHelper.students(staff).then((students) => { 
@@ -176,9 +200,7 @@ router.get('/viewAttendancePrecent',verifyLogin,(req,res)=>{
 router.post('/viewAttendancePrecent',verifyLogin,(req,res)=>{
   let staff = req.session.staff
   let stdId = req.body.RegNo
-  // console.log(req.body.RegNo);
   staffHelper.viewPresent(staff,stdId).then((result)=>{
-    // console.log(result.attendanceLength);
     console.log(result.name);
     let Name = result.stdName
     let totalDays = result.attendanceLength
@@ -187,10 +209,12 @@ router.post('/viewAttendancePrecent',verifyLogin,(req,res)=>{
     let present = (presentDay/totalDays)*100
     let round = Math.round(present)
     staffHelper.students(staff).then((students) => { 
-      // console.log(students);
       res.render('staff/view-attendance-persentage', {submitted: true, staff, students,totalDays,presentDay,round,absent,Name })
     })
-  })
+  }).catch(error => {
+    // handle the error here
+    res.redirect('/staff/viewAttendancePrecent')
+  });
 })
 
 module.exports = router;

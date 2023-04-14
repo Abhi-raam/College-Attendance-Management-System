@@ -60,9 +60,10 @@ body{
   }
 
   .footer-section {
-    /* position: fixed; */
+    position: relative;
     bottom: 0;
     width: 100%;
+    
   }
 /* footer end here */
 

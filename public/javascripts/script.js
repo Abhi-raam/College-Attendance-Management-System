@@ -41,7 +41,7 @@ function generatePdf() {
     doc.save(pageTitle+' Staff.pdf');
   }
 
-// student printing
+// student details printing for staff
   function generatePdfStd() {
     //var doc = new jsPDF();
     var doc = new jsPDF({
@@ -67,7 +67,6 @@ function generatePdf() {
     //   rowData.push(row.querySelector('td:nth-child(5)').textContent.trim());
       data.push(rowData);
     });
-
     // Add the modified table to the PDF
     doc.autoTable({
       head: [columns],
@@ -87,3 +86,12 @@ function generatePdf() {
     // Save the PDF
     doc.save(pageTitle+'.pdf');
   }
+
+  // DataTable js
+  $(document).ready(function () {
+    $('#stdDetails').DataTable();
+});
+$(document).ready(function () {
+  $('#staffDetails').DataTable();
+});
+

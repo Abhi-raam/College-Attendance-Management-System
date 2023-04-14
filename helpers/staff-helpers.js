@@ -957,19 +957,49 @@ module.exports = {
   viewPresent: (staff, stdId) => {
     if (staff.Department === "CSE") {
       return new Promise((resolve, reject) => {
-        db.get().collection(collection.Cse_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
-          const attendanceLength = Student.Attendance.length
-          let presentCount = 0;
-          for (let i = 0; i < attendanceLength; i++) {
-            if (Student.Attendance[i].Status === 1) {
-              presentCount++;
+        try {
+          db.get().collection(collection.Cse_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
+            if (!Student || !Student.Attendance) { // adding null check
+              reject();
+              return;
+              }
+            const attendanceLength = Student.Attendance.length
+            let presentCount = 0;
+            for (let i = 0; i < attendanceLength; i++) {
+              if (Student.Attendance[i].Status === 1) {
+                presentCount++;
+              }
             }
-          }
-          resolve({presentCount,attendanceLength,stdName:Student.Name})
-        }))
+            resolve({presentCount,attendanceLength,stdName:Student.Name})
+          }))
+        } catch (error) {
+          reject(error)
+        }
+        
       })
     }
   },
+  stdCount:(staff)=>{
+    return new Promise((resolve,reject)=>{
+    if(staff.Department === "CSE"){
+        let students = db.get().collection(collection.Cse_students).find({Year:staff.Year}).toArray()
+        resolve(students)
+      }
+      else if(staff.Department === "ECE"){
+        let students = db.get().collection(collection.Ece_students).find({Year:staff.Year}).toArray()
+        resolve(students)
+      }
+      else if(staff.Department === "CIVIL"){
+        let students = db.get().collection(collection.Civil_students).find({Year:staff.Year}).toArray()
+        resolve(students)
+      }
+      else if(staff.Department === "MECH"){
+        let students = db.get().collection(collection.Mech_students).find({Year:staff.Year}).toArray()
+        resolve(students)
+      }
+    })
+  },
+
 
 
 

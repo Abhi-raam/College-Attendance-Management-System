@@ -47,8 +47,12 @@ router.get('/admin-logout', (req, res) => {
 
 router.get('/', verifyLogin, (req, res) => {
   let admin = req.session.admin
-  adminHelper.viewCseStudent().then((cseStudent)=>{
-    res.render('admin/index', { admin,cseStudent })
+  Promise.all([adminHelper.viewCseStudent(),adminHelper.viewCivilStudents(),adminHelper.viewEceStudents(),adminHelper.viewMechStudents()]).then((students)=>{
+    let cseStd = students[0]
+    let civilStd = students[1]
+    let eceStd = students[2]
+    let mechStd = students[3]
+    res.render('admin/index', {admin,cseStd,civilStd,eceStd,mechStd})
   })
 })
 
@@ -87,11 +91,11 @@ router.get('/teacher', verifyLogin, (req, res) => {
 })
 
 // -------->add teacher route<--------
-router.get('/add-teachers', (req, res) => {
+router.get('/add-teachers',verifyLogin, (req, res) => {
   let admin = req.session.admin
   res.render('admin/add-teachers', { admin })
 })
-router.post('/add-teachers', (req, res) => {
+router.post('/add-teachers',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.addStaff(req.body, (id) => {
     let image = req.files.Image
@@ -109,12 +113,12 @@ router.post('/add-teachers', (req, res) => {
 // --------->add teacher end here<--------
 
 // --------->edit teacher<--------
-router.get('/edit-staff/:id', async (req, res) => {
+router.get('/edit-staff/:id',verifyLogin, async (req, res) => {
   let admin = req.session.admin
   let staff = await adminHelper.viewOneStaff(req.params.id)
   res.render('admin/edit-staff', { admin, staff })
 })
-router.post('/edit-staff/:id', (req, res) => {
+router.post('/edit-staff/:id',verifyLogin, (req, res) => {
   let department = req.body.Department
   adminHelper.editStaff(req.params.id, req.body).then(() => {
     if (department == "CSE") {
@@ -136,7 +140,7 @@ router.post('/edit-staff/:id', (req, res) => {
 // -------->edit teacher end here<--------
 
 
-router.get('/delete-staff/:id/:department', (req, res) => {
+router.get('/delete-staff/:id/:department',verifyLogin, (req, res) => {
   let staffId = req.params.id
   let department = req.params.department
   if (department == "CSE") {
@@ -234,11 +238,11 @@ router.get('/students-department',verifyLogin, (req, res) => {
 })
 
 // -------->cse students route for adding students<--------
-router.get('/add-cse-student', (req, res) => {
+router.get('/add-cse-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   res.render('admin/students/cse/add-cse-students', { admin })
 })
-router.post('/add-cse-student', (req, res) => {
+router.post('/add-cse-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.addCseStudents(req.body).then((response) => {
     res.render('admin/students/cse/add-cse-students', { admin })
@@ -250,20 +254,20 @@ router.get('/cse-FirstYear',verifyLogin, (req, res) => {
     res.render('admin/students/cse/cse-first-year', { admin, cseStudents })
   })
 })
-router.get('/cse-SecondYear', (req, res) => {
+router.get('/cse-SecondYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCseSecondStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-second-year', { admin, cseStudents })
   })
 })
-router.get('/cse-ThirdYear', (req, res) => {
+router.get('/cse-ThirdYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCseThirdStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-third-year', { admin, cseStudents })
   })
 })
 
-router.get('/cse-FourthYear', (req, res) => {
+router.get('/cse-FourthYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCseFourthStudents().then((cseStudents) => {
     res.render('admin/students/cse/cse-fourth-year', { admin, cseStudents })
@@ -272,7 +276,7 @@ router.get('/cse-FourthYear', (req, res) => {
 // -------->adding cse student end here<--------
 
 // -------->delete cse student<--------
-router.get('/delete-cse-student/:id/:year', (req, res) => {
+router.get('/delete-cse-student/:id/:year',verifyLogin, (req, res) => {
   let stdId = req.params.id
   let year = req.params.year
   adminHelper.deleteCseStudent(stdId).then((response) => {
@@ -293,12 +297,12 @@ router.get('/delete-cse-student/:id/:year', (req, res) => {
 // -------->delete cse students end here<--------
 
 // -------->edit cse students<---------
-router.get('/edit-cse-student/:id', async (req, res) => {
+router.get('/edit-cse-student/:id',verifyLogin, async (req, res) => {
   let admin = req.session.admin
   let cseStudent = await adminHelper.viewOneCseStudent(req.params.id)
   res.render('admin/students/cse/edit-cse-student', { admin, cseStudent })
 })
-router.post('/edit-cse-student/:id', (req, res) => {
+router.post('/edit-cse-student/:id',verifyLogin, (req, res) => {
   let year = req.body.Year
   console.log(year);
   adminHelper.editCseStudent(req.params.id, req.body).then(() => {
@@ -319,11 +323,11 @@ router.post('/edit-cse-student/:id', (req, res) => {
 // -------->edit cse student end here<--------
 
 // -------->ece students route for adding students<--------
-router.get('/add-ece-student', (req, res) => {
+router.get('/add-ece-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   res.render('admin/students/ece/add-ece-students', { admin })
 })
-router.post('/add-ece-student', (req, res) => {
+router.post('/add-ece-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.addEceStudents(req.body).then((response) => {
     res.render('admin/students/ece/add-ece-students', { admin })
@@ -332,26 +336,26 @@ router.post('/add-ece-student', (req, res) => {
 // -------->adding ece student end here<--------
 
 
-router.get('/ece-FirstYear', (req, res) => {
+router.get('/ece-FirstYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewEceFirstStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-first-year', { admin, eceStudents, startSNo: 1 })
   })
 })
-router.get('/ece-SecondYear', (req, res) => {
+router.get('/ece-SecondYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewEceSecondStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-second-year', { admin, eceStudents })
   })
 })
-router.get('/ece-ThirdYear', (req, res) => {
+router.get('/ece-ThirdYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewEceThirdStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-third-year', { admin, eceStudents })
   })
 })
 
-router.get('/ece-FourthYear', (req, res) => {
+router.get('/ece-FourthYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewEceFourthStudents().then((eceStudents) => {
     res.render('admin/students/ece/ece-fourth-year', { admin, eceStudents })
@@ -360,7 +364,7 @@ router.get('/ece-FourthYear', (req, res) => {
 
 
 // -------->delete ece student<--------
-router.get('/delete-ece-student/:id/:year', (req, res) => {
+router.get('/delete-ece-student/:id/:year',verifyLogin, (req, res) => {
   let stdId = req.params.id
   let year = req.params.year
   adminHelper.deleteEceStudent(stdId).then((response) => {
@@ -381,11 +385,11 @@ router.get('/delete-ece-student/:id/:year', (req, res) => {
 // -------->delete ece students end here<--------
 
 // -------->edit ece students<---------
-router.get('/edit-ece-student/:id', async (req, res) => {
+router.get('/edit-ece-student/:id',verifyLogin, async (req, res) => {
   let eceStudent = await adminHelper.viewOneEceStudent(req.params.id)
   res.render('admin/students/ece/edit-ece-student', { admin: true, eceStudent })
 })
-router.post('/edit-ece-student/:id', (req, res) => {
+router.post('/edit-ece-student/:id',verifyLogin, (req, res) => {
   let year = req.body.Year
   adminHelper.editEceStudent(req.params.id, req.body).then(() => {
     if (year == "First") {
@@ -406,11 +410,11 @@ router.post('/edit-ece-student/:id', (req, res) => {
 
 // =============================================================MECH functions============================================
 
-router.get('/add-mech-student', (req, res) => {
+router.get('/add-mech-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   res.render('admin/students/mech/add-mech-students', { admin})
 })
-router.post('/add-mech-student', (req, res) => {
+router.post('/add-mech-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.addMechStudents(req.body).then((response) => {
     res.render('admin/students/mech/add-mech-students', { admin })
@@ -419,26 +423,26 @@ router.post('/add-mech-student', (req, res) => {
 // -------->adding mech student end here<--------
 
 
-router.get('/mech-FirstYear', (req, res) => {
+router.get('/mech-FirstYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewMechFirstStudents().then((mechStudents) => {
     res.render('admin/students/mech/mech-first-year', { admin, mechStudents, startSNo: 1 })
   })
 })
-router.get('/mech-SecondYear', (req, res) => {
+router.get('/mech-SecondYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewMechSecondStudents().then((mechStudents) => {
     res.render('admin/students/mech/mech-second-year', { admin, mechStudents })
   })
 })
-router.get('/mech-ThirdYear', (req, res) => {
+router.get('/mech-ThirdYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewMechThirdStudents().then((mechStudents) => {
     res.render('admin/students/mech/mech-third-year', { admin, mechStudents })
   })
 })
 
-router.get('/mech-FourthYear', (req, res) => {
+router.get('/mech-FourthYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewMechFourthStudents().then((mechStudents) => {
     res.render('admin/students/mech/mech-fourth-year', { admin, mechStudents })
@@ -447,7 +451,7 @@ router.get('/mech-FourthYear', (req, res) => {
 
 
 // -------->delete mech student<--------
-router.get('/delete-mech-student/:id/:year', (req, res) => {
+router.get('/delete-mech-student/:id/:year',verifyLogin, (req, res) => {
   let stdId = req.params.id
   let year = req.params.year
   adminHelper.deleteMechStudent(stdId).then((response) => {
@@ -468,12 +472,12 @@ router.get('/delete-mech-student/:id/:year', (req, res) => {
 // -------->delete mech students end here<--------
 
 // -------->edit mech students<---------
-router.get('/edit-mech-student/:id', async (req, res) => {
+router.get('/edit-mech-student/:id',verifyLogin, async (req, res) => {
   let admin = req.session.admin
   let mechStudent = await adminHelper.viewOneMechStudent(req.params.id)
   res.render('admin/students/mech/edit-mech-student', { admin, mechStudent })
 })
-router.post('/edit-mech-student/:id', (req, res) => {
+router.post('/edit-mech-student/:id',verifyLogin, (req, res) => {
   let year = req.body.Year
   console.log(year);
   adminHelper.editMechStudent(req.params.id, req.body).then(() => {
@@ -494,11 +498,11 @@ router.post('/edit-mech-student/:id', (req, res) => {
 
 // ======================================CIVIL functions================================
 
-router.get('/add-civil-student', (req, res) => {
+router.get('/add-civil-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   res.render('admin/students/civil/add-civil-students', { admin})
 })
-router.post('/add-civil-student', (req, res) => {
+router.post('/add-civil-student',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.addCivilStudents(req.body).then((response) => {
     res.render('admin/students/civil/add-civil-students', { admin })
@@ -507,26 +511,26 @@ router.post('/add-civil-student', (req, res) => {
 // -------->adding civil student end here<--------
 
 
-router.get('/civil-FirstYear', (req, res) => {
+router.get('/civil-FirstYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCivilFirstStudents().then((civilStudents) => {
     res.render('admin/students/civil/civil-first-year', { admin, civilStudents })
   })
 })
-router.get('/civil-SecondYear', (req, res) => {
+router.get('/civil-SecondYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCivilSecondStudents().then((civilStudents) => {
     res.render('admin/students/civil/civil-second-year', { admin, civilStudents })
   })
 })
-router.get('/civil-ThirdYear', (req, res) => {
+router.get('/civil-ThirdYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCivilThirdStudents().then((civilStudents) => {
     res.render('admin/students/civil/civil-third-year', { admin, civilStudents })
   })
 })
 
-router.get('/civil-FourthYear', (req, res) => {
+router.get('/civil-FourthYear',verifyLogin, (req, res) => {
   let admin = req.session.admin
   adminHelper.viewCivilFourthStudents().then((civilStudents) => {
     res.render('admin/students/civil/civil-fourth-year', { admin, civilStudents })
@@ -535,7 +539,7 @@ router.get('/civil-FourthYear', (req, res) => {
 
 
 // -------->delete civil student<--------
-router.get('/delete-civil-student/:id/:year', (req, res) => {
+router.get('/delete-civil-student/:id/:year',verifyLogin, (req, res) => {
   let stdId = req.params.id
   let year = req.params.year
   adminHelper.deleteCivilStudent(stdId).then((response) => {
@@ -556,12 +560,12 @@ router.get('/delete-civil-student/:id/:year', (req, res) => {
 // -------->delete civil students end here<--------
 
 // -------->edit civil students<---------
-router.get('/edit-civil-student/:id', async (req, res) => {
+router.get('/edit-civil-student/:id',verifyLogin, async (req, res) => {
   let admin = req.session.admin
   let civilStudent = await adminHelper.viewOneCivilStudent(req.params.id)
   res.render('admin/students/civil/edit-civil-student', { admin, civilStudent })
 })
-router.post('/edit-civil-student/:id', (req, res) => {
+router.post('/edit-civil-student/:id',verifyLogin, (req, res) => {
   let year = req.body.Year
   console.log(year);
   adminHelper.editCivilStudent(req.params.id, req.body).then(() => {

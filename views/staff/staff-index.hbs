@@ -1,19 +1,33 @@
 <section class="home-section row">
-    <div class="container mt-5 col-lg-9 col-8">
-        <div class="m-3 justify-content-center d-flex">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="/images/logos/students-icon.png" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold"> <b>Total Students</b></h5>
-                    <p class="card-text ">50</p>
-                    <a href="/staff/students" class="btn btn-primary">View</a>
+    <div class="container mt-5 col-lg-8 col-12">
+        <div class="row m-3">
+            <div class="col-md-6 col-12">
+                <div class="bg-light rounded p-3 d-flex justify-content-between">
+                    <div class="bg-slate-200 p-2 rounded">
+                        <img src="/images/logos/students-icon.png" width="100rem" alt="">
+                    </div>
+                    <a href="/staff/students" class="d-flex align-items-center">
+                        <div class=" bg-primary text-white rounded p-2">
+                            <h4>Total Students <span class="fw-bold">{{count}}</span></h4>
+                        </div>
+                    </a>
                 </div>
             </div>
+            {{!-- <div class="col-md-6">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/images/logos/students-icon.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold"> <b>Total Students</b></h5>
+                        <p class="card-text ">{{count}}</p>
+                        <a href="/staff/students" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </div>
-    <div class="col-4 col-lg-3"  >
+    <div class="col-12  justify-content-between align-items-center col-lg-4">
         <body class="light mt-2">
-            <div class="calendar"style="margin-top: 3.8rem;">
+            <div class="calendar mx-2" style="margin-top: 3.8rem;">
                 <div class="calendar-header">
                     <span class="month-picker" id="month-picker">Month</span>
                     <div class="year-picker">
@@ -36,7 +50,7 @@
                         <div>Fri</div>
                         <div>Sat</div>
                     </div>
-                    <div class="calendar-days"></div>
+                    <div class="calendar-days  "></div>
                 </div>
                 {{!-- <div class="calendar-footer">
                     <div class="toggle">
@@ -48,6 +62,37 @@
                 </div> --}}
                 <div class="month-list"></div>
         </body>
+    </div>
+    <div class="mt-3 rounded text-center bg-white pt-3 mb-4">
+        <div>
+            <h4>Working Day Calculator</h4>
+        </div>
+        <div>
+            <form method="post" action="/staff">
+                <div class="form-group row mb-3">
+                    <div class="d-flex">
+                        <label class="form-control-label">Student name<span class="text-danger ">*</span></label>
+                        <select class="form-select" name="RegNo" aria-label="Default select example">
+                            {{#each students}}
+                            <option value="{{this._id}}">{{this.Name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">View Attendance</button>
+            </form>
+        </div>
+        <div>
+            <div class="mt-3 mx-3 text-start">
+                <h5>Name : {{Name}}</h5>
+                <h5>Working days : {{totalDays}} </h5>
+                <h5>Present Days : {{presentDay}} </h5>
+                <div class=" d-flex">
+                    <h5>Attendance %:</h5>
+                    <h5 class="{{#gt round 80}}mx-1 px-2 rounded bg-success text-white{{else}}mx-1 px-2 rounded bg-danger text-white{{/gt}}">{{round}} %</h5>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 </section>
