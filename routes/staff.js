@@ -73,7 +73,7 @@ router.get('/staff-logout', (req, res) => {
       console.log(err);
     } else {
       console.log("Session have been destroyed");
-      res.redirect('/staff/login')
+      res.redirect('/')
     }
   })
 })

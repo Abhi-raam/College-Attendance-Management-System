@@ -89,6 +89,7 @@
                                                         <th>Student Name</th>
                                                         <th>Register No</th>
                                                         <th>Parents Number</th>
+                                                        <th>Notify</th>
                                                         <th>Status</th>
                                                         <th>Date</th>
                                                     </tr>
@@ -100,9 +101,8 @@
                                                         <td>{{inc @index}}</td>
                                                         <td>{{this.Name}}</td>
                                                         <td>{{this.RegisterNo}}</td>
-                                                        <td>{{this.Mobile}} <a class="text-dark"href="#"><i class="mx-3 fa-lg fa-brands fa-whatsapp"></i></a>
-                                                        </td>
-
+                                                        <td>{{this.Mobile}}</td>
+                                                        <td> <a class="text-dark"href="#"><i class=" mx-3 fa-lg fa-solid  fa-message"></i></a></td>
                                                         <td>
                                                                 {{#ifEquals this.Attendance.Status '1' }}
                                                                 <i class="text-success fa-lg fa-solid fa-check"></i>
