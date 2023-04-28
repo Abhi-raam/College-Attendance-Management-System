@@ -5,11 +5,13 @@
                 <h4 class="text-center mt-5" id="page-title">CSE Second year</h4>
             </div>
             <div class="col-md-12 mt-5 ">
-                <table id="stdDetails" class="table table-hover text-center table-bordered" style="border: 2px solid #080808 !important;">
+                <table id="stdDetails" class="table table-hover text-center table-bordered"
+                    style="border: 2px solid #080808 !important;">
                     <thead class="text-white bg-slate-600">
                         <tr>
                             <th scope="col">Sno</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Date of Birth</th>
                             <th scope="col">Reg No.</th>
                             <th scope="col">Phone No.</th>
                             <th scope="col">Email</th>
@@ -24,18 +26,21 @@
                         <tr>
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.Name}}</td>
+                            <td>{{dateFormat this.DOB}}</td>
                             <td>{{this.RegisterNo}}</td>
                             <td>{{this.Mobile}}</td>
                             <td>{{this.Email}}</td>
                             <td><a href="/admin/edit-cse-student/{{this._id}}" class="btn btn-primary">Edit</a></td>
-                            <td><a href="/admin/delete-cse-student/{{this._id}}/{{this.Year}}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{this.Name}}?')">Delete</a></td>
+                            <td><a href="/admin/delete-cse-student/{{this._id}}/{{this.Year}}" class="btn btn-danger"
+                                    onclick="return confirm('Do you want to delete {{this.Name}}?')">Delete</a></td>
                         </tr>
                         {{/ifEquals}}
                         {{/each}}
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-between mt-3">
-                    <a id="btnExport" class="justify-content-end d-flex  btn btn-success" onclick="generatePdfStd()">Print</a>
+                    <a id="btnExport" class="justify-content-end d-flex  btn btn-success"
+                        onclick="generatePdfStd()">Print</a>
                     <a target="_blank" href="/admin/add-cse-student" class="btn btn-primary">Add Students</a>
                 </div>
             </div>

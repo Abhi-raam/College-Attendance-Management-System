@@ -196,6 +196,7 @@ editAdmin: (adminId, adminDetails) => {
                 $set: {
                     Name: stdDetails.Name,
                     RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
                     Year: stdDetails.Year,
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
@@ -260,6 +261,7 @@ editAdmin: (adminId, adminDetails) => {
                 $set: {
                     Name: stdDetails.Name,
                     RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
                     Year: stdDetails.Year,
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
@@ -323,6 +325,7 @@ editAdmin: (adminId, adminDetails) => {
                 $set: {
                     Name: stdDetails.Name,
                     RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
                     Year: stdDetails.Year,
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
@@ -387,6 +390,7 @@ editAdmin: (adminId, adminDetails) => {
                 $set: {
                     Name: stdDetails.Name,
                     RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
                     Year: stdDetails.Year,
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile

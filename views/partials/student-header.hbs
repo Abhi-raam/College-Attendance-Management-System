@@ -1,0 +1,84 @@
+<div class="sidebar close">
+    <div class="logo-details">
+        {{!-- <i class='bx bxl-c-plus-plus'></i> --}}
+        <img src="/images/gscet-ligo.jpg" alt="">
+        <span class="logo_name">GSCET</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="/student">
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/student">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class="fa-sharp fa-solid fa-calendar-check"></i>
+                    <span class="link_name">Attendance</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name" href="#">Attendance</a></li>
+                <li><a href="/student/view-attendance">View Attendance</a></li>
+                <li><a href="#">View Percentage</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa-sharp fa-solid fa-user-graduate"></i>
+                <span class="link_name">Students</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Students</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="https://photoskart.com/wp-content/uploads/2022/05/graduated-student-icon-vector-stock-photo.jpg"
+                        alt="profileImg">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">{{student.Name}}</div>
+                </div>
+                <a href="/student/student-logout"><i class='bx bx-log-out'></i></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<section class="home-section">
+    <div class="d-flex">
+        <div class="home-content headerz p-3  pb-5">
+            <i class='bx bx-menu text-white'></i>
+            <span class="text">
+                <a class="navbar-brand text-white" href="#">
+                    {{#if student}}
+                    Welcome {{student.Name}}
+                    {{/if}}
+                </a>
+            </span>
+        </div>
+    </div>
+</section>
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
+        });
+    }
+
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+
+</script>

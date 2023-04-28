@@ -6,17 +6,24 @@
                 <form action="/admin/add-cse-student" method="post" enctype="multipart/form-data">
                     <label for="">Name</label>
                     <input type="text" name="Name" class="form-control">
-                    <label for="">Register No.</label>
-                    <input type="text" name="RegisterNo" class="form-control">
-                    {{!-- <label hidden for="">Attendance</label> --}}
-                    {{!-- <input hidden type="text" name="Attendance_Status" class="form-control"> --}}
+                    <div class="d-flex">
+                        <div class="col-md-6 pe-3">
+                            <label for="">Register No.</label>
+                            <input type="text" name="RegisterNo" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">DOB</label>
+                            <input type="date" name="DOB" class="form-control">
+                        </div>
+                    </div>
+                    <input type="text" name="Department" hidden value="CSE">
                     <label for="">Year</label>
-                            <select class="form-control" name="Year" id="exampleFormControlSelect1">
-                                <option>First</option>
-                                <option>Second</option>
-                                <option>Third</option>
-                                <option>Fourth</option>
-                            </select>
+                    <select class="form-control" name="Year" id="exampleFormControlSelect1">
+                        <option>First</option>
+                        <option>Second</option>
+                        <option>Third</option>
+                        <option>Fourth</option>
+                    </select>
                     <div class="d-flex">
                         <div class="col-md-6 pe-3">
                             <label for="">Email</label>

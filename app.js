@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var adminRouter = require('./routes/admin');
 var staffRouter = require('./routes/staff');
+var studentRouter = require('./routes/student')
 var hbs = require('express-handlebars')
 var fileUpload = require('express-fileupload')
 var app = express();
@@ -38,6 +39,7 @@ db.connect((err)=>{
 //middleware
 app.use('/admin', adminRouter);
 app.use('/staff', staffRouter);
+app.use('/student',studentRouter)
 app.use('/',(req,res)=>{
   res.render('main-index',{})
 })

@@ -181,7 +181,7 @@ router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   let year = dte.getFullYear()
   let Month = monthNames[month]
   staffHelper.viewAttendanceMonth(req.body,req.body.month,department,stdyear).then((studentList)=>{
-    console.log(typeof studentList);
+    console.log(studentList);
     if(studentList.length === 0){
       res.render('staff/view-attendance', { staff,submittedMonth:true,noDataFound:true,Month,year,department,stdyear })
     }else{

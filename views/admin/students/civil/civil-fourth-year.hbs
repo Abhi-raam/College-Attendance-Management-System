@@ -10,6 +10,7 @@
                         <tr>
                             <th scope="col">Sno</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Date of Birth</th>
                             <th scope="col">Reg No.</th>
                             <th scope="col">Phone No.</th>
                             <th scope="col">Email</th>
@@ -24,6 +25,7 @@
                         <tr>
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.Name}}</td>
+                            <td>{{dateFormat this.DOB}}</td>
                             <td>{{this.RegisterNo}}</td>
                             <td>{{this.Mobile}}</td>
                             <td>{{this.Email}}</td>

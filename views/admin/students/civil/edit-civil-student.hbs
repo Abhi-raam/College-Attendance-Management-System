@@ -6,9 +6,16 @@
                 <form action="/admin/edit-civil-student/{{civilStudent._id}}" method="post" enctype="multipart/form-data">
                     <label for="">Name</label>
                     <input type="text" name="Name" value="{{civilStudent.Name}}" class="form-control">
-                    <label for="">Register No.</label>
-                    <input type="text" name="RegisterNo" value="{{civilStudent.RegisterNo}}" class="form-control">
-                    <input hidden type="text" name="Attendance[]" class="form-control">
+                    <div class="d-flex">
+                        <div class="col-md-6 pe-3">
+                            <label for="">Register No.</label>
+                            <input type="text" name="RegisterNo" value="{{civilStudent.RegisterNo}}" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">DOB</label>
+                            <input type="date" name="DOB" value="{{this.DOB}}" class="form-control">
+                        </div>
+                    </div>
                     <label for="">Year</label>
                             <select class="form-control"  name="Year" id="exampleFormControlSelect1">
                                 <option>First</option>
