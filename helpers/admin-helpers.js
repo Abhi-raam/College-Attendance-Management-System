@@ -1112,6 +1112,5 @@ editAdmin: (adminId, adminDetails) => {
                 resolve(studentList);
             })
         }
-    },
-    
+    }, 
 }
