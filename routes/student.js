@@ -60,27 +60,6 @@ router.get('/view-attendance',verifyLogin,(req,res)=>{
   res.render('student/view-attendance',{student,department,stdyear})
 })
 
- router.post('/viewAttendanceMonth',verifyLogin,(req,res)=>{
-  let student = req.session.student
-  let department = req.query.dpt
-  let stdyear = req.query.year
-  let dte = new Date(req.body.month)
-  let month = dte.getMonth()
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  let year = dte.getFullYear()
-  let Month = monthNames[month]
-  studentHelper.getAttendanceDatesForStudent(req.body.month,student).then((studentList)=>{
-    console.log(studentList);
-    if(studentList.length === 0){
-      res.render('student/view-attendance',{student,submittedMonth:true,noDataFound:true,Month,year,department,stdyear })
-    }else{
-      res.render('student/view-attendance',{student,submittedMonth:true,studentList,Month,year,department,stdyear })
-    }
-  }).catch(error=>{
-    res.redirect('/student/viewAttendanceMonth')
-  })
- })
-
  router.post('/viewFullAttendance',verifyLogin,(req,res)=>{
   let student = req.session.student
   studentHelper.getAttendanceStd(student).then((studentList)=>{
@@ -89,7 +68,12 @@ router.get('/view-attendance',verifyLogin,(req,res)=>{
       return new Date(a.DateTaken) - new Date(b.DateTaken);
     });
     console.log(studentList);
-    res.render('student/view-attendance',{student,studentList})
+    if(studentList.length === 0){
+      res.render('student/view-attendance',{student,submittedMonth:true})
+    }else{
+      res.render('student/view-attendance',{student,submittedMonth:true,studentList })
+    }
+    // res.render('student/view-attendance',{student,studentList})
   })
  })
 

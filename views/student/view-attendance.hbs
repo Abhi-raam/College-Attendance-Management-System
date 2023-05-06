@@ -4,104 +4,25 @@
       <div id="content">
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">View Attendance of
-              {{student.Name}}</h1>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">View Attendance
-                    of
-                    {{student.Name}}
-                  </h6>
-                </div>
-                <div class="row">
-                  <div class="card-body col-md-6">
-                    <form method="post" action="/student/viewAttendanceMonth?dpt={{department}}&year={{stdyear}}">
-                      <div class="form-group row mb-3">
-                        <div class="col-xl-6">
-                          <label class="form-control-label">Select Month<span class="text-danger ml-2">*</span></label>
-                          <input type="month" class="form-control" name="month" id="exampleInputFirstName"
-                            placeholder="Class Arm Name" />
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary">View
-                        Attendance</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <!-- Input Group -->
-              <div>
-                {{#if submittedMonth}}
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="card mb-4">
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
-                        <h6 class="m-0 font-weight-bold text-primary">Class
-                          Attendance of
-                          {{Month}}
-                          {{year}}</h6>
-                      </div>
-                      {{#if noDataFound}}
-                      <div class="alert alert-danger" role="alert">
-                        No Record Found!
-                      </div>
-                      {{else}}
-                      <!-- Your table code goes here -->
-                      <div class="table-responsive p-3">
-                        <table class="table align-items-center table-flush table-hover" id="dataTableHover">
-                          <thead class="thead-light">
-                            <tr>
-                              {{#each this.studentList}}
-                              <th>{{getDate
-                                this.Attendance.DateTaken
-                                }}</th>
-                              {{/each}}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              {{#each studentList}}
-                              <td>
-                                {{#ifEquals this.Attendance.Status "1"}}
-                                <i class="text-success fa-lg fa-solid fa-check"></i>
-                                {{else}}
-                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
-                                {{/ifEquals}}
-                              </td>
-                              {{/each}}
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      {{/if}}
-                    </div>
-                  </div>
-                </div>
-                {{/if}}
-              </div>
-            </div>
+            <h4 class=" mb-0 text-gray-800">View Attendance of
+              {{student.Name}}</h4>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<section class="home-section home-sect">
   <div>
     <form method="post" action="/student/viewFullAttendance?dpt={{department}}&year={{stdyear}}">
       <div class="form-group row mb-3">
         <div class="col-xl-6">
-          <label class="form-control-label">click to view attendance<span class="text-danger ml-2">*</span></label>
+          <label class="form-control-label">Click to view attendance<span class="text-danger ml-2">*</span></label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">View Attendance</button>
+      <button type="submit" class="btn btn-primary mb-2">View Attendance</button>
     </form>
   </div>
   <div>
+    {{#if submittedMonth}}
     <div>
       <table class="table align-items-center table-flush table-hover table-bordered"
         style="border: 2px solid #080808 !important;">
@@ -127,11 +48,105 @@
             <td>1</td>
             {{#each studentList}}
             {{#ifEquals (getDate this.DateTaken) "1"}}
-            <td>
+            <td {{#ifEquals (getDate this.DateTaken) "01" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
               {{#ifEquals (getMonth this.DateTaken) "01"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else ifEquals (getMonth this.DateTaken) "02"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else}}
               No data
               {{/ifEquals}}
@@ -143,17 +158,3296 @@
             <td>2</td>
             {{#each studentList}}
             {{#ifEquals (getDate this.DateTaken) "2"}}
-            <td>
+            <td {{#ifEquals (getDate this.DateTaken) "2" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
               {{#ifEquals (getMonth this.DateTaken) "01"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else ifEquals (getMonth this.DateTaken) "02"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else ifEquals (getMonth this.DateTaken) "03"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else ifEquals (getMonth this.DateTaken) "04"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else ifEquals (getMonth this.DateTaken) "05"}}
-              {{dateFormat this.DateTaken}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>3</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "3"}}
+            <td {{#ifEquals (getDate this.DateTaken) "3" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>4</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "4"}}
+            <td {{#ifEquals (getDate this.DateTaken) "4" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>5</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "5"}}
+            <td {{#ifEquals (getDate this.DateTaken) "5" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>6</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "6"}}
+            <td {{#ifEquals (getDate this.DateTaken) "6" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>7</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "7"}}
+            <td {{#ifEquals (getDate this.DateTaken) "7" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>8</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "8"}}
+            <td {{#ifEquals (getDate this.DateTaken) "8" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>9</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "9"}}
+            <td {{#ifEquals (getDate this.DateTaken) "9" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>10</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "10"}}
+            <td {{#ifEquals (getDate this.DateTaken) "10" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>11</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "11"}}
+            <td {{#ifEquals (getDate this.DateTaken) "11" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>12</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "12"}}
+            <td {{#ifEquals (getDate this.DateTaken) "12" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>13</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "13"}}
+            <td {{#ifEquals (getDate this.DateTaken) "13" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>14</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "14"}}
+            <td {{#ifEquals (getDate this.DateTaken) "14" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>15</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "15"}}
+            <td {{#ifEquals (getDate this.DateTaken) "15" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>16</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "16"}}
+            <td {{#ifEquals (getDate this.DateTaken) "16" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>17</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "17"}}
+            <td {{#ifEquals (getDate this.DateTaken) "17" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>18</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "18"}}
+            <td {{#ifEquals (getDate this.DateTaken) "18" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>19</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "19"}}
+            <td {{#ifEquals (getDate this.DateTaken) "19" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>20</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "20"}}
+            <td {{#ifEquals (getDate this.DateTaken) "20" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>21</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "21"}}
+            <td {{#ifEquals (getDate this.DateTaken) "21" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>22</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "22"}}
+            <td {{#ifEquals (getDate this.DateTaken) "22" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>23</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "23"}}
+            <td {{#ifEquals (getDate this.DateTaken) "23" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>24</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "24"}}
+            <td {{#ifEquals (getDate this.DateTaken) "24" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>25</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "25"}}
+            <td {{#ifEquals (getDate this.DateTaken) "25" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>26</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "26"}}
+            <td {{#ifEquals (getDate this.DateTaken) "26" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>27</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "27"}}
+            <td {{#ifEquals (getDate this.DateTaken) "27" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>28</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "28"}}
+            <td {{#ifEquals (getDate this.DateTaken) "28" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>29</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "29"}}
+            <td {{#ifEquals (getDate this.DateTaken) "29" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>30</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "30"}}
+            <td {{#ifEquals (getDate this.DateTaken) "30" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>31</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "31"}}
+            <td {{#ifEquals (getDate this.DateTaken) "31" }}{{#ifEquals this.Status "1" }} class="bg-success text-white"
+              {{else ifEquals this.Status "0" }} class="bg-danger text-white" {{else}} class="bg-primary text-white"
+              {{/ifEquals}}{{/ifEquals}}>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "06"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "07"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "08"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "09"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "10"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "11"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
+              {{else ifEquals (getMonth this.DateTaken) "12"}}
+              {{#ifEquals this.Status "1"}}
+              Present
+              {{else ifEquals this.Status "0"}}
+              Absent
+              {{else}}
+              {{this.Status}}
+              {{/ifEquals}}
               {{else}}
               No data
               {{/ifEquals}}
@@ -164,5 +3458,6 @@
         </tbody>
       </table>
     </div>
+    {{/if}}
   </div>
 </section>

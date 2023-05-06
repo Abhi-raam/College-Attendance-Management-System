@@ -77,80 +77,54 @@ module.exports = {
         })
     },
 
-    // viewAttendanceMonth:(student,month)=>{
-    //     return new Promise((resolve,reject)=>{
-    //         if(student.Department === "CSE"){
-    //         let
-    //         }
-    //     })
-    // }
-    getAttendanceDatesForStudent: (month, student) => {
-        // console.log(student);
-        return new Promise(async (resolve, reject) => {
-            try {
-                if (student.Department === "CSE") {
-                    let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
-                        // Match documents with the specified student name
-                        { $match: { Name: student.Name } },
-                        // Unwind the Attendance array
-                        { $unwind: "$Attendance" },
-                        // Filter by the specified student name and where the status is present
-                        { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
-                        // Project only the DateTaken field
-                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
-                        { $project: { _id: 0, Attendance: "$Attendance" } }
-                    ]).toArray();
-                    resolve(attendanceList);
-                }
-                else if(student.Department === "ECE"){
-                    let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
-                        // Match documents with the specified student name
-                        { $match: { Name: student.Name } },
-                        // Unwind the Attendance array
-                        { $unwind: "$Attendance" },
-                        // Filter by the specified student name and where the status is present
-                        { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
-                        // Project only the DateTaken field
-                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
-                        { $project: { _id: 0, Attendance: "$Attendance" } }
-                    ]).toArray();
-                    resolve(attendanceList);
-                }
-                else if(student.Department === "CIVIL"){}
-                else if (student.Department === "MECH"){}
-            } catch (error) {
-                reject(error)
-            }
-        })
-    },
     getAttendanceStd: (student) => {
         return new Promise(async(resolve, reject) => {
             try {
                 if(student.Department === "CSE"){
-
-                }
-                else if(student.Department === "ECE"){
-                    // let attendance = await db.get().collection(collection.Ece_attendance).find({Name:student.Name}).toArray()
-                    // resolve(attendance)
-                    let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
-                        // Match documents with the specified student name
+                    let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
                         { $match: { Name: student.Name } },
-                        // Unwind the Attendance array
                         { $unwind: "$Attendance" },
-                        // Filter by the specified student name and where the status is present
-                        // { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
-                        // Project only the DateTaken field
-                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
                         { $project: { _id: 0, Attendance: "$Attendance" } }
                     ]).toArray();
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
                       });
-                      
                     resolve(attendanceArray);
                 }
-            } catch (error) {
-                
+                else if(student.Department === "ECE"){
+                    let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
+                        { $match: { Name: student.Name } },
+                        { $unwind: "$Attendance" },
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    const attendanceArray = attendanceList.map((item) => {
+                        return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
+                      });
+                    resolve(attendanceArray);
+                }
+                else if(student.Department === "MECH"){
+                    let attendanceList = await db.get().collection(collection.Mech_attendance).aggregate([
+                        { $match: { Name: student.Name } },
+                        { $unwind: "$Attendance" },
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    const attendanceArray = attendanceList.map((item) => {
+                        return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
+                      });
+                    resolve(attendanceArray);
+                }
+                else if(student.Department === "CIVIL"){
+                    let attendanceList = await db.get().collection(collection.Civil_attendance).aggregate([
+                        { $match: { Name: student.Name } },
+                        { $unwind: "$Attendance" },
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    const attendanceArray = attendanceList.map((item) => {
+                        return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
+                      });
+                    resolve(attendanceArray);
+                }
+            } catch (error) {  
             }
         })
     }

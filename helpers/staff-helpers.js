@@ -222,20 +222,34 @@ module.exports = {
   },
 
 
-  addAttendance: (stdId, dateTaken, staff, allStd) => {
+  addAttendance: (stdId, dateTaken, staff, allStd, leave) => {
     if (staff.Department === "CSE") {
       return new Promise(async (resolve, reject) => {
         try {
-          for (let i = 0; i < allStd.length; i++) {
-            const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
-            const filter = { _id: objectID(allStd[i]) };
-            const update = {
-              $push: {
-                Attendance: { DateTaken: dateTaken, Status: status }
-              },
-            };
-            const options = { upsert: true };
-            await db.get().collection(collection.Cse_attendance).updateOne(filter, update, options);
+          if (leave.length > 0) {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = "Holiday";
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Cse_attendance).updateOne(filter, update, options);
+            }
+          } else {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Cse_attendance).updateOne(filter, update, options);
+            }
           }
           resolve();
         } catch (error) {
@@ -245,16 +259,30 @@ module.exports = {
     } else if (staff.Department === "ECE") {
       return new Promise(async (resolve, reject) => {
         try {
-          for (let i = 0; i < allStd.length; i++) {
-            const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
-            const filter = { _id: objectID(allStd[i]) };
-            const update = {
-              $push: {
-                Attendance: { DateTaken: dateTaken, Status: status }
-              },
-            };
-            const options = { upsert: true };
-            await db.get().collection(collection.Ece_attendance).updateOne(filter, update, options);
+          if (leave && leave.length > 0) {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = "Holiday";
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Ece_attendance).updateOne(filter, update, options);
+            }
+          } else {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Ece_attendance).updateOne(filter, update, options);
+            }
           }
           resolve();
         } catch (error) {
@@ -955,14 +983,14 @@ module.exports = {
   },
 
   viewPresent: (staff, stdId) => {
-    if (staff.Department === "CSE") {
-      return new Promise((resolve, reject) => {
-        try {
+    return new Promise((resolve, reject) => {
+      try {
+        if (staff.Department === "CSE") {
           db.get().collection(collection.Cse_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
             if (!Student || !Student.Attendance) { // adding null check
               reject();
               return;
-              }
+            }
             const attendanceLength = Student.Attendance.length
             let presentCount = 0;
             for (let i = 0; i < attendanceLength; i++) {
@@ -970,31 +998,30 @@ module.exports = {
                 presentCount++;
               }
             }
-            resolve({presentCount,attendanceLength,stdName:Student.Name})
+            resolve({ presentCount, attendanceLength, stdName: Student.Name })
           }))
-        } catch (error) {
-          reject(error)
         }
-        
-      })
-    }
+      } catch (error) {
+        reject(error)
+      }
+    })
   },
-  stdCount:(staff)=>{
-    return new Promise((resolve,reject)=>{
-    if(staff.Department === "CSE"){
-        let students = db.get().collection(collection.Cse_students).find({Year:staff.Year}).toArray()
+  stdCount: (staff) => {
+    return new Promise((resolve, reject) => {
+      if (staff.Department === "CSE") {
+        let students = db.get().collection(collection.Cse_students).find({ Year: staff.Year }).toArray()
         resolve(students)
       }
-      else if(staff.Department === "ECE"){
-        let students = db.get().collection(collection.Ece_students).find({Year:staff.Year}).toArray()
+      else if (staff.Department === "ECE") {
+        let students = db.get().collection(collection.Ece_students).find({ Year: staff.Year }).toArray()
         resolve(students)
       }
-      else if(staff.Department === "CIVIL"){
-        let students = db.get().collection(collection.Civil_students).find({Year:staff.Year}).toArray()
+      else if (staff.Department === "CIVIL") {
+        let students = db.get().collection(collection.Civil_students).find({ Year: staff.Year }).toArray()
         resolve(students)
       }
-      else if(staff.Department === "MECH"){
-        let students = db.get().collection(collection.Mech_students).find({Year:staff.Year}).toArray()
+      else if (staff.Department === "MECH") {
+        let students = db.get().collection(collection.Mech_students).find({ Year: staff.Year }).toArray()
         resolve(students)
       }
     })
