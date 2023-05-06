@@ -102,11 +102,13 @@
                                                         <td>{{this.Name}}</td>
                                                         <td>{{this.RegisterNo}}</td>
                                                         <td
-                                                            class="{{#ifEquals this.Attendance.Status '1'}}bg-success text-white{{else}}bg-danger text-white{{/ifEquals}}">
+                                                            class="{{#ifEquals this.Attendance.Status '1'}}bg-success text-white{{else ifEquals this.Attendance.Status '0'}}bg-danger text-white{{else}}text-white bg-primary{{/ifEquals}}">
                                                             {{#ifEquals this.Attendance.Status '1' }}
                                                             Present
-                                                            {{else}}
+                                                            {{else ifEquals this.Attendance.Status '0'}}
                                                             Absent
+                                                            {{else}}
+                                                            Holiday
                                                             {{/ifEquals}}
                                                         </td>
                                                         <td>{{dateFormat this.Attendance.DateTaken}}</td>
@@ -162,8 +164,10 @@
                                                             <td>
                                                                 {{#ifEquals this.Status '1' }}
                                                                 <i class="text-success fa-lg fa-solid fa-check"></i>
-                                                                {{else}}
+                                                                {{else ifEquals this.Status '0'}}
                                                                 <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                                                {{else}}
+                                                                <i class="text-primary fa-sharp fa-solid fa-ban"></i>
                                                                 {{/ifEquals}}
                                                             </td>
                                                             {{/each}}

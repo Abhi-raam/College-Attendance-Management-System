@@ -78,9 +78,9 @@ module.exports = {
     },
 
     getAttendanceStd: (student) => {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                if(student.Department === "CSE"){
+                if (student.Department === "CSE") {
                     let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
                         { $match: { Name: student.Name } },
                         { $unwind: "$Attendance" },
@@ -88,10 +88,10 @@ module.exports = {
                     ]).toArray();
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
-                      });
+                    });
                     resolve(attendanceArray);
                 }
-                else if(student.Department === "ECE"){
+                else if (student.Department === "ECE") {
                     let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
                         { $match: { Name: student.Name } },
                         { $unwind: "$Attendance" },
@@ -99,10 +99,10 @@ module.exports = {
                     ]).toArray();
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
-                      });
+                    });
                     resolve(attendanceArray);
                 }
-                else if(student.Department === "MECH"){
+                else if (student.Department === "MECH") {
                     let attendanceList = await db.get().collection(collection.Mech_attendance).aggregate([
                         { $match: { Name: student.Name } },
                         { $unwind: "$Attendance" },
@@ -110,10 +110,10 @@ module.exports = {
                     ]).toArray();
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
-                      });
+                    });
                     resolve(attendanceArray);
                 }
-                else if(student.Department === "CIVIL"){
+                else if (student.Department === "CIVIL") {
                     let attendanceList = await db.get().collection(collection.Civil_attendance).aggregate([
                         { $match: { Name: student.Name } },
                         { $unwind: "$Attendance" },
@@ -121,10 +121,45 @@ module.exports = {
                     ]).toArray();
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
-                      });
+                    });
                     resolve(attendanceArray);
                 }
-            } catch (error) {  
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
+    viewAttendancePersent: (student) => {
+        return new Promise((resolve, reject) => {
+            try {
+                if (student.Department === "CSE") {
+
+                }
+                else if (student.Department === "ECE") {
+                    db.get().collection(collection.Ece_attendance).findOne({ _id: objectID(student._id) }).then((Student => {
+                        if (!Student || !Student.Attendance) { // adding null check
+                            reject();
+                            return;
+                        }
+                        const TotalAttendance = Student.Attendance.length;
+                        let presentCount = 0;
+                        let workingDay = 0;
+                        for (let i = 0; i < TotalAttendance; i++) {
+                            const attendance = Student.Attendance[i];
+                            if (attendance.Status !== 'Holiday') {
+                                if (attendance.Status === 1) {
+                                    presentCount++;
+                                }
+                                if (attendance.Status === 1 || attendance.Status === 0) {
+                                    workingDay++;
+                                }
+                            }
+                        }
+                        resolve({ presentCount, workingDay, stdName: Student.Name })
+                    }))
+                }
+            } catch (error) {
+                reject(error)
             }
         })
     }

@@ -991,14 +991,86 @@ module.exports = {
               reject();
               return;
             }
-            const attendanceLength = Student.Attendance.length
+            const attendanceLength = Student.Attendance.length;
             let presentCount = 0;
             for (let i = 0; i < attendanceLength; i++) {
-              if (Student.Attendance[i].Status === 1) {
-                presentCount++;
+              const attendance = Student.Attendance[i];
+              if (attendance.Status !== 'Holiday') {
+                if (attendance.Status === 1) {
+                  presentCount++;
+                }
               }
             }
             resolve({ presentCount, attendanceLength, stdName: Student.Name })
+          }))
+        }
+        else if (staff.Department === "ECE") {
+          db.get().collection(collection.Ece_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
+            if (!Student || !Student.Attendance) { // adding null check
+              reject();
+              return;
+            }
+            const TotalAttendance = Student.Attendance.length;
+            let presentCount = 0;
+            let workingDay = 0;
+            for (let i = 0; i < TotalAttendance; i++) {
+              const attendance = Student.Attendance[i];
+              if (attendance.Status !== 'Holiday') {
+                if (attendance.Status === 1) {
+                  presentCount++;
+                }
+                if(attendance.Status === 1 || attendance.Status === 0){
+                  workingDay++;
+                }
+              }
+            }
+            resolve({ presentCount,workingDay, stdName: Student.Name })
+          }))
+        }
+        else if (staff.Department === "MECH") {
+          db.get().collection(collection.Mech_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
+            if (!Student || !Student.Attendance) { // adding null check
+              reject();
+              return;
+            }
+            const TotalAttendance = Student.Attendance.length;
+            let presentCount = 0;
+            let workingDay = 0;
+            for (let i = 0; i < TotalAttendance; i++) {
+              const attendance = Student.Attendance[i];
+              if (attendance.Status !== 'Holiday') {
+                if (attendance.Status === 1) {
+                  presentCount++;
+                }
+                if(attendance.Status === 1 || attendance.Status === 0){
+                  workingDay++;
+                }
+              }
+            }
+            resolve({ presentCount,workingDay, stdName: Student.Name })
+          }))
+        }
+        else if (staff.Department === "CIVIL") {
+          db.get().collection(collection.Civil_attendance).findOne({ _id: objectID(stdId) }).then((Student => {
+            if (!Student || !Student.Attendance) { // adding null check
+              reject();
+              return;
+            }
+            const TotalAttendance = Student.Attendance.length;
+            let presentCount = 0;
+            let workingDay = 0;
+            for (let i = 0; i < TotalAttendance; i++) {
+              const attendance = Student.Attendance[i];
+              if (attendance.Status !== 'Holiday') {
+                if (attendance.Status === 1) {
+                  presentCount++;
+                }
+                if(attendance.Status === 1 || attendance.Status === 0){
+                  workingDay++;
+                }
+              }
+            }
+            resolve({ presentCount,workingDay, stdName: Student.Name })
           }))
         }
       } catch (error) {

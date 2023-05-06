@@ -3,9 +3,9 @@ var router = express.Router();
 const { ObjectId } = require('mongodb');
 const { response } = require('../app');
 var db = require("../config/connection");
-const studentHelper = require('../helpers/student-helper')
-const { students } = require('../helpers/staff-helpers');
-var staffHelper = require('../helpers/staff-helpers');
+var studentHelper = require('../helpers/student-helper')
+// const { students } = require('../helpers/staff-helpers');
+// var staffHelper = require('../helpers/staff-helpers');
 const { logger } = require('../helper');
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
@@ -75,6 +75,28 @@ router.get('/view-attendance',verifyLogin,(req,res)=>{
     }
     // res.render('student/view-attendance',{student,studentList})
   })
+ })
+
+ router.get('/viewAttendancePersent',verifyLogin,(req,res)=>{
+  let student = req.session.student
+  console.log(student);
+  res.render('student/view-attendance-persentage',{student})
+ })
+ router.post('/viewAttendancePersent',verifyLogin,(req,res)=>{
+  let student = req.session.student
+  studentHelper.viewAttendancePersent(student).then((result)=>{
+    let Name = result.stdName
+    let workingDay = result.workingDay
+    let presentDay = result.presentCount
+    let absent = workingDay - presentDay
+    let present = (presentDay / workingDay) * 100
+    let round = Math.round(present)
+    res.render('student/view-attendance-persentage',{submitted: true, student, workingDay, presentDay, round, absent, Name })
+  })
+  .catch(error => {
+    // handle the error here
+    res.redirect('/student/viewAttendancePersent')
+  });
  })
 
 
