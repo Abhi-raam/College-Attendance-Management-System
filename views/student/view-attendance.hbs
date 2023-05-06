@@ -1,90 +1,168 @@
 <section class="home-section home-sect">
-    <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                <div class="container-fluid" id="container-wrapper">
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">View Attendance of {{student.Name}}</h1>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">View Attendance of {{student.Name}}
-                                    </h6>
-                                </div>
-                                <div class="row">
-                                    <div class="card-body col-md-6">
-                                        <form method="post"
-                                            action="/student/viewAttendanceMonth?dpt={{department}}&year={{stdyear}}">
-                                            <div class="form-group row mb-3">
-                                                <div class="col-xl-6">
-                                                    <label class="form-control-label">Select Month<span
-                                                            class="text-danger ml-2">*</span></label>
-                                                    <input type="month" class="form-control" name="month"
-                                                        id="exampleInputFirstName" placeholder="Class Arm Name">
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">View
-                                                Attendance</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Input Group -->
-                            <div>
-                                {{#if submittedMonth}}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="card mb-4">
-                                            <div
-                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
-                                                <h6 class="m-0 font-weight-bold text-primary">Class Attendance of
-                                                    {{Month}} {{year}}</h6>
-                                            </div>
-                                            {{#if noDataFound}}
-                                            <div class='alert alert-danger' role='alert'>
-                                                No Record Found!
-                                            </div>
-                                            {{else}}
-                                            <!-- Your table code goes here -->
-                                            <div class="table-responsive p-3">
-                                                <table class="table align-items-center table-flush table-hover"
-                                                    id="dataTableHover">
-                                                    <thead class="thead-light">
-                                                        <tr>
-                                                            {{#each this.studentList}}
-                                                            <th>{{getDate this.Attendance.DateTaken}}</th>
-                                                            {{/each}}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            {{#each studentList}}
-                                                            <td>
-                                                                {{#ifEquals this.Attendance.Status '1' }}
-                                                                <i class="text-success fa-lg fa-solid fa-check"></i>
-                                                                {{else}}
-                                                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
-                                                                {{/ifEquals}}
-                                                            </td>
-                                                            {{/each}}
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            {{/if}}
-                                        </div>
-                                    </div>
-                                </div>
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
+  <div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">View Attendance of
+              {{student.Name}}</h1>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">View Attendance
+                    of
+                    {{student.Name}}
+                  </h6>
                 </div>
+                <div class="row">
+                  <div class="card-body col-md-6">
+                    <form method="post" action="/student/viewAttendanceMonth?dpt={{department}}&year={{stdyear}}">
+                      <div class="form-group row mb-3">
+                        <div class="col-xl-6">
+                          <label class="form-control-label">Select Month<span class="text-danger ml-2">*</span></label>
+                          <input type="month" class="form-control" name="month" id="exampleInputFirstName"
+                            placeholder="Class Arm Name" />
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">View
+                        Attendance</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Input Group -->
+              <div>
+                {{#if submittedMonth}}
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card mb-4">
+                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                        <h6 class="m-0 font-weight-bold text-primary">Class
+                          Attendance of
+                          {{Month}}
+                          {{year}}</h6>
+                      </div>
+                      {{#if noDataFound}}
+                      <div class="alert alert-danger" role="alert">
+                        No Record Found!
+                      </div>
+                      {{else}}
+                      <!-- Your table code goes here -->
+                      <div class="table-responsive p-3">
+                        <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                          <thead class="thead-light">
+                            <tr>
+                              {{#each this.studentList}}
+                              <th>{{getDate
+                                this.Attendance.DateTaken
+                                }}</th>
+                              {{/each}}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              {{#each studentList}}
+                              <td>
+                                {{#ifEquals this.Attendance.Status "1"}}
+                                <i class="text-success fa-lg fa-solid fa-check"></i>
+                                {{else}}
+                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                {{/ifEquals}}
+                              </td>
+                              {{/each}}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+                {{/if}}
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</section>
+<section class="home-section home-sect">
+  <div>
+    <form method="post" action="/student/viewFullAttendance?dpt={{department}}&year={{stdyear}}">
+      <div class="form-group row mb-3">
+        <div class="col-xl-6">
+          <label class="form-control-label">click to view attendance<span class="text-danger ml-2">*</span></label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">View Attendance</button>
+    </form>
+  </div>
+  <div>
+    <div>
+      <table class="table align-items-center table-flush table-hover table-bordered"
+        style="border: 2px solid #080808 !important;">
+        <thead class="thead-light">
+          <tr>
+            <th>Date</th>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Aug</th>
+            <th>Sep</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Dec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "1"}}
+            <td>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{dateFormat this.DateTaken}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{dateFormat this.DateTaken}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+          <tr>
+            <td>2</td>
+            {{#each studentList}}
+            {{#ifEquals (getDate this.DateTaken) "2"}}
+            <td>
+              {{#ifEquals (getMonth this.DateTaken) "01"}}
+              {{dateFormat this.DateTaken}}
+              {{else ifEquals (getMonth this.DateTaken) "02"}}
+              {{dateFormat this.DateTaken}}
+              {{else ifEquals (getMonth this.DateTaken) "03"}}
+              {{dateFormat this.DateTaken}}
+              {{else ifEquals (getMonth this.DateTaken) "04"}}
+              {{dateFormat this.DateTaken}}
+              {{else ifEquals (getMonth this.DateTaken) "05"}}
+              {{dateFormat this.DateTaken}}
+              {{else}}
+              No data
+              {{/ifEquals}}
+            </td>
+            {{/ifEquals}}
+            {{/each}}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>

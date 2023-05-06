@@ -106,20 +106,7 @@ router.post('/', verifyLogin, (req, res) => {
     let round = Math.round(present)
     res.render('staff/staff-index', { staff, students, totalDays, presentDay, round, absent, Name,count })
 
-  })
-  // staffHelper.viewPresent(staff, stdId).then((result) => {
-    // console.log(result.name);
-    // let Name = result.stdName
-    // let totalDays = result.attendanceLength
-    // let presentDay = result.presentCount
-    // let absent = totalDays - presentDay
-    // let present = (presentDay / totalDays) * 100
-    // let round = Math.round(present)
-    // staffHelper.students(staff).then((students) => {
-    //   res.render('staff/staff-index', { staff, students, totalDays, presentDay, round, absent, Name })
-    // })
-  // })
-  .catch(error => {
+  }).catch(error => {
     // handle the error here
     res.redirect('/staff')
   });

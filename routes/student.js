@@ -81,6 +81,17 @@ router.get('/view-attendance',verifyLogin,(req,res)=>{
   })
  })
 
+ router.post('/viewFullAttendance',verifyLogin,(req,res)=>{
+  let student = req.session.student
+  studentHelper.getAttendanceStd(student).then((studentList)=>{
+    console.log(studentList);
+    studentList.sort(function(a, b) {
+      return new Date(a.DateTaken) - new Date(b.DateTaken);
+    });
+    console.log(studentList);
+    res.render('student/view-attendance',{student,studentList})
+  })
+ })
 
 
 module.exports = router

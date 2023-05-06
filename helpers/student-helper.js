@@ -10,68 +10,68 @@ module.exports = {
             let loginStatus = false
             let response = {}
             if (userData.Department === "CSE") {
-                let student = await db.get().collection(collection.Cse_students).findOne({RegisterNo:userData.Regno})
-                if(student){
-                    if(userData.Password === student.DOB){
+                let student = await db.get().collection(collection.Cse_students).findOne({ RegisterNo: userData.Regno })
+                if (student) {
+                    if (userData.Password === student.DOB) {
                         console.log("Login success");
                         response.student = student
                         response.status = true
                         resolve(response)
-                    }else{
+                    } else {
                         console.log("Incorrect password");
-                        resolve({status:false})
+                        resolve({ status: false })
                     }
-                }else{
+                } else {
                     console.log("No user found");
-                    resolve({status:false})
+                    resolve({ status: false })
                 }
-            }else if(userData.department === "ECE"){
-                let student = await db.get().collection(collection.Ece_students).findOne({RegisterNo:userData.Regno})
-                if(student){
-                    if(userData.Password === student.DOB){
+            } else if (userData.Department === "ECE") {
+                let student = await db.get().collection(collection.Ece_students).findOne({ RegisterNo: userData.Regno })
+                if (student) {
+                    if (userData.Password === student.DOB) {
                         console.log("Login success");
                         response.student = student
                         response.status = true
                         resolve(response)
-                    }else{
+                    } else {
                         console.log("Incorrect password");
-                        resolve({status:false})
+                        resolve({ status: false })
                     }
-                }else{
+                } else {
                     console.log("No user found");
-                    resolve({status:false})
+                    resolve({ status: false })
                 }
-            }else if(userData.department === "CIVIL"){
-                let student = await db.get().collection(collection.Civil_students).findOne({RegisterNo:userData.Regno})
-                if(student){
-                    if(userData.Password === student.DOB){
+            } else if (userData.Department === "CIVIL") {
+                let student = await db.get().collection(collection.Civil_students).findOne({ RegisterNo: userData.Regno })
+                if (student) {
+                    if (userData.Password === student.DOB) {
                         console.log("Login success");
                         response.student = student
                         response.status = true
                         resolve(response)
-                    }else{
+                    } else {
                         console.log("Incorrect password");
-                        resolve({status:false})
+                        resolve({ status: false })
                     }
-                }else{
+                } else {
                     console.log("No user found");
-                    resolve({status:false})
+                    resolve({ status: false })
                 }
-            }else if(userData.department === "MECH"){
-                let student = await db.get().collection(collection.Mech_students).findOne({RegisterNo:userData.Regno})
-                if(student){
-                    if(userData.Password === student.DOB){
+            } else if (userData.Department === "MECH") {
+                let student = await db.get().collection(collection.Mech_students).findOne({ RegisterNo: userData.Regno })
+                if (student) {
+                    if (userData.Password === student.DOB) {
                         console.log("Login success");
                         response.student = student
                         response.status = true
                         resolve(response)
-                    }else{
+                    } else {
                         console.log("Incorrect password");
-                        resolve({status:false})
+                        resolve({ status: false })
                     }
-                }else{
+                } else {
                     console.log("No user found");
-                    resolve({status:false})
+                    resolve({ status: false })
                 }
             }
         })
@@ -85,27 +85,76 @@ module.exports = {
     //     })
     // }
     getAttendanceDatesForStudent: (month, student) => {
-        console.log(student);
+        // console.log(student);
         return new Promise(async (resolve, reject) => {
-            try{
-                let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
-                    // Match documents with the specified student name
-                    { $match: { Name: student.Name } },
-                    // Unwind the Attendance array
-                    { $unwind: "$Attendance" },
-                    // Filter by the specified student name and where the status is present
-                    { $match: { Name: student.Name,"Attendance.DateTaken": { $regex: month } } },
-                    // Project only the DateTaken field
-                    // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
-                    { $project: { _id: 0, Attendance: "$Attendance" } }
-                ]).toArray();
-                resolve(attendanceList);
-            }catch(error){
+            try {
+                if (student.Department === "CSE") {
+                    let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
+                        // Match documents with the specified student name
+                        { $match: { Name: student.Name } },
+                        // Unwind the Attendance array
+                        { $unwind: "$Attendance" },
+                        // Filter by the specified student name and where the status is present
+                        { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
+                        // Project only the DateTaken field
+                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    resolve(attendanceList);
+                }
+                else if(student.Department === "ECE"){
+                    let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
+                        // Match documents with the specified student name
+                        { $match: { Name: student.Name } },
+                        // Unwind the Attendance array
+                        { $unwind: "$Attendance" },
+                        // Filter by the specified student name and where the status is present
+                        { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
+                        // Project only the DateTaken field
+                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    resolve(attendanceList);
+                }
+                else if(student.Department === "CIVIL"){}
+                else if (student.Department === "MECH"){}
+            } catch (error) {
                 reject(error)
             }
         })
-      }
-   
+    },
+    getAttendanceStd: (student) => {
+        return new Promise(async(resolve, reject) => {
+            try {
+                if(student.Department === "CSE"){
+
+                }
+                else if(student.Department === "ECE"){
+                    // let attendance = await db.get().collection(collection.Ece_attendance).find({Name:student.Name}).toArray()
+                    // resolve(attendance)
+                    let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
+                        // Match documents with the specified student name
+                        { $match: { Name: student.Name } },
+                        // Unwind the Attendance array
+                        { $unwind: "$Attendance" },
+                        // Filter by the specified student name and where the status is present
+                        // { $match: { Name: student.Name, "Attendance.DateTaken": { $regex: month } } },
+                        // Project only the DateTaken field
+                        // { $project: { _id: 0, DateTaken: "$Attendance.DateTaken" } }
+                        { $project: { _id: 0, Attendance: "$Attendance" } }
+                    ]).toArray();
+                    const attendanceArray = attendanceList.map((item) => {
+                        return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
+                      });
+                      
+                    resolve(attendanceArray);
+                }
+            } catch (error) {
+                
+            }
+        })
+    }
+
 
 
 
