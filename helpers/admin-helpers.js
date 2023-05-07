@@ -54,7 +54,6 @@ editAdmin: (adminId, adminDetails) => {
 
     addStaff: (staff, callback) => {
         db.get().collection('staff').insertOne(staff).then((data) => {
-            // console.log("Somtheing ::"+data.insertedId);
             callback(data.insertedId)
         })
     },
@@ -85,7 +84,6 @@ editAdmin: (adminId, adminDetails) => {
     deleteCseStaff: (staffId) => {
         return new Promise((resolve, reject) => {
             db.get().collection("staff").deleteOne({ _id: objectID(staffId) }).then((response) => {
-                // console.log("Something => "+staffId);
                 resolve(staffId)
             })
         })
@@ -201,7 +199,18 @@ editAdmin: (adminId, adminDetails) => {
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
                 }
-            }).then((response) => {
+            })
+            db.get().collection(collection.Cse_attendance).update({_id:objectID(stdId)},{
+                $set:{
+                    Name: stdDetails.Name,
+                    RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
+                    Year: stdDetails.Year,
+                    Email: stdDetails.Email,
+                    Mobile: stdDetails.Mobile
+                }
+            })
+            .then((response) => {
                 resolve()
             })
         })
@@ -243,7 +252,6 @@ editAdmin: (adminId, adminDetails) => {
     deleteEceStudent: (studentId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.Ece_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
-                // console.log("Something => "+staffId);
                 resolve(studentId)
             })
         })
@@ -266,7 +274,18 @@ editAdmin: (adminId, adminDetails) => {
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
                 }
-            }).then((response) => {
+            })
+            db.get().collection(collection.Ece_attendance).update({_id:objectID(stdId)},{
+                $set:{
+                    Name: stdDetails.Name,
+                    RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
+                    Year: stdDetails.Year,
+                    Email: stdDetails.Email,
+                    Mobile: stdDetails.Mobile
+                }
+            })
+            .then((response) => {
                 resolve()
             })
         })
@@ -307,7 +326,6 @@ editAdmin: (adminId, adminDetails) => {
     deleteMechStudent: (studentId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.Mech_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
-                // console.log("Something => "+staffId);
                 resolve(studentId)
             })
         })
@@ -330,7 +348,18 @@ editAdmin: (adminId, adminDetails) => {
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
                 }
-            }).then((response) => {
+            })
+            db.get().collection(collection.Mech_attendance).update({_id:objectID(stdId)},{
+                $set:{
+                    Name: stdDetails.Name,
+                    RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
+                    Year: stdDetails.Year,
+                    Email: stdDetails.Email,
+                    Mobile: stdDetails.Mobile
+                }
+            })
+            .then((response) => {
                 resolve()
             })
         })
@@ -372,7 +401,6 @@ editAdmin: (adminId, adminDetails) => {
     deleteCivilStudent: (studentId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.Civil_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
-                // console.log("Something => "+staffId);
                 resolve(studentId)
             })
         })
@@ -395,7 +423,18 @@ editAdmin: (adminId, adminDetails) => {
                     Email: stdDetails.Email,
                     Mobile: stdDetails.Mobile
                 }
-            }).then((response) => {
+            })
+            db.get().collection(collection.Civil_attendance).update({_id:objectID(stdId)},{
+                $set:{
+                    Name: stdDetails.Name,
+                    RegisterNo: stdDetails.RegisterNo,
+                    DOB:stdDetails.DOB,
+                    Year: stdDetails.Year,
+                    Email: stdDetails.Email,
+                    Mobile: stdDetails.Mobile
+                }
+            })
+            .then((response) => {
                 resolve()
             })
         })

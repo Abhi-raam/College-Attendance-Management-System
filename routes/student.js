@@ -62,18 +62,18 @@ router.get('/view-attendance',verifyLogin,(req,res)=>{
 
  router.post('/viewFullAttendance',verifyLogin,(req,res)=>{
   let student = req.session.student
-  studentHelper.getAttendanceStd(student).then((studentList)=>{
-    console.log(studentList);
+  studentHelper.getAttendanceStd(student,req.body.Year).then((studentdtls)=>{
+    let studentList = studentdtls.attendanceArray
+    let holiday = studentdtls.totalHoliday
+    let workingDay = studentdtls.workingDay
     studentList.sort(function(a, b) {
       return new Date(a.DateTaken) - new Date(b.DateTaken);
     });
-    console.log(studentList);
     if(studentList.length === 0){
-      res.render('student/view-attendance',{student,submittedMonth:true})
+      res.render('student/view-attendance',{student,submittedMonth:true,noDataFound: true})
     }else{
-      res.render('student/view-attendance',{student,submittedMonth:true,studentList })
+      res.render('student/view-attendance',{student,submittedMonth:true,studentList,workingDay,holiday })
     }
-    // res.render('student/view-attendance',{student,studentList})
   })
  })
 

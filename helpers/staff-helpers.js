@@ -524,7 +524,7 @@ module.exports = {
         resolve(studentList);
       })
     }
-  },
+  }, 
 
   viewAttendanceMonth: (data, month, Department, Year) => {
     if (Department === "CSE" && Year === "First") {

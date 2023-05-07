@@ -40,7 +40,6 @@ router.post('/login', (req, res) => {
 router.get('/viewprofile/:id', verifyLogin, (req, res) => {
   let staff = req.session.staff
   staffHelper.viewStaff(req.params.id).then((staffDetails) => {
-    console.log(staffDetails);
     res.render('staff/view-profile', { staff, staffDetails })
   })
 })
@@ -52,7 +51,6 @@ router.get('/editprofile/:id', verifyLogin, (req, res) => {
   })
 })
 router.post('/editprofile/:id', verifyLogin, (req, res) => {
-  // console.log(res.body);
   let staffId = req.params.id
   let staffDetails = req.body
   let image = req.files.Image
@@ -140,10 +138,6 @@ router.post('/add-attendance', verifyLogin, (req, res) => {
   let dateTaken = req.body.Date
   let leave = req.body.leave
   let allStd = req.body.admissionNo
-  console.log(stdId);
-  console.log(dateTaken);
-  console.log(leave);
-  console.log(allStd);
   staffHelper.addAttendance(stdId, dateTaken, staff, allStd,leave).then((response) => {
     res.redirect('/staff/add-attendance')
   })
@@ -185,7 +179,6 @@ router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {
   let year = dte.getFullYear()
   let Month = monthNames[month]
   staffHelper.viewAttendanceMonth(req.body, req.body.month, department, stdyear).then((studentList) => {
-    console.log(studentList);
     if (studentList.length === 0) {
       res.render('staff/view-attendance', { staff, submittedMonth: true, noDataFound: true, Month, year, department, stdyear })
     } else {

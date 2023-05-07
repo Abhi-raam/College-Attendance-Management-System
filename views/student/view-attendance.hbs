@@ -14,8 +14,10 @@
   <div>
     <form method="post" action="/student/viewFullAttendance?dpt={{department}}&year={{stdyear}}">
       <div class="form-group row mb-3">
-        <div class="col-xl-6">
-          <label class="form-control-label">Click to view attendance<span class="text-danger ml-2">*</span></label>
+        <div class="col-xl-4 col-6">
+          <label class="form-control-label">Choose the year<span class="text-danger ml-2">*</span></label>
+          <input type="number" class="form-control rounded" placeholder="YYYY" name="Year" min="2018" max="5000"
+            id="exampleInputFirstName">
         </div>
       </div>
       <button type="submit" class="btn btn-primary mb-2">View Attendance</button>
@@ -24,6 +26,11 @@
   <div>
     {{#if submittedMonth}}
     <div>
+      {{#if noDataFound}}
+      <div class='alert alert-danger' role='alert'>
+        No Record Found!
+      </div>
+      {{else}}
       <table class="table align-items-center table-flush table-hover table-bordered"
         style="border: 2px solid #080808 !important;">
         <thead class="thead-light">
@@ -3457,6 +3464,13 @@
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-end">
+        <div>
+          <h5>Total working days : {{workingDay}}</h5>
+          <h5>Total holidays : {{holiday}}</h5>
+        </div>
+      </div>
+      {{/if}}
     </div>
     {{/if}}
   </div>

@@ -26,7 +26,8 @@
                                 <div class="row">
                                     <div class="card-body col-md-6">
                                         {{!-- select date --}}
-                                        <form method="post" action="/admin/viewAttendance?dpt={{department}}&year={{stdyear}}">
+                                        <form method="post"
+                                            action="/admin/viewAttendance?dpt={{department}}&year={{stdyear}}">
                                             <div class="form-group row mb-3">
                                                 <div class="col-xl-6">
                                                     <label class="form-control-label">Select Date<span
@@ -44,7 +45,8 @@
                                     </div>
                                     <div class="card-body col-md-6">
                                         {{!-- select month --}}
-                                        <form method="post" action="/admin/viewAttendanceMonth?dpt={{department}}&year={{stdyear}}">
+                                        <form method="post"
+                                            action="/admin/viewAttendanceMonth?dpt={{department}}&year={{stdyear}}">
                                             <div class="form-group row mb-3">
                                                 <div class="col-xl-6">
                                                     <label class="form-control-label">Select Month<span
@@ -102,14 +104,14 @@
                                                         <td>{{this.Name}}</td>
                                                         <td>{{this.RegisterNo}}</td>
                                                         <td>{{this.Mobile}}</td>
-                                                        <td> <a class="text-dark"href="#"><i class=" mx-3 fa-lg fa-solid  fa-message"></i></a></td>
+                                                        <td><a class="text-dark" href="/admin/messageSend/{{this.Name}}/{{this.Mobile}}/{{this.Department}}/{{this.Year}}"><i class=" mx-3 fa-lg fa-solid  fa-message" ></i></a></td>
                                                         <td>
-                                                                {{#ifEquals this.Attendance.Status '1' }}
-                                                                <i class="text-success fa-lg fa-solid fa-check"></i>
-                                                                {{else}}
-                                                                <i class="text-danger fa-lg fa-solid fa-xmark"></i>
-                                                                {{/ifEquals}}
-                                                            </td>
+                                                            {{#ifEquals this.Attendance.Status '1' }}
+                                                            <i class="text-success fa-lg fa-solid fa-check"></i>
+                                                            {{else}}
+                                                            <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                                            {{/ifEquals}}
+                                                        </td>
                                                         <td>{{dateFormat this.Attendance.DateTaken}}</td>
                                                     </tr>
                                                     {{/each}}
@@ -181,3 +183,26 @@
                             </div>
                         </div>
 </section>
+
+<script>
+    //const otpGen = require("otp-generator")
+    //let otp = otpGen.generate(6, {
+    //    digits: true, upperCaseAlphabets: false, lowerCaseAlphabets:
+    //        false, specialChars: false
+    //})
+        var sid = "AC6789c17dffec3e7d23d23e39f865a4c0";
+        var auth_token = "a04da846457459a1d592f42aa9206faf";
+    function notify() {
+        var twilio = require("twilio")(sid, auth_token);
+        twilio.messages
+            .create({
+                from: "+12707517148",
+                to: "+918156806105",
+                body: 'this is testing otp is ',
+            })
+            .then(function (res) { console.log("message has sent!") })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+</script>
