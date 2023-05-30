@@ -2,6 +2,7 @@ var db = require('../config/connection')
 var collection = require('../config/collections')
 // const { response } = require('../../../stucor/app')
 const { reject, resolve } = require('promise')
+const { response } = require('express')
 const objectID = require('mongodb').ObjectId
 
 module.exports = {
@@ -179,6 +180,9 @@ editAdmin: (adminId, adminDetails) => {
             db.get().collection("cseStudents").deleteOne({ _id: objectID(studentId) }).then((response) => {
                 resolve(studentId)
             })
+            db.get().collection(collection.Cse_attendance).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                resolve(true)
+            })
         })
     },
     viewOneCseStudent: (stdId) => {
@@ -254,6 +258,9 @@ editAdmin: (adminId, adminDetails) => {
             db.get().collection(collection.Ece_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
                 resolve(studentId)
             })
+            db.get().collection(collection.Ece_attendance).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                resolve(true)
+            })
         })
     },
     viewOneEceStudent: (stdId) => {
@@ -327,6 +334,9 @@ editAdmin: (adminId, adminDetails) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.Mech_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
                 resolve(studentId)
+            })
+            db.get().collection(collection.Mech_attendance).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                resolve(true)
             })
         })
     },
@@ -403,6 +413,9 @@ editAdmin: (adminId, adminDetails) => {
             db.get().collection(collection.Civil_students).deleteOne({ _id: objectID(studentId) }).then((response) => {
                 resolve(studentId)
             })
+            db.get().collection(collection.Civil_attendance).deleteOne({_id:objectID(studentId)}).then((response)=>{
+                resolve(true)
+            })
         })
     },
     viewOneCivilStudent: (stdId) => {
@@ -450,7 +463,12 @@ editAdmin: (adminId, adminDetails) => {
                     // Unwind the Attendance array
                     { $unwind: "$Attendance" },
                     // Match the Attendance array element with the specified date
-                    { $match: { "Attendance.DateTaken": data.dateTaken } }
+                    { $match: { "Attendance.DateTaken": data.dateTaken } },
+                    {
+                        $sort:{
+                            Name:1
+                        }
+                    }
                 ]).toArray();
                 resolve(studentList);
             })

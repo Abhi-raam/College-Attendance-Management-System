@@ -226,7 +226,7 @@ module.exports = {
     if (staff.Department === "CSE") {
       return new Promise(async (resolve, reject) => {
         try {
-          if (leave.length > 0) {
+          if (leave && leave.length > 0) {
             for (let i = 0; i < allStd.length; i++) {
               const status = "Holiday";
               const filter = { _id: objectID(allStd[i]) };
@@ -292,16 +292,30 @@ module.exports = {
     } else if (staff.Department === "MECH") {
       return new Promise(async (resolve, reject) => {
         try {
-          for (let i = 0; i < allStd.length; i++) {
-            const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
-            const filter = { _id: objectID(allStd[i]) };
-            const update = {
-              $push: {
-                Attendance: { DateTaken: dateTaken, Status: status }
-              },
-            };
-            const options = { upsert: true };
-            await db.get().collection(collection.Mech_attendance).updateOne(filter, update, options);
+          if (leave && leave.length > 0) {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = "Holiday";
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Mech_attendance).updateOne(filter, update, options);
+            }
+          } else {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Mech_attendance).updateOne(filter, update, options);
+            }
           }
           resolve();
         } catch (error) {
@@ -311,16 +325,30 @@ module.exports = {
     } else if (staff.Department === "CIVIL") {
       return new Promise(async (resolve, reject) => {
         try {
-          for (let i = 0; i < allStd.length; i++) {
-            const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
-            const filter = { _id: objectID(allStd[i]) };
-            const update = {
-              $push: {
-                Attendance: { DateTaken: dateTaken, Status: status }
-              },
-            };
-            const options = { upsert: true };
-            await db.get().collection(collection.Civil_attendance).updateOne(filter, update, options);
+          if (leave && leave.length > 0) {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = "Holiday";
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Civil_attendance).updateOne(filter, update, options);
+            }
+          } else {
+            for (let i = 0; i < allStd.length; i++) {
+              const status = stdId && stdId.includes(allStd[i]) ? 1 : 0;
+              const filter = { _id: objectID(allStd[i]) };
+              const update = {
+                $push: {
+                  Attendance: { DateTaken: dateTaken, Status: status }
+                },
+              };
+              const options = { upsert: true };
+              await db.get().collection(collection.Civil_attendance).updateOne(filter, update, options);
+            }
           }
           resolve();
         } catch (error) {

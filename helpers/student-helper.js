@@ -82,7 +82,7 @@ module.exports = {
             try {
                 if (student.Department === "CSE") {
                     let attendanceList = await db.get().collection(collection.Cse_attendance).aggregate([
-                        { $match: { Name: student.Name } },
+                        { $match: { RegisterNo: student.RegisterNo } },
                         { $unwind: "$Attendance" },
                         { $match: { "Attendance.DateTaken": { $regex: year } } },
                         { $project: { _id: 0, Attendance: "$Attendance" } }
@@ -90,11 +90,25 @@ module.exports = {
                     const attendanceArray = attendanceList.map((item) => {
                         return { DateTaken: item.Attendance.DateTaken, Status: item.Attendance.Status }
                     });
-                    resolve(attendanceArray);
+                    let totalArray = attendanceArray.length
+                    let totalHoliday = 0;
+                    let workingDay = 0;
+                    for (let i = 0; i < totalArray; i++) {
+                        const attendance = attendanceArray[i];
+                        if (attendance.Status !== 'Holiday') {
+                            if (attendance.Status === 1) {
+                                totalHoliday++;
+                            }
+                            if (attendance.Status === 1 || attendance.Status === 0) {
+                                workingDay++;
+                            }
+                        }
+                    }
+                    resolve({attendanceArray,totalHoliday,workingDay});
                 }
                 else if (student.Department === "ECE") {
                     let attendanceList = await db.get().collection(collection.Ece_attendance).aggregate([
-                        { $match: { Name: student.Name } },
+                        { $match: { RegisterNo: student.RegisterNo } },
                         { $unwind: "$Attendance" },
                         { $match: { "Attendance.DateTaken": { $regex: year } } },
                         { $project: { _id: 0, Attendance: "$Attendance" } }
@@ -120,7 +134,7 @@ module.exports = {
                 }
                 else if (student.Department === "MECH") {
                     let attendanceList = await db.get().collection(collection.Mech_attendance).aggregate([
-                        { $match: { Name: student.Name } },
+                        { $match: { RegisterNo: student.RegisterNo } },
                         { $unwind: "$Attendance" },
                         { $match: { "Attendance.DateTaken": { $regex: year } } },
                         { $project: { _id: 0, Attendance: "$Attendance" } }
@@ -132,7 +146,7 @@ module.exports = {
                 }
                 else if (student.Department === "CIVIL") {
                     let attendanceList = await db.get().collection(collection.Civil_attendance).aggregate([
-                        { $match: { Name: student.Name } },
+                        { $match: { RegisterNo: student.RegisterNo } },
                         { $unwind: "$Attendance" },
                         { $match: { "Attendance.DateTaken": { $regex: year } } },
                         { $project: { _id: 0, Attendance: "$Attendance" } }

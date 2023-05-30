@@ -1,120 +1,104 @@
-<section class="home-section row">
-    <div class="container mt-5 col-lg-8 col-12">
-        <div class="row m-3">
-            <div class="col-md-6 col-12">
-                <div class="bg-light rounded p-3 d-flex justify-content-between">
-                    <div class="bg-slate-200 p-2 rounded">
-                        <img src="/images/logos/students-icon.png" width="100rem" alt="">
-                    </div>
-                        <div class="std-count p-2">
-                            <div class="">
-                                <span class="total-std">
+<section class="home-section home-sect">
+    <div class="mt-3 col-lg-12 col-12">
+        <div class="row  mb-2">
+            <div class="col-lg-4 col-4 ">
+                <div class="bg-light rounded p-3 d-flex justify-content-end student_img">
+                    <div class="std-count p-2">
+                        <div class="">
+                            <span class="total-std">
                                 <span> Students : {{count}}</span>
-                                </span>
-                                <span class="view-std">
-                                    <a href="/staff/students" class="text-white">View students</a>
-                                </span>
-                            </div>
+                            </span>
+                            <span class="view-std">
+                                <a href="/staff/students" class="text-white">View students</a>
+                            </span>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-4 ">
+                <div class=" rounded p-3 d-flex justify-content-end attendance_img ">
+                    <div class="std-count p-2">
+                        <div class="">
+                            <span class="total-std">
+                                <span> Attendance</span>
+                            </span>
+                            <span class="view-std">
+                                <a href="/staff/add-attendance" class="text-white">Take Attendance</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-4 ">
+                <div class="bg-light rounded p-3 d-flex justify-content-end profile_img">
+                    <div class="std-count p-2">
+                        <div class="">
+                            <span class="total-std">
+                                <span> Profile</span>
+                            </span>
+                            <span class="view-std">
+                                <a href="/staff/viewprofile/{{staff._id}}" class="text-white">Edit Profile</a>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        {{!-- students list table --}}
-        {{!-- <div class="mx-2 pt-3">
-            <div class="col-md-12 mt-5 ">
-                <table id="example" class="table table-hover display text-center table-bordered"style="border: 2px solid #080808 !important;">
-                    <thead class="text-white bg-slate-600">
-                        <tr>
-                            <th class="text-center" scope="col">Sno</th>
-                            <th class="text-center" scope="col">Name</th>
-                            <th class="text-center" scope="col">Reg No.</th>
-                            <th class="text-center" scope="col">Phone No.</th>
-                            <th class="text-center" scope="col">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each students}}
-                        <tr>
-                            <th scope="row">{{inc @index}}</th>
-                            <td>{{this.Name}}</td>
-                            <td>{{this.RegisterNo}}</td>
-                            <td>{{this.Mobile}}</td>
-                            <td>{{this.Email}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-        </div> --}}
     </div>
-    <div class="col-12  justify-content-between align-items-center col-lg-4">
-
-        <body class="light mt-2">
-            <div class="calendar mx-2" style="margin-top: 3.8rem;">
-                <div class="calendar-header">
-                    <span class="month-picker" id="month-picker">Month</span>
-                    <div class="year-picker">
-                        <span class="year-change" id="prev-year">
-                            <pre><</pre>
-                        </span>
-                        <span id="year">2021</span>
-                        <span class="year-change" id="next-year">
-                            <pre>></pre>
-                        </span>
-                    </div>
-                </div>
-                <div class="calendar-body">
-                    <div class="calendar-week-day">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="calendar-days  "></div>
-                </div>
-                {{!-- <div class="calendar-footer">
-                    <div class="toggle">
-                        <span>Dark Mode</span>
-                        <div class="dark-mode-switch">
-                            <div class="dark-mode-switch-ident"></div>
+    <div class="row">
+        <div class="col-lg-8">
+            <table id="example" class="table table-hover display text-center table-bordered"
+                style="border: 2px solid #080808 !important;">
+                <thead class="text-white bg-primary">
+                    <tr>
+                        <th class="text-center" scope="col">Sno</th>
+                        <th class="text-center" scope="col">Name</th>
+                        <th class="text-center" scope="col">Reg No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each students}}
+                    <tr>
+                        <th scope="row">{{inc @index}}</th>
+                        <td>{{this.Name}}</td>
+                        <td>{{this.RegisterNo}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4 bg-white pt-2 rounded text-center ">
+            <div>
+                <h5>Working Day Calculator</h5>
+            </div>
+            <div>
+                <form method="post" action="/staff">
+                    <div class="form-group row mb-3">
+                        <div class="d-flex">
+                            <label class="form-control-label">Student name<span class="text-danger ">*</span></label>
+                            <select class="form-select" name="RegNo" aria-label="Default select example">
+                                <option value="">Choose the name</option>
+                                {{#each students}}
+                                <option value="{{this._id}}">{{this.Name}}</option>
+                                {{/each}}
+                            </select>
                         </div>
                     </div>
-                </div> --}}
-                <div class="month-list"></div>
-        </body>
-    </div>
-    <div class="mt-3 rounded text-center bg-white pt-3 mb-4">
-        <div>
-            <h4>Working Day Calculator</h4>
-        </div>
-        <div>
-            <form method="post" action="/staff">
-                <div class="form-group row mb-3">
-                    <div class="d-flex">
-                        <label class="form-control-label">Student name<span class="text-danger ">*</span></label>
-                        <select class="form-select" name="RegNo" aria-label="Default select example">
-                            {{#each students}}
-                            <option value="{{this._id}}">{{this.Name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">View Attendance</button>
-            </form>
-        </div>
-        <div>
-            <div class="mt-3 mx-3 text-start">
-                <div>
-                    <h5>Name of std &nbsp;&nbsp;: {{Name}}</h5>
-                    <h5>Working days : {{workingDay}} </h5>
-                    <h5>Present Days : {{presentDay}} </h5>
-                    <div class=" d-flex">
-                        <h5>Attendance %:</h5>
-                        <h5 class="{{#gt round 80}}mx-1 px-2 rounded bg-success text-white{{else}}mx-1 px-2 rounded bg-danger text-white{{/gt}}">
-                            {{round}} %</h5>
+                    <button type="submit" class="btn btn-primary">View Attendance</button>
+                </form>
+            </div>
+            <div>
+                <div class="mt-3 mx-3 text-start">
+                    <div>
+                        <h6>Name of std &nbsp;&nbsp;: {{Name}}</h6>
+                        <h6>Working days : {{workingDay}} </h6>
+                        <h6>Present Days : {{presentDay}} </h6>
+                        <div class=" d-flex">
+                            <h6>Attendance %:</h6>
+                            <h6
+                                class="{{#gt round 80}}mx-1 px-2 rounded bg-success text-white{{else}}mx-1 px-2 rounded bg-danger text-white{{/gt}}">
+                                {{round}} %</h6>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -122,4 +106,3 @@
     </div>
     </div>
 </section>
-

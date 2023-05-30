@@ -87,6 +87,8 @@ function generatePdf() {
     doc.save(pageTitle+'.pdf');
   }
 
+
+  
   // DataTable js
   $(document).ready(function () {
     $('#stdDetails').DataTable();

@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
+// var fast2sms = require('fast-two-sms')
 const client = require('twilio')
 var fs = require('fs');
 const { ObjectId } = require('mongodb');
 var db = require("../config/connection");
-var adminHelper = require('../helpers/admin-helpers')
+var adminHelper = require('../helpers/admin-helpers');
+const { log } = require('console');
 const verifyLogin = (req, res, next) => {
   if (req.session.loggedIn) {
     next()
@@ -48,12 +50,18 @@ router.get('/admin-logout', (req, res) => {
 
 router.get('/', verifyLogin, (req, res) => {
   let admin = req.session.admin
-  Promise.all([adminHelper.viewCseStudent(), adminHelper.viewCivilStudents(), adminHelper.viewEceStudents(), adminHelper.viewMechStudents()]).then((students) => {
-    let cseStd = students[0]
-    let civilStd = students[1]
-    let eceStd = students[2]
-    let mechStd = students[3]
-    res.render('admin/index', { admin, cseStd, civilStd, eceStd, mechStd })
+  Promise.all([adminHelper.viewCseStudent(), adminHelper.viewCivilStudents(), adminHelper.viewEceStudents(), adminHelper.viewMechStudents(),adminHelper.viewCseStaff(),adminHelper.viewCivilStaff(),adminHelper.viewEceStaff(),adminHelper.viewMechStaff()]).then((totelMembers) => {
+      // let csestaff = staff[0].length
+      // console.log(csestaff);
+      let cseStd = totelMembers[0]
+      let civilStd = totelMembers[1]
+      let eceStd = totelMembers[2]
+      let mechStd = totelMembers[3]
+      let cseStaff = totelMembers[4].length
+      let civilStaff = totelMembers[5].length
+      let eceStaff = totelMembers[6].length
+      let mechStaff = totelMembers[7].length
+      res.render('admin/index', { admin, cseStd, civilStd, eceStd, mechStd,cseStaff,eceStaff,civilStaff,mechStaff })
   })
 })
 
@@ -589,7 +597,7 @@ router.post('/viewAttendance', verifyLogin, (req, res) => {
   }
 })
 
-router.get('/messageSend/:name/:mobile/:dept/:year', verifyLogin, (req, res) => {
+router.get('/messageSend/:name/:mobile/:year/:dept', verifyLogin, (req, res) => {
   let admin = req.session.admin
   const accountSid = 'AC6789c17dffec3e7d23d23e39f865a4c0';
   const authToken = 'a04da846457459a1d592f42aa9206faf';
@@ -604,8 +612,9 @@ router.get('/messageSend/:name/:mobile/:dept/:year', verifyLogin, (req, res) => 
       from: '+12707517148',
       to: `${Mobile}`
     }).then(message => console.log("Message send succcessfully"))
-    res.render("admin/attendance/cseFirst", { admin, department, stdyear })
-  // res.redirect(`/admin/viewAttendanceMonth?dpt=${dept}&year=${year}`)
+  // res.render("admin/attendance/cseFirst", { admin})
+  // res.render('admin/students/students-dpt', { admin })
+  res.redirect(`/admin/viewAttendance?dpt=${department}&year=${stdyear}`)
 });
 
 router.post('/viewAttendanceMonth', verifyLogin, (req, res) => {

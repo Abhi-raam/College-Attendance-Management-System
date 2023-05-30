@@ -1,3 +1,85 @@
 <section class="home-sect home-section">
-    <h5 class="text-center">page under construction</h5>
+    <div>
+        <div class="container mt-5">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary">Student Profile</h6>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{student.Name}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-2">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Register No</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{student.RegisterNo}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-2 d-flex">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Department</h6>
+                                    </div>
+                                    <div class="col-sm-3 text-secondary">
+                                        {{student.Department}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Year</h6>
+                                    </div>
+                                    <div class="col-sm-3 text-secondary">
+                                        {{student.Year}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-2">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{student.Email}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-2">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{student.Mobile}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-2">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Date of Birth</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        {{dateFormat student.DOB}}
+                                    </div>
+                                </div>
+                                <hr>
+                                {{!-- <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="text-right mt-3">
+                                            <a href="/admin/edit-profile/{{adminDetails._id}}" class="btn btn-primary">Update</a>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>

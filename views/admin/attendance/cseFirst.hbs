@@ -104,7 +104,8 @@
                                                         <td>{{this.Name}}</td>
                                                         <td>{{this.RegisterNo}}</td>
                                                         <td>{{this.Mobile}}</td>
-                                                        <td><a class="text-dark" href="/admin/messageSend/{{this.Name}}/{{this.Mobile}}/{{this.Department}}/{{this.Year}}"><i class=" mx-3 fa-lg fa-solid  fa-message" ></i></a></td>
+                                                        <td><a class="text-dark" href="/admin/messageSend/{{this.Name}}/{{this.Mobile}}/{{this.Year}}/{{this.Department}}"><i class=" mx-3 fa-lg fa-solid  fa-message" ></i></a></td>
+                                                        {{!-- <td><i class=" mx-3 fa-lg fa-solid  fa-message" onclick="notify()" ></i></td> --}}
                                                         <td>
                                                             {{#ifEquals this.Attendance.Status '1' }}
                                                             <i class="text-success fa-lg fa-solid fa-check"></i>
@@ -165,8 +166,10 @@
                                                             <td>
                                                                 {{#ifEquals this.Status '1' }}
                                                                 <i class="text-success fa-lg fa-solid fa-check"></i>
-                                                                {{else}}
+                                                                {{else ifEquals this.Status '0'}}
                                                                 <i class="text-danger fa-lg fa-solid fa-xmark"></i>
+                                                                {{else}}
+                                                                <i class="text-primary fa-sharp fa-solid fa-ban"></i>
                                                                 {{/ifEquals}}
                                                             </td>
                                                             {{/each}}
@@ -185,13 +188,9 @@
 </section>
 
 <script>
-    //const otpGen = require("otp-generator")
-    //let otp = otpGen.generate(6, {
-    //    digits: true, upperCaseAlphabets: false, lowerCaseAlphabets:
-    //        false, specialChars: false
-    //})
-        var sid = "AC6789c17dffec3e7d23d23e39f865a4c0";
-        var auth_token = "a04da846457459a1d592f42aa9206faf";
+
+    var sid = "AC6789c17dffec3e7d23d23e39f865a4c0";
+    var auth_token = "a04da846457459a1d592f42aa9206faf";
     function notify() {
         var twilio = require("twilio")(sid, auth_token);
         twilio.messages

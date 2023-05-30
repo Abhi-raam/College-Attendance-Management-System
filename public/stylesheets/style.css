@@ -28,17 +28,19 @@ body {
 }
 
 .intro {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url("../images/Campus.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)), url("../images/campus-1.jpg");
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url("../images/Campus.jpg"); */
   background-position: center;
   background-size: cover;
 }
+
 
 a {
   text-decoration: none;
 }
 .main-index{
   height: 80%;
-}
+} 
 .index-items {
   display: flex;
   flex-direction: column;
@@ -51,9 +53,10 @@ a {
   margin-top: 2rem;
 }
 
+
 .main_page_text {
   /* background-color: #84cc16; */
-  background-color: #3b82f6;
+  background-color: #0c4a6e;
   padding: 0.5rem;
   border-radius: 10px;
   cursor: pointer;
@@ -80,8 +83,9 @@ a {
 }
 
 .footer-section {
-  position: relative;
+  /* position: fixed; */
   bottom: 0;
+  left: 0;
   width: 100%;
 
 }
@@ -196,7 +200,7 @@ a {
 /* doughnut chart */
 .doughnut_chart {
   margin: 0 auto;
-  width: 300px;
+  width: 350px;
 }
 
 .std-count {
@@ -258,3 +262,33 @@ a {
 .std-count:hover .total-std {
   translate: 0 -100%;
 }
+
+.attendance_img{
+  background-image: url('/images/logos/attendance.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 110px;
+}
+.student_img{
+  background-image: url('/images/logos/student_1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 110px;
+}
+.profile_img{
+  background-image: url('/images/logos/Portfolio-update.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 110px;
+}
+.index_image{
+  background-image: url('https://img.freepik.com/free-vector/people-using-smartphone-app-back-view_107791-639.jpg?w=1380&t=st=1683916847~exp=1683917447~hmac=214819ac462aa77eb90b39eb357c0720f71e07e7ebab4ef5c6f5c9c77953efc0');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+}
+
